@@ -1,0 +1,106 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\spynote v6.4\\sn\\sockets.spynote.client\\socketclient.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|solutionrelative:spynote v6.4\\sn\\sockets.spynote.client\\socketclient.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\spynote v6.4\\sn\\build.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|solutionrelative:spynote v6.4\\sn\\build.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\spynote v6.4\\sn\\aboutspynote.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|solutionrelative:spynote v6.4\\sn\\aboutspynote.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\spynote v6.4\\sn\\build.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|solutionrelative:spynote v6.4\\sn\\build.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\spynote v6.4\\sn\\sockets.spynote.client\\build.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{E30D8173-256F-4E40-92F7-D209151FCB0D}|SpyNote V6.4\\SpyNote V6.4.vbproj|solutionrelative:spynote v6.4\\sn\\sockets.spynote.client\\build.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SocketClient.vb",
+              "DocumentMoniker": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\SocketClient.vb",
+              "RelativeDocumentMoniker": "SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\SocketClient.vb",
+              "ToolTip": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\SocketClient.vb",
+              "RelativeToolTip": "SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\SocketClient.vb",
+              "ViewState": "AgIAAPkAAAAAAAAAAAAkwOsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-07-23T12:44:41.01Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Build.vb",
+              "DocumentMoniker": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\Build.vb",
+              "RelativeDocumentMoniker": "SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\Build.vb",
+              "ToolTip": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\Build.vb",
+              "RelativeToolTip": "SpyNote V6.4\\SN\\Sockets.SpyNote.Client\\Build.vb",
+              "ViewState": "AgIAAHABAAAAAAAAAAAawN0BAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-07-23T12:48:04.529Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Build.Designer.vb",
+              "DocumentMoniker": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Build.Designer.vb",
+              "RelativeDocumentMoniker": "SpyNote V6.4\\SN\\Build.Designer.vb",
+              "ToolTip": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Build.Designer.vb",
+              "RelativeToolTip": "SpyNote V6.4\\SN\\Build.Designer.vb",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAIwHIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-07-23T12:49:19.94Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Build.vb",
+              "DocumentMoniker": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Build.vb",
+              "RelativeDocumentMoniker": "SpyNote V6.4\\SN\\Build.vb",
+              "ToolTip": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\Build.vb",
+              "RelativeToolTip": "SpyNote V6.4\\SN\\Build.vb",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAYwFMAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-07-24T07:50:31.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AboutSpyNote.vb",
+              "DocumentMoniker": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\AboutSpyNote.vb",
+              "RelativeDocumentMoniker": "SpyNote V6.4\\SN\\AboutSpyNote.vb",
+              "ToolTip": "C:\\Users\\L\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u043A\u0440\u0443\u0442\u044B\u0435 \u0440\u0435\u0431\u044F\u0442\u0430\\SpyNote V6.4 Source\\SpyNote V6.4 Source\\SpyNote V6.4\\SpyNote V6.4\\SN\\AboutSpyNote.vb",
+              "RelativeToolTip": "SpyNote V6.4\\SN\\AboutSpyNote.vb",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-07-21T10:02:31.876Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
