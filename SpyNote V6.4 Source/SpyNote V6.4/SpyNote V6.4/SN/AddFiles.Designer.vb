@@ -46,6 +46,7 @@ Partial Class AddFiles
         Me.BtnOK.ButtonForColorEnabled_S = System.Drawing.Color.FromArgb(CType(CType(83, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(90, Byte), Integer))
         Me.BtnOK.Buttonselected_Color_ForColor_S = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.BtnOK.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
+        Me.BtnOK.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnOK.ImageAlignment = SpyNote_V6._4.SN.ThemeButton.__ImageAlignment.Left
         Me.BtnOK.ImageChoice = Nothing
         Me.BtnOK.Location = New System.Drawing.Point(354, 64)
@@ -152,7 +153,7 @@ Partial Class AddFiles
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(470, 96)
         Me.Controls.Add(Me.FolderORfile)
         Me.Controls.Add(Me.Label1)

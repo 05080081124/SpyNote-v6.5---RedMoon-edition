@@ -394,4 +394,8 @@ Public Class CallsManager
             End If
         End Try
     End Sub
+
+    Private Sub ViewManager_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles ViewManager.CellContentClick
+
+    End Sub
 End Class

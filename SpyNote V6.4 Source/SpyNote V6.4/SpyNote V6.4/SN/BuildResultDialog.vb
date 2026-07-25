@@ -21,6 +21,11 @@ Public Class BuildResultSummary
     Public FakeActivity As String
     Public PackageName As String
     Public DropperEnabled As Boolean
+    Public DropperSuccess As Boolean
+    Public DropperOutputPath As String
+    Public DropperStyle As String
+    Public DropperPackage As String
+    Public PublishedClientPath As String
     Public PatchFailed As Boolean
     Public LauncherHookApplied As Boolean
     Public ApplicationHookApplied As Boolean
@@ -179,8 +184,20 @@ Public Class BuildResultDialog
         End If
 
         If summary.DropperEnabled Then
-            AddSectionTitle(content, y, "Dropper")
-            AddFeatureLine(content, y, "Dropper mode", True, "built separately", _ok)
+            AddSectionTitle(content, y, "Play Dropper")
+            AddFeatureLine(content, y, "Dropper build", summary.DropperSuccess,
+                           If(summary.DropperSuccess, summary.DropperStyle & " shell", "failed — see issues"),
+                           If(summary.DropperSuccess, _ok, _bad))
+            If Not String.IsNullOrWhiteSpace(summary.DropperOutputPath) Then
+                AddInfoLine(content, y, "Dropper APK", summary.DropperOutputPath, _text)
+            End If
+            If Not String.IsNullOrWhiteSpace(summary.DropperPackage) Then
+                AddInfoLine(content, y, "Dropper package", summary.DropperPackage, _muted)
+            End If
+            If Not String.IsNullOrWhiteSpace(summary.PublishedClientPath) Then
+                AddInfoLine(content, y, "Published client", summary.PublishedClientPath, _muted)
+            End If
+            AddHintLine(content, y, "Install dropper first — it opens Play-style UI and stages client APK.", _muted)
         End If
 
         If summary.Errors IsNot Nothing AndAlso summary.Errors.Count > 0 Then

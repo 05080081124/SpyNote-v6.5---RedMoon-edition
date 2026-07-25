@@ -40,21 +40,22 @@ Partial Class OpenPort
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Right
         Me.RichTextBox1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RichTextBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
-        Me.RichTextBox1.Location = New System.Drawing.Point(337, 0)
+        Me.RichTextBox1.Location = New System.Drawing.Point(319, 0)
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-        Me.RichTextBox1.Size = New System.Drawing.Size(142, 211)
+        Me.RichTextBox1.Size = New System.Drawing.Size(165, 211)
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = "Common Ports" & Global.Microsoft.VisualBasic.ChrW(10) & "FTP" & Global.Microsoft.VisualBasic.ChrW(9) & "21" & Global.Microsoft.VisualBasic.ChrW(10) & "SSH" & Global.Microsoft.VisualBasic.ChrW(9) & "22" & Global.Microsoft.VisualBasic.ChrW(10) & "Telnet" & Global.Microsoft.VisualBasic.ChrW(9) & "23" & Global.Microsoft.VisualBasic.ChrW(10) & "SMTP" & Global.Microsoft.VisualBasic.ChrW(9) & "25" & Global.Microsoft.VisualBasic.ChrW(10) & "DNS" & Global.Microsoft.VisualBasic.ChrW(9) & "53" & Global.Microsoft.VisualBasic.ChrW(10) & "HTTP" & Global.Microsoft.VisualBasic.ChrW(9) & "80" & Global.Microsoft.VisualBasic.ChrW(10) & "POP3" & Global.Microsoft.VisualBasic.ChrW(9) & "110" & Global.Microsoft.VisualBasic.ChrW(10) & "IMAP" & Global.Microsoft.VisualBasic.ChrW(9) & "143" & Global.Microsoft.VisualBasic.ChrW(10) & "Oth" &
     "er Applications" & Global.Microsoft.VisualBasic.ChrW(10) & "Remote Desktop" & Global.Microsoft.VisualBasic.ChrW(9) & "3389" & Global.Microsoft.VisualBasic.ChrW(10) & "PC Anywhere" & Global.Microsoft.VisualBasic.ChrW(9) & "5631" & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Panel2
         '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel2.Controls.Add(Me.ThemeButton1)
         Me.Panel2.Controls.Add(Me.textIP)
         Me.Panel2.Controls.Add(Me.Label1)
@@ -63,7 +64,7 @@ Partial Class OpenPort
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel2.Location = New System.Drawing.Point(0, 71)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(337, 140)
+        Me.Panel2.Size = New System.Drawing.Size(319, 140)
         Me.Panel2.TabIndex = 1
         '
         'ThemeButton1
@@ -149,7 +150,7 @@ Partial Class OpenPort
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(337, 71)
+        Me.Panel1.Size = New System.Drawing.Size(319, 71)
         Me.Panel1.TabIndex = 2
         '
         'RichTextBox2
@@ -163,7 +164,7 @@ Partial Class OpenPort
         Me.RichTextBox2.Name = "RichTextBox2"
         Me.RichTextBox2.ReadOnly = True
         Me.RichTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-        Me.RichTextBox2.Size = New System.Drawing.Size(309, 71)
+        Me.RichTextBox2.Size = New System.Drawing.Size(291, 71)
         Me.RichTextBox2.TabIndex = 2
         Me.RichTextBox2.Text = ""
         '
@@ -188,7 +189,7 @@ Partial Class OpenPort
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(479, 211)
+        Me.ClientSize = New System.Drawing.Size(484, 211)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.RichTextBox1)
@@ -215,7 +216,7 @@ Partial Class OpenPort
     Friend WithEvents Label2 As Label
     Friend WithEvents ThemeButton1 As SN.ThemeButton
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents RichTextBox2 As RichTextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Trans As Timer
+    Friend WithEvents RichTextBox2 As RichTextBox
 End Class

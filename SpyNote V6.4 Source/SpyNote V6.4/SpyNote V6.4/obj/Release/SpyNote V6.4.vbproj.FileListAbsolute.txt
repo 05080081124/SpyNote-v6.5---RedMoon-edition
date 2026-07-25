@@ -571,6 +571,9 @@ C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\T\sS.exe
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Xml\Settings\SpyNote.xml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\NAudio.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\SpyNote V6.5.exe.config
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\SpyNote V6.5.exe
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\SpyNote V6.5.pdb
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\SpyNote V6.4.xml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\FM.dll
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\FM.IceLink.dll
@@ -651,9 +654,13 @@ C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.4.vbproj.GenerateResource.cache
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.4.vbproj.CoreCompileInputs.cache
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote .FB2ED81A.Up2Date
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.4.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\SpyNote V6.5.exe.config
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\SpyNote V6.5.exe
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\SpyNote V6.5.pdb
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.5.exe
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.4.xml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.5.pdb
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\AndroidManifest.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\apktool.yml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\res\layout\activity_dropper.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\res\values\strings.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\DropperInitProvider.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\PayloadCrypto.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\PlayStoreActivity.smali

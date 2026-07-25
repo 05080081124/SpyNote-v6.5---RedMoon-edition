@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">__APP_NAME__</string>
+    <string name="dropper_header">__HEADER__</string>
+    <string name="dropper_status">__STATUS__</string>
+    <string name="dropper_app">__APP_LINE__</string>
+    <string name="dropper_btn">__BTN__</string>
+</resources>

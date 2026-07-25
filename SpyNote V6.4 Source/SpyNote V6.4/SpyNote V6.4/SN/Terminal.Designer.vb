@@ -31,11 +31,11 @@ Partial Class Terminal
         Me.VisualStudioVerticalScrollBar1 = New SpyNote_V6._4.SN.VisualStudioVerticalScrollBar()
         Me.VisualStudioHorizontalScrollBar1 = New SpyNote_V6._4.SN.VisualStudioHorizontalScrollBar()
         Me.ViewManager = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TScrolls = New System.Windows.Forms.Timer(Me.components)
         Me.TProgressBar = New System.Windows.Forms.Timer(Me.components)
         Me.Trans = New System.Windows.Forms.Timer(Me.components)
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.ViewManager, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -122,7 +122,7 @@ Partial Class Terminal
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ViewManager.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.ViewManager.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ViewManager.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ViewManager.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.ViewManager.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
@@ -155,18 +155,6 @@ Partial Class Terminal
         Me.ViewManager.Size = New System.Drawing.Size(624, 402)
         Me.ViewManager.TabIndex = 6
         '
-        'TScrolls
-        '
-        Me.TScrolls.Interval = 1
-        '
-        'TProgressBar
-        '
-        Me.TProgressBar.Interval = 1
-        '
-        'Trans
-        '
-        Me.Trans.Interval = 40
-        '
         'Column1
         '
         Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
@@ -194,6 +182,18 @@ Partial Class Terminal
         Me.Column2.HeaderText = "       "
         Me.Column2.Name = "Column2"
         Me.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'TScrolls
+        '
+        Me.TScrolls.Interval = 1
+        '
+        'TProgressBar
+        '
+        Me.TProgressBar.Interval = 1
+        '
+        'Trans
+        '
+        Me.Trans.Interval = 40
         '
         'Terminal
         '

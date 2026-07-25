@@ -68,7 +68,7 @@ Partial Class Microphone
         '
         'PNLERRORS
         '
-        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNLERRORS.Controls.Add(Me.LBER)
         Me.PNLERRORS.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PNLERRORS.Location = New System.Drawing.Point(0, 178)
@@ -101,6 +101,7 @@ Partial Class Microphone
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel1.Controls.Add(Me.ThemeSeparator1)
         Me.Panel1.Controls.Add(Me.STALAB)
         Me.Panel1.Controls.Add(Me.LBSampleRate)
@@ -147,7 +148,7 @@ Partial Class Microphone
         Me.STALAB.Text = "Start"
         Me.STALAB.TextAlignment = System.Drawing.StringAlignment.Center
         Me.STALAB.ThemeButtonclrBorder_S = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
-        Me.STALAB.ThemeButtonclrBorderactive_S = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(146, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.STALAB.ThemeButtonclrBorderactive_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.STALAB.ThemeButtonclrBorderEnabled_S = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(75, Byte), Integer))
         Me.STALAB.Visible = False
         '

@@ -64,4 +64,8 @@ Public Class Testconnection
             MyBase.Opacity = MyBase.Opacity + 0.1
         End If
     End Sub
+
+    Private Sub TEXTIP_TextChanged(sender As Object, e As EventArgs) Handles TEXTIP.TextChanged
+
+    End Sub
 End Class

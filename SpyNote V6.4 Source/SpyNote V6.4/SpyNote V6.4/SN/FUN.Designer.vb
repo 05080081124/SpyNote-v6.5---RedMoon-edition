@@ -64,7 +64,7 @@ Partial Class FUN
         '
         'PNLERRORS
         '
-        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNLERRORS.Controls.Add(Me.LBER)
         Me.PNLERRORS.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PNLERRORS.Location = New System.Drawing.Point(0, 263)
@@ -174,7 +174,7 @@ Partial Class FUN
         Me.ThemeButton3.ButtonBackColorEnabled0_S = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(60, Byte), Integer))
         Me.ThemeButton3.ButtonBackColorEnabled1_S = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(60, Byte), Integer))
         Me.ThemeButton3.ButtonForColor_S = System.Drawing.Color.FromArgb(CType(CType(174, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(174, Byte), Integer))
-        Me.ThemeButton3.ButtonForColorEnabled_S = System.Drawing.Color.FromArgb(CType(CType(83, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(90, Byte), Integer))
+        Me.ThemeButton3.ButtonForColorEnabled_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.ThemeButton3.Buttonselected_Color_ForColor_S = System.Drawing.Color.FromArgb(CType(CType(214, Byte), Integer), CType(CType(214, Byte), Integer), CType(CType(214, Byte), Integer))
         Me.ThemeButton3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
         Me.ThemeButton3.ImageAlignment = SpyNote_V6._4.SN.ThemeButton.__ImageAlignment.Left
@@ -305,7 +305,7 @@ Partial Class FUN
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(424, 292)
         Me.Controls.Add(Me.ThemeSeparator2)
         Me.Controls.Add(Me.ThemeSeparator1)

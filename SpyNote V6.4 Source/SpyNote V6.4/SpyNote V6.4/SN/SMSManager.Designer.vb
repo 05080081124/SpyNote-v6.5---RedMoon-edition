@@ -83,6 +83,7 @@ Partial Class SMSManager
         '
         'BOXDOWN
         '
+        Me.BOXDOWN.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.BOXDOWN.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.BOXDOWN.Location = New System.Drawing.Point(0, 429)
         Me.BOXDOWN.Name = "BOXDOWN"
@@ -92,6 +93,7 @@ Partial Class SMSManager
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel1.Controls.Add(Me.ONLICON)
         Me.Panel1.Controls.Add(Me.ThemeSeparator1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
@@ -350,6 +352,7 @@ Partial Class SMSManager
         '
         'ThemeSeparator1
         '
+        Me.ThemeSeparator1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ThemeSeparator1.Colour0 = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(33, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.ThemeSeparator1.Colour1 = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.ThemeSeparator1.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -464,7 +467,7 @@ Partial Class SMSManager
         Me.RichTextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.RichTextBox1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RichTextBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
@@ -477,6 +480,7 @@ Partial Class SMSManager
         '
         'Panel2
         '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel2.Controls.Add(Me.BTNDOCK)
         Me.Panel2.Controls.Add(Me.PictureBox1)
         Me.Panel2.Controls.Add(Me.Label2)
@@ -546,7 +550,7 @@ Partial Class SMSManager
         '
         'PNLERRORS
         '
-        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNLERRORS.Controls.Add(Me.LBER)
         Me.PNLERRORS.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PNLERRORS.Location = New System.Drawing.Point(0, 400)
@@ -623,7 +627,7 @@ Partial Class SMSManager
         Me.ViewManager.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ViewManager.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.ViewManager.EnableHeadersVisualStyles = False
-        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.ViewManager.Location = New System.Drawing.Point(0, 0)
         Me.ViewManager.Name = "ViewManager"
         Me.ViewManager.RowHeadersVisible = False

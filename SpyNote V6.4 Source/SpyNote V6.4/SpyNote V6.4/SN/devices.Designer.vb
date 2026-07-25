@@ -45,7 +45,7 @@ Partial Class devices
         Me.ViewManager.AllowUserToResizeRows = False
         Me.ViewManager.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.ViewManager.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ViewManager.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ViewManager.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -68,14 +68,14 @@ Partial Class devices
         Me.ViewManager.DefaultCellStyle = DataGridViewCellStyle2
         Me.ViewManager.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.ViewManager.EnableHeadersVisualStyles = False
-        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.ViewManager.Location = New System.Drawing.Point(7, 8)
+        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.ViewManager.Location = New System.Drawing.Point(7, 12)
         Me.ViewManager.Name = "ViewManager"
         Me.ViewManager.RowHeadersVisible = False
         Me.ViewManager.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.ViewManager.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.ViewManager.ShowCellToolTips = False
-        Me.ViewManager.Size = New System.Drawing.Size(432, 339)
+        Me.ViewManager.Size = New System.Drawing.Size(432, 335)
         Me.ViewManager.TabIndex = 6
         '
         'Column1
@@ -152,11 +152,11 @@ Partial Class devices
         '
         'PictureLoading
         '
-        Me.PictureLoading.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.PictureLoading.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PictureLoading.Image = CType(resources.GetObject("PictureLoading.Image"), System.Drawing.Image)
-        Me.PictureLoading.Location = New System.Drawing.Point(7, 8)
+        Me.PictureLoading.Location = New System.Drawing.Point(7, 32)
         Me.PictureLoading.Name = "PictureLoading"
-        Me.PictureLoading.Size = New System.Drawing.Size(432, 339)
+        Me.PictureLoading.Size = New System.Drawing.Size(432, 290)
         Me.PictureLoading.TabIndex = 9
         Me.PictureLoading.TabStop = False
         '
@@ -168,7 +168,7 @@ Partial Class devices
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(446, 386)
         Me.Controls.Add(Me.PictureLoading)
         Me.Controls.Add(Me.ThemeButton1)

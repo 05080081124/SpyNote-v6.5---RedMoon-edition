@@ -102,4 +102,8 @@ Public Class devices
 
         Public lpData As String
     End Structure
+
+    Private Sub PictureLoading_Click(sender As Object, e As EventArgs) Handles PictureLoading.Click
+
+    End Sub
 End Class

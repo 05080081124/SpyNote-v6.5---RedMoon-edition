@@ -128,7 +128,7 @@ Partial Class FSettings
         '
         'PNLERRORS
         '
-        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNLERRORS.Controls.Add(Me.LBER)
         Me.PNLERRORS.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PNLERRORS.Location = New System.Drawing.Point(0, 415)
@@ -151,6 +151,7 @@ Partial Class FSettings
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel1.Controls.Add(Me.BtnOK)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel1.Location = New System.Drawing.Point(0, 381)
@@ -190,12 +191,12 @@ Partial Class FSettings
         '
         'ThemeTabControl1
         '
-        Me.ThemeTabControl1.BorderColor_S = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.ThemeTabControl1.BorderColor_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ThemeTabControl1.Controls.Add(Me.TabPage1)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage2)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage3)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage4)
-        Me.ThemeTabControl1.DefaultBackColor_S = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.ThemeTabControl1.DefaultBackColor_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ThemeTabControl1.DefaultColor0_S = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ThemeTabControl1.DefaultColor1_S = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ThemeTabControl1.DefaultForColor_S = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
@@ -203,8 +204,8 @@ Partial Class FSettings
         Me.ThemeTabControl1.FForColorSelcted_S = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.ThemeTabControl1.ItemSize = New System.Drawing.Size(25, 25)
         Me.ThemeTabControl1.Location = New System.Drawing.Point(0, 0)
-        Me.ThemeTabControl1.MouseOver0_S = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(146, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ThemeTabControl1.MouseOver1_S = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(146, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ThemeTabControl1.MouseOver0_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.ThemeTabControl1.MouseOver1_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.ThemeTabControl1.Multiline = True
         Me.ThemeTabControl1.Name = "ThemeTabControl1"
         Me.ThemeTabControl1.SelectedIndex = 0
@@ -241,7 +242,7 @@ Partial Class FSettings
         Me.ViewManager.AllowUserToResizeRows = False
         Me.ViewManager.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.ViewManager.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ViewManager.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ViewManager.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -265,7 +266,7 @@ Partial Class FSettings
         Me.ViewManager.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ViewManager.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.ViewManager.EnableHeadersVisualStyles = False
-        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.ViewManager.Location = New System.Drawing.Point(0, 0)
         Me.ViewManager.MultiSelect = False
         Me.ViewManager.Name = "ViewManager"
@@ -345,7 +346,7 @@ Partial Class FSettings
         '
         'TabPage2
         '
-        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TabPage2.Controls.Add(Me.PanelSystem)
         Me.TabPage2.Controls.Add(Me.PanelNotification)
         Me.TabPage2.Controls.Add(Me.PanelMedia)
@@ -578,7 +579,7 @@ Partial Class FSettings
         '
         'PanelBar
         '
-        Me.PanelBar.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PanelBar.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PanelBar.Controls.Add(Me.ThemeSeparator5)
         Me.PanelBar.Controls.Add(Me.ThemeSeparator4)
         Me.PanelBar.Controls.Add(Me.LabBarWifirest)
@@ -600,6 +601,7 @@ Partial Class FSettings
         Me.PanelBar.Controls.Add(Me.BtnBarVibrate)
         Me.PanelBar.Controls.Add(Me.BtnBarNormal)
         Me.PanelBar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelBar.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.PanelBar.Location = New System.Drawing.Point(3, 3)
         Me.PanelBar.Name = "PanelBar"
         Me.PanelBar.Size = New System.Drawing.Size(329, 317)
@@ -732,11 +734,12 @@ Partial Class FSettings
         Me.BtnBarWifirest.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarWifirest.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarWifirest.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarWifirest.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarWifirest.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarWifirest.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarWifirest.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarWifirest.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarWifirest.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarWifirest.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarWifirest.ImageChoice = Nothing
         Me.BtnBarWifirest.Location = New System.Drawing.Point(230, 218)
         Me.BtnBarWifirest.Name = "BtnBarWifirest"
@@ -753,11 +756,12 @@ Partial Class FSettings
         Me.BtnBarWifiDisconnect.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarWifiDisconnect.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarWifiDisconnect.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarWifiDisconnect.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarWifiDisconnect.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarWifiDisconnect.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarWifiDisconnect.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarWifiDisconnect.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarWifiDisconnect.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarWifiDisconnect.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarWifiDisconnect.ImageChoice = Nothing
         Me.BtnBarWifiDisconnect.Location = New System.Drawing.Point(123, 218)
         Me.BtnBarWifiDisconnect.Name = "BtnBarWifiDisconnect"
@@ -774,11 +778,12 @@ Partial Class FSettings
         Me.BtnBarWifiConnected.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarWifiConnected.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarWifiConnected.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarWifiConnected.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarWifiConnected.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarWifiConnected.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarWifiConnected.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarWifiConnected.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarWifiConnected.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarWifiConnected.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarWifiConnected.ImageChoice = Nothing
         Me.BtnBarWifiConnected.Location = New System.Drawing.Point(18, 218)
         Me.BtnBarWifiConnected.Name = "BtnBarWifiConnected"
@@ -795,11 +800,12 @@ Partial Class FSettings
         Me.BtnBarMobileData.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarMobileData.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarMobileData.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarMobileData.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarMobileData.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarMobileData.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarMobileData.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarMobileData.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarMobileData.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarMobileData.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarMobileData.ImageChoice = Nothing
         Me.BtnBarMobileData.Location = New System.Drawing.Point(230, 115)
         Me.BtnBarMobileData.Name = "BtnBarMobileData"
@@ -816,11 +822,12 @@ Partial Class FSettings
         Me.BtnBarGps.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarGps.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarGps.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarGps.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarGps.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarGps.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarGps.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarGps.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarGps.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarGps.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarGps.ImageChoice = Nothing
         Me.BtnBarGps.Location = New System.Drawing.Point(123, 115)
         Me.BtnBarGps.Name = "BtnBarGps"
@@ -837,11 +844,12 @@ Partial Class FSettings
         Me.BtnBarBluetooth.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarBluetooth.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarBluetooth.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarBluetooth.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarBluetooth.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarBluetooth.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarBluetooth.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarBluetooth.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarBluetooth.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarBluetooth.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarBluetooth.ImageChoice = Nothing
         Me.BtnBarBluetooth.Location = New System.Drawing.Point(18, 115)
         Me.BtnBarBluetooth.Name = "BtnBarBluetooth"
@@ -858,11 +866,12 @@ Partial Class FSettings
         Me.BtnBarSilent.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarSilent.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarSilent.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarSilent.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarSilent.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarSilent.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarSilent.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarSilent.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarSilent.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarSilent.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarSilent.ImageChoice = Nothing
         Me.BtnBarSilent.Location = New System.Drawing.Point(230, 13)
         Me.BtnBarSilent.Name = "BtnBarSilent"
@@ -879,10 +888,10 @@ Partial Class FSettings
         Me.BtnBarVibrate.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarVibrate.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarVibrate.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarVibrate.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarVibrate.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarVibrate.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarVibrate.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
-        Me.BtnBarVibrate.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarVibrate.CLROverbrd = System.Drawing.Color.Red
         Me.BtnBarVibrate.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
         Me.BtnBarVibrate.ImageChoice = Nothing
         Me.BtnBarVibrate.Location = New System.Drawing.Point(123, 13)
@@ -900,11 +909,12 @@ Partial Class FSettings
         Me.BtnBarNormal.CLREnabled = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(31, Byte), Integer), CType(CType(32, Byte), Integer))
         Me.BtnBarNormal.CLRNone0 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BtnBarNormal.CLRNone1 = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.BtnBarNormal.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.BtnBarNormal.CLRNonebrd = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarNormal.CLROver0 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarNormal.CLROver1 = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.BtnBarNormal.CLROverbrd = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.BtnBarNormal.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.BtnBarNormal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BtnBarNormal.ImageChoice = Nothing
         Me.BtnBarNormal.Location = New System.Drawing.Point(18, 13)
         Me.BtnBarNormal.Name = "BtnBarNormal"
@@ -926,7 +936,7 @@ Partial Class FSettings
         '
         'PNLAdmin
         '
-        Me.PNLAdmin.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PNLAdmin.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNLAdmin.Controls.Add(Me.LABKEY)
         Me.PNLAdmin.Controls.Add(Me.LABresetPassword)
         Me.PNLAdmin.Controls.Add(Me.BRNresetPassword)

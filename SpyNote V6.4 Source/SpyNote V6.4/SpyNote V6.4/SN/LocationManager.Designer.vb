@@ -96,6 +96,7 @@ Partial Class LocationManager
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel1.Controls.Add(Me.LABProvider)
         Me.Panel1.Controls.Add(Me.ThemeSeparator2)
         Me.Panel1.Controls.Add(Me.ThemeSeparator1)
@@ -259,7 +260,7 @@ Partial Class LocationManager
         '
         'PNLERRORS
         '
-        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNLERRORS.Controls.Add(Me.LBER)
         Me.PNLERRORS.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PNLERRORS.Location = New System.Drawing.Point(0, 297)

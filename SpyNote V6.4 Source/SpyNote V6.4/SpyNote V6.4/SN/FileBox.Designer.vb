@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class FileBox
     Inherits System.Windows.Forms.Form
 
@@ -59,6 +59,7 @@ Partial Class FileBox
         '
         'PNL3
         '
+        Me.PNL3.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNL3.Controls.Add(Me.Label1)
         Me.PNL3.Controls.Add(Me.ThemeTextBox1)
         Me.PNL3.Controls.Add(Me.BTNCancel)
@@ -422,7 +423,7 @@ Partial Class FileBox
         Me.TEXTPATH._CBorderLave0_S = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(122, Byte), Integer), CType(CType(204, Byte), Integer))
         Me.TEXTPATH._CBorderLave1_S = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(122, Byte), Integer), CType(CType(204, Byte), Integer))
         Me.TEXTPATH._CVK_S = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.TEXTPATH.BackColor = System.Drawing.Color.Transparent
+        Me.TEXTPATH.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TEXTPATH.Btnshow = False
         Me.TEXTPATH.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TEXTPATH.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
@@ -500,7 +501,7 @@ Partial Class FileBox
         Me.BoxView1.AllowUserToResizeRows = False
         Me.BoxView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.BoxView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.BoxView1.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.BoxView1.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.BoxView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.BoxView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -524,7 +525,7 @@ Partial Class FileBox
         Me.BoxView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BoxView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.BoxView1.EnableHeadersVisualStyles = False
-        Me.BoxView1.GridColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.BoxView1.GridColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BoxView1.Location = New System.Drawing.Point(0, 51)
         Me.BoxView1.MultiSelect = False
         Me.BoxView1.Name = "BoxView1"
@@ -550,7 +551,7 @@ Partial Class FileBox
         Me.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.Column2.Width = 63
         '
-        'Size
+        'ColFileSize
         '
         Me.ColFileSize.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.ColFileSize.HeaderText = "Size"

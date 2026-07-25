@@ -41,6 +41,7 @@ Partial Class Notepad
         '
         'PNL1
         '
+        Me.PNL1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNL1.Controls.Add(Me.SAVELAB)
         Me.PNL1.Controls.Add(Me.Label2)
         Me.PNL1.Controls.Add(Me.Label1)

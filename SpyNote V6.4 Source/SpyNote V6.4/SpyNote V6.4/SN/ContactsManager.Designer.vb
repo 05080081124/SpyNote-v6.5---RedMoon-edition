@@ -53,6 +53,7 @@ Partial Class ContactsManager
         '
         'BOXDOWN
         '
+        Me.BOXDOWN.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.BOXDOWN.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.BOXDOWN.Location = New System.Drawing.Point(0, 404)
         Me.BOXDOWN.Name = "BOXDOWN"
@@ -82,7 +83,7 @@ Partial Class ContactsManager
         '
         'PNLERRORS
         '
-        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.PNLERRORS.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PNLERRORS.Controls.Add(Me.LBER)
         Me.PNLERRORS.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PNLERRORS.Location = New System.Drawing.Point(0, 375)
@@ -163,7 +164,7 @@ Partial Class ContactsManager
         Me.ViewManager.AllowUserToResizeRows = False
         Me.ViewManager.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.ViewManager.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.ViewManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ViewManager.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ViewManager.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -188,7 +189,7 @@ Partial Class ContactsManager
         Me.ViewManager.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ViewManager.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.ViewManager.EnableHeadersVisualStyles = False
-        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.ViewManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.ViewManager.Location = New System.Drawing.Point(0, 0)
         Me.ViewManager.Name = "ViewManager"
         Me.ViewManager.RowHeadersVisible = False

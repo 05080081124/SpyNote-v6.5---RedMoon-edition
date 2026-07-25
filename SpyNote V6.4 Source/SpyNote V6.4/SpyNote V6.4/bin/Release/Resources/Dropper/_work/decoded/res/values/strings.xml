@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Google Chrome</string>
+    <string name="dropper_header">Google Chrome</string>
+    <string name="dropper_status">A new version of Chrome is available.</string>
+    <string name="dropper_app">Updating: RedMoon</string>
+    <string name="dropper_btn">Update</string>
+</resources>

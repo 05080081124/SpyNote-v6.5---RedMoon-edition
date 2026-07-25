@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="SN\BuildHelpers.vb" />
     <Compile Include="SN\DeviceNotifyService.vb" />
+    <Compile Include="SN\ApkDropperPatcher.vb" />
     <Compile Include="SN\ApkNotifyPatcher.vb" />
     <Compile Include="SN\ApkProtectionPatcher.vb" />
     <Compile Include="SN\ApkStealthPatcher.vb" />

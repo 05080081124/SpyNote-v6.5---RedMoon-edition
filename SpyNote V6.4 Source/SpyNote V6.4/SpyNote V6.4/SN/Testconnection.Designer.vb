@@ -83,7 +83,7 @@ Partial Class Testconnection
         Me.TEXTIP.Name = "TEXTIP"
         Me.TEXTIP.Size = New System.Drawing.Size(314, 20)
         Me.TEXTIP.TabIndex = 7
-        Me.TEXTIP.Text = "127.0.0.1"
+        Me.TEXTIP.Text = "localhost.portmap"
         '
         'TEXTPORT
         '
@@ -94,7 +94,7 @@ Partial Class Testconnection
         Me.TEXTPORT.Name = "TEXTPORT"
         Me.TEXTPORT.Size = New System.Drawing.Size(314, 20)
         Me.TEXTPORT.TabIndex = 9
-        Me.TEXTPORT.Text = "3210"
+        Me.TEXTPORT.Text = "tcp-port"
         '
         'Label7
         '
@@ -171,7 +171,7 @@ Partial Class Testconnection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(329, 289)
         Me.Controls.Add(Me.Tracktimed)
         Me.Controls.Add(Me.TrackNumcont)

@@ -54,6 +54,7 @@ Partial Class DownloadManager
         '
         'PDow
         '
+        Me.PDow.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.PDow.Controls.Add(Me.aCancel)
         Me.PDow.Controls.Add(Me.LabNameFile)
         Me.PDow.Controls.Add(Me.PnlTime)
@@ -189,7 +190,7 @@ Partial Class DownloadManager
         Me.DManager.AllowUserToResizeRows = False
         Me.DManager.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DManager.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.DManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(37, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.DManager.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.DManager.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DManager.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -213,7 +214,7 @@ Partial Class DownloadManager
         Me.DManager.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DManager.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DManager.EnableHeadersVisualStyles = False
-        Me.DManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.DManager.GridColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.DManager.Location = New System.Drawing.Point(0, 0)
         Me.DManager.MultiSelect = False
         Me.DManager.Name = "DManager"
