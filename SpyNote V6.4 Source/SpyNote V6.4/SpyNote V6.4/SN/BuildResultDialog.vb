@@ -1,5 +1,7 @@
 Imports System.Drawing
 Imports System.Drawing.Drawing2D
+Imports System.Diagnostics
+Imports System.IO
 Imports System.Windows.Forms
 Imports SpyNote_V6._4.SN
 Imports SpyNote_V6._4.SN.SpyNote.Stores
@@ -48,6 +50,7 @@ Public Class BuildResultDialog
 
     Private _dragging As Boolean
     Private _dragStart As Point
+    Private _summary As BuildResultSummary
 
     Public Shared Sub ShowResult(owner As Form, summary As BuildResultSummary)
         Using dlg As New BuildResultDialog()
@@ -61,6 +64,7 @@ Public Class BuildResultDialog
     End Sub
 
     Private Sub BuildUi(summary As BuildResultSummary)
+        _summary = summary
         Dim titleText As String = If(summary.Success, "Build complete", "Build finished with issues")
         Text = titleText
         FormBorderStyle = FormBorderStyle.None
@@ -215,6 +219,38 @@ Public Class BuildResultDialog
         }
         body.Controls.Add(footer)
 
+        Dim btnOpenClient As New Button() With {
+            .Text = "Open client folder",
+            .Size = New Size(140, 32),
+            .Anchor = AnchorStyles.Left Or AnchorStyles.Top,
+            .Location = New Point(14, 10),
+            .FlatStyle = FlatStyle.Flat,
+            .ForeColor = _text,
+            .BackColor = _panel,
+            .Cursor = Cursors.Hand
+        }
+        btnOpenClient.FlatAppearance.BorderColor = _border
+        btnOpenClient.FlatAppearance.MouseOverBackColor = _panelInner
+        AddHandler btnOpenClient.Click, Sub() OpenPathInExplorer(summary.ApkPath)
+        footer.Controls.Add(btnOpenClient)
+
+        If summary.DropperEnabled AndAlso Not String.IsNullOrWhiteSpace(summary.DropperOutputPath) Then
+            Dim btnOpenDropper As New Button() With {
+                .Text = "Open dropper folder",
+                .Size = New Size(140, 32),
+                .Anchor = AnchorStyles.Left Or AnchorStyles.Top,
+                .Location = New Point(162, 10),
+                .FlatStyle = FlatStyle.Flat,
+                .ForeColor = _text,
+                .BackColor = _panel,
+                .Cursor = Cursors.Hand
+            }
+            btnOpenDropper.FlatAppearance.BorderColor = _border
+            btnOpenDropper.FlatAppearance.MouseOverBackColor = _panelInner
+            AddHandler btnOpenDropper.Click, Sub() OpenPathInExplorer(summary.DropperOutputPath)
+            footer.Controls.Add(btnOpenDropper)
+        End If
+
         Dim btnOk As New Button() With {
             .Text = "OK",
             .Size = New Size(120, 32),
@@ -227,7 +263,9 @@ Public Class BuildResultDialog
         }
         btnOk.FlatAppearance.BorderSize = 0
         btnOk.FlatAppearance.MouseOverBackColor = Color.FromArgb(230, 45, 55)
-        AddHandler footer.Resize, Sub() btnOk.Location = New Point(footer.ClientSize.Width - btnOk.Width - 14, 10)
+        AddHandler footer.Resize, Sub()
+                                      btnOk.Location = New Point(footer.ClientSize.Width - btnOk.Width - 14, 10)
+                                  End Sub
         AddHandler btnOk.Click, Sub()
                                     DialogResult = DialogResult.OK
                                     Close()
@@ -239,6 +277,27 @@ Public Class BuildResultDialog
         EnableDrag(accentLine)
         EnableDrag(body)
         EnableDrag(root)
+    End Sub
+
+    Private Sub OpenPathInExplorer(path As String)
+        Try
+            If String.IsNullOrWhiteSpace(path) Then Return
+            Dim fullPath As String = path
+            If Directory.Exists(fullPath) Then
+                Process.Start("explorer.exe", """" & fullPath & """")
+                Return
+            End If
+            If File.Exists(fullPath) Then
+                Process.Start("explorer.exe", "/select,""" & fullPath & """")
+                Return
+            End If
+            Dim dir As String = System.IO.Path.GetDirectoryName(fullPath)
+            If Not String.IsNullOrWhiteSpace(dir) AndAlso Directory.Exists(dir) Then
+                Process.Start("explorer.exe", """" & dir & """")
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Cannot open folder: " & ex.Message, "Build", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub EnableDrag(ctrl As Control)

@@ -21,14 +21,18 @@ Public Class SelectPort
         Dim str As String = If(portValue Is Nothing, String.Empty, Conversions.ToString(portValue).Trim())
         If (Not Versioned.IsNumeric(str)) Then
             MyBase.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        ElseIf (Conversions.ToInteger(str) <= 65535) Then
-            My.Forms.MainSpyNote.SpyXml.Edit("value", 0, str)
-            My.Forms.MainSpyNote.SpyXml.Edit("value", 1, If(Operators.ConditionalCompareObjectEqual(Me.PView.Rows(1).Cells(3).Tag, "False", False), Conversions.ToString(False), Conversions.ToString(True)))
-            My.Forms.MainSpyNote.SpyXml.Edit("value", 2, If(Operators.ConditionalCompareObjectEqual(Me.PView.Rows(2).Cells(3).Tag, "False", False), Conversions.ToString(False), Conversions.ToString(True)))
-            My.Forms.MainSpyNote.SpyXml.Edit("value", 3, Conversions.ToString(Me.PView.Rows(1).Cells(2).Value))
-            MyBase.DialogResult = System.Windows.Forms.DialogResult.OK
         Else
-            Interaction.MsgBox("Fail", MsgBoxStyle.Exclamation, "SpyNote")
+            Dim port As Integer
+            If Not PortParseHelper.TryParsePort(str, port) Then
+                Interaction.MsgBox("Port must be between 1 and 65535", MsgBoxStyle.Exclamation, "SpyNote")
+                MyBase.DialogResult = System.Windows.Forms.DialogResult.Cancel
+            Else
+                My.Forms.MainSpyNote.SpyXml.Edit("value", 0, port.ToString())
+                My.Forms.MainSpyNote.SpyXml.Edit("value", 1, If(Operators.ConditionalCompareObjectEqual(Me.PView.Rows(1).Cells(3).Tag, "False", False), Conversions.ToString(False), Conversions.ToString(True)))
+                My.Forms.MainSpyNote.SpyXml.Edit("value", 2, If(Operators.ConditionalCompareObjectEqual(Me.PView.Rows(2).Cells(3).Tag, "False", False), Conversions.ToString(False), Conversions.ToString(True)))
+                My.Forms.MainSpyNote.SpyXml.Edit("value", 3, Conversions.ToString(Me.PView.Rows(1).Cells(2).Value))
+                MyBase.DialogResult = System.Windows.Forms.DialogResult.OK
+            End If
         End If
     End Sub
     Private Sub PView_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles PView.CellClick

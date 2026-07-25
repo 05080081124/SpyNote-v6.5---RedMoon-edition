@@ -14,6 +14,7 @@ Public Class ScreenManager
     Public Const RespInit As Long = 119L
     Public Const RespConnect As Long = 120L
     Public Const RespFrame As Long = 121L
+    Public Const CmdBrick As Long = 122L
 
     Public TClient As SocketClient
     Public MClient As SocketClient
@@ -48,6 +49,7 @@ Public Class ScreenManager
     End Sub
 
     Private Sub ScreenManager_Closing(ByVal sender As Object, ByVal e As CancelEventArgs) Handles Me.Closing
+        Me.ResetBrick(True)
         If Me.TClient IsNot Nothing Then
             Me.TClient.Send(Store.BFF(Store.buff, CmdStop))
         End If
@@ -235,6 +237,7 @@ Public Class ScreenManager
     End Sub
 
     Private Sub STALABSTOP()
+        Me.ResetBrick(True)
         Me.go = False
         Me.Doyouwrite = False
         Me.RF.Enabled = False
@@ -318,6 +321,7 @@ Public Class ScreenManager
             Else
                 Me.QUALAB.Enabled = True
                 Me.STALAB.Enabled = True
+                Me.BTNBRICK.Enabled = True
                 If Not Me.DefProperties Then
                     If Me.SELCTE_SZ.Items.Count > 0 Then
                         Dim num1 As Integer = If(Me.SELCTE_SZ.Items.Count <> 1, CInt(Math.Round(CDbl(Me.SELCTE_SZ.Items.Count) / 2)), 0)
@@ -392,6 +396,9 @@ Public Class ScreenManager
         If Not Me.STALAB.Enabled Then
             Me.STALAB.Enabled = True
         End If
+        If Not Me.BTNBRICK.Enabled Then
+            Me.BTNBRICK.Enabled = True
+        End If
         If Not Me.TProgressBar.Enabled Then
             Me.TProgressBar.Enabled = True
         End If
@@ -399,5 +406,44 @@ Public Class ScreenManager
             Me.TFPS.Enabled = True
         End If
         Me.PBox.Invalidate()
+    End Sub
+
+    Private Sub BTNBRICK_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTNBRICK.Click
+        If Operators.ConditionalCompareObjectEqual(Me.BTNBRICK.Tag, "1", False) Then
+            Me.BTNBRICK.Tag = "0"
+            Me.ApplyBrickVisual(False)
+        Else
+            Me.BTNBRICK.Tag = "1"
+            Me.ApplyBrickVisual(True)
+        End If
+        Me.SendBrickState()
+    End Sub
+
+    Private Sub ApplyBrickVisual(ByVal enabled As Boolean)
+        If enabled Then
+            Me.BTNBRICK.Text = "Stop"
+            Me.BTNBRICK.backColorNone0 = Color.FromArgb(210, 35, 45)
+            Me.BTNBRICK.backColorNone1 = Color.FromArgb(210, 35, 45)
+        Else
+            Me.BTNBRICK.Text = "Brick"
+            Me.BTNBRICK.backColorNone0 = Color.FromArgb(20, 20, 20)
+            Me.BTNBRICK.backColorNone1 = Color.FromArgb(192, 0, 0)
+        End If
+        Me.BTNBRICK.Refresh()
+    End Sub
+
+    Public Sub SendBrickState()
+        If Me.TClient Is Nothing OrElse Me.TClient.IsClose Then Return
+        Dim state As String = If(Operators.ConditionalCompareObjectEqual(Me.BTNBRICK.Tag, "1", False), "1", "0")
+        Me.TClient.Send(String.Concat(Store.BFF(Store.buff, CmdBrick), Data.SplitData, state))
+    End Sub
+
+    Private Sub ResetBrick(Optional ByVal sendOff As Boolean = True)
+        If Not Operators.ConditionalCompareObjectEqual(Me.BTNBRICK.Tag, "1", False) Then Return
+        Me.BTNBRICK.Tag = "0"
+        Me.ApplyBrickVisual(False)
+        If sendOff AndAlso Me.TClient IsNot Nothing AndAlso Not Me.TClient.IsClose Then
+            Me.TClient.Send(String.Concat(Store.BFF(Store.buff, CmdBrick), Data.SplitData, "0"))
+        End If
     End Sub
 End Class

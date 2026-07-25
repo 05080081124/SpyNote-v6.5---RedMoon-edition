@@ -1190,21 +1190,28 @@ Label0:
         End If
     End Sub
     Private Sub DownPNL_Tick(sender As Object, e As EventArgs) Handles DownPNL.Tick
-        Dim flag As Boolean = Me.PNL1.Size.Height < Conversions.ToInteger(Me.PNL1.Tag)
+        Dim target1 As Integer
+        Dim target2 As Integer
+        Dim target3 As Integer
+        If Not Integer.TryParse(Conversions.ToString(Me.PNL1.Tag), target1) Then target1 = Me.PNL1.Size.Height
+        If Not Integer.TryParse(Conversions.ToString(Me.PNL2.Tag), target2) Then target2 = Me.PNL2.Size.Height
+        If Not Integer.TryParse(Conversions.ToString(Me.PNL3.Tag), target3) Then target3 = Me.PNL3.Size.Height
+
+        Dim flag As Boolean = Me.PNL1.Size.Height < target1
         If flag Then
             Me.xPNL1 += 5
             Me.PNL1.Size = New Size(Me.PNL1.Size.Width, Me.xPNL1)
         Else
             Me.bPNL1 = True
         End If
-        Dim flag2 As Boolean = Me.PNL2.Size.Height < Conversions.ToInteger(Me.PNL2.Tag)
+        Dim flag2 As Boolean = Me.PNL2.Size.Height < target2
         If flag2 Then
             Me.xPNL2 += 5
             Me.PNL2.Size = New Size(Me.PNL2.Size.Width, Me.xPNL2)
         Else
             Me.bPNL2 = True
         End If
-        Dim flag3 As Boolean = Me.PNL3.Size.Height < Conversions.ToInteger(Me.PNL3.Tag)
+        Dim flag3 As Boolean = Me.PNL3.Size.Height < target3
         If flag3 Then
             Me.xPNL3 += 5
             Me.PNL3.Size = New Size(Me.PNL3.Size.Width, Me.xPNL3)
@@ -2002,7 +2009,11 @@ Label0:
                     If String.IsNullOrEmpty(portText) Then
                         portText = "3210"
                     End If
-                    Me.Socket = New SocketServer(Conversions.ToInteger(portText))
+                    Dim listenPort As Integer
+                    If Not PortParseHelper.TryParsePort(portText, listenPort) Then
+                        Throw New InvalidOperationException("Invalid port: " & portText)
+                    End If
+                    Me.Socket = New SocketServer(listenPort)
                     Me.PView.Rows(5).Cells(2).Value = CType(Me.Socket.Listener.LocalEndpoint, IPEndPoint).Port.ToString()
                     Me.PView.Rows(6).Cells(2).Value = CType(Me.Socket.Listener.LocalEndpoint, IPEndPoint).Address.ToString()
                     Me.PView.Rows(7).Cells(2).Value = If(Operators.ConditionalCompareObjectEqual(selectPort.PView.Rows(1).Cells(3).Tag, "False", False), Conversions.ToString(False), Conversions.ToString(True))

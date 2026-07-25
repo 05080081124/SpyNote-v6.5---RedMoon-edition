@@ -20,6 +20,7 @@ Partial Class ScreenManager
         Me.components = New System.ComponentModel.Container()
         Me.ProgressBar1 = New SpyNote_V6._4.SN.ThemeProgressBar()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.BTNBRICK = New SpyNote_V6._4.SN.ThemeButton()
         Me.STALAB = New SpyNote_V6._4.SN.ThemeButton()
         Me.QUALAB = New SpyNote_V6._4.SN.ThemeCoBox()
         Me.SIZLAB = New SpyNote_V6._4.SN.ThemeCoBox()
@@ -63,6 +64,7 @@ Partial Class ScreenManager
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.BTNBRICK)
         Me.Panel1.Controls.Add(Me.STALAB)
         Me.Panel1.Controls.Add(Me.QUALAB)
         Me.Panel1.Controls.Add(Me.SIZLAB)
@@ -73,6 +75,36 @@ Partial Class ScreenManager
         Me.Panel1.Size = New System.Drawing.Size(174, 388)
         Me.Panel1.TabIndex = 1
         '
+        'BTNBRICK
+        '
+        Me.BTNBRICK.BackColorDown0_S = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.BTNBRICK.BackColorDown1_S = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.BTNBRICK.BackColorNone0_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.BTNBRICK.BackColorNone1_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTNBRICK.BackColorOver0_S = System.Drawing.Color.FromArgb(CType(CType(210, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.BTNBRICK.BackColorOver1_S = System.Drawing.Color.FromArgb(CType(CType(210, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(45, Byte), Integer))
+        Me.BTNBRICK.ButtonBackColorEnabled0_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.BTNBRICK.ButtonBackColorEnabled1_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.BTNBRICK.ButtonForColor_S = System.Drawing.Color.White
+        Me.BTNBRICK.ButtonForColorEnabled_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTNBRICK.Buttonselected_Color_ForColor_S = System.Drawing.Color.White
+        Me.BTNBRICK.Enabled = False
+        Me.BTNBRICK.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
+        Me.BTNBRICK.ImageAlignment = SpyNote_V6._4.SN.ThemeButton.__ImageAlignment.Left
+        Me.BTNBRICK.ImageChoice = Nothing
+        Me.BTNBRICK.Location = New System.Drawing.Point(39, 160)
+        Me.BTNBRICK.Name = "BTNBRICK"
+        Me.BTNBRICK.ShowImage = False
+        Me.BTNBRICK.ShowText = True
+        Me.BTNBRICK.Size = New System.Drawing.Size(100, 28)
+        Me.BTNBRICK.TabIndex = 18
+        Me.BTNBRICK.Tag = "0"
+        Me.BTNBRICK.Text = "Brick"
+        Me.BTNBRICK.TextAlignment = System.Drawing.StringAlignment.Center
+        Me.BTNBRICK.ThemeButtonclrBorder_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTNBRICK.ThemeButtonclrBorderactive_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.BTNBRICK.ThemeButtonclrBorderEnabled_S = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(75, Byte), Integer))
+        '
         'STALAB
         '
         Me.STALAB.BackColorDown0_S = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
@@ -81,8 +113,8 @@ Partial Class ScreenManager
         Me.STALAB.BackColorNone1_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.STALAB.BackColorOver0_S = System.Drawing.Color.FromArgb(CType(CType(210, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(45, Byte), Integer))
         Me.STALAB.BackColorOver1_S = System.Drawing.Color.FromArgb(CType(CType(210, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(45, Byte), Integer))
-        Me.STALAB.ButtonBackColorEnabled0_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.STALAB.ButtonBackColorEnabled1_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.STALAB.ButtonBackColorEnabled0_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
+        Me.STALAB.ButtonBackColorEnabled1_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.STALAB.ButtonForColor_S = System.Drawing.Color.White
         Me.STALAB.ButtonForColorEnabled_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.STALAB.Buttonselected_Color_ForColor_S = System.Drawing.Color.White
@@ -100,7 +132,7 @@ Partial Class ScreenManager
         Me.STALAB.Text = "Start"
         Me.STALAB.TextAlignment = System.Drawing.StringAlignment.Center
         Me.STALAB.ThemeButtonclrBorder_S = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.STALAB.ThemeButtonclrBorderactive_S = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.STALAB.ThemeButtonclrBorderactive_S = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer), CType(CType(20, Byte), Integer))
         Me.STALAB.ThemeButtonclrBorderEnabled_S = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(75, Byte), Integer))
         '
         'QUALAB
@@ -238,6 +270,7 @@ Partial Class ScreenManager
 
     Friend WithEvents ProgressBar1 As SN.ThemeProgressBar
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents BTNBRICK As SN.ThemeButton
     Friend WithEvents STALAB As SN.ThemeButton
     Friend WithEvents QUALAB As SN.ThemeCoBox
     Friend WithEvents SIZLAB As SN.ThemeCoBox

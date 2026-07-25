@@ -53,6 +53,150 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property DropperMode() As String
+            Get
+                Return CStr(Me("DropperMode"))
+            End Get
+            Set
+                Me("DropperMode") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property TemplatePath() As String
+            Get
+                Return CStr(Me("TemplatePath"))
+            End Get
+            Set
+                Me("TemplatePath") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PayloadUrl() As String
+            Get
+                Return CStr(Me("PayloadUrl"))
+            End Get
+            Set
+                Me("PayloadUrl") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Google Play")>  _
+        Public Property DropperStyle() As String
+            Get
+                Return CStr(Me("DropperStyle"))
+            End Get
+            Set
+                Me("DropperStyle") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property EmbedPayload() As String
+            Get
+                Return CStr(Me("EmbedPayload"))
+            End Get
+            Set
+                Me("EmbedPayload") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property EnableProtection() As String
+            Get
+                Return CStr(Me("EnableProtection"))
+            End Get
+            Set
+                Me("EnableProtection") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PackageName() As String
+            Get
+                Return CStr(Me("PackageName"))
+            End Get
+            Set
+                Me("PackageName") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property MaskType() As String
+            Get
+                Return CStr(Me("MaskType"))
+            End Get
+            Set
+                Me("MaskType") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property FakeActivity() As String
+            Get
+                Return CStr(Me("FakeActivity"))
+            End Get
+            Set
+                Me("FakeActivity") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property AntiEmulator() As String
+            Get
+                Return CStr(Me("AntiEmulator"))
+            End Get
+            Set
+                Me("AntiEmulator") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property HideIconAfterSetup() As String
+            Get
+                Return CStr(Me("HideIconAfterSetup"))
+            End Get
+            Set
+                Me("HideIconAfterSetup") = Value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property NotifySettings() As String
+            Get
+                Return CStr(Me("NotifySettings"))
+            End Get
+            Set
+                Me("NotifySettings") = Value
+            End Set
+        End Property
     End Class
 End Namespace
 

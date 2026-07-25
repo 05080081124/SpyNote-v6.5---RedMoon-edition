@@ -263,6 +263,10 @@ Namespace SN
                                             If flag17b Then
                                                 screenManager.StartServiceScreen()
                                             End If
+                                            Dim flag17c As Boolean = Operators.ConditionalCompareObjectEqual(screenManager.BTNBRICK.Tag, "1", False)
+                                            If flag17c Then
+                                                screenManager.SendBrickState()
+                                            End If
                                         End If
                                         name = "Microphone_404"
                                         Dim microphone As Microphone = CType(My.Application.OpenForms(name), Microphone)

@@ -1,88 +1,8 @@
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\aBitmap.dll
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\ANUN.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Circle.png
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\SpyNote V6.4.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.IceLink.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.IceLink.WebRTC.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.IceLink.WebRTC.NAudio.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Microsoft.Win32.Registry.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Asio.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Core.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Midi.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Wasapi.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WaveFormRenderer.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WindowsMediaFormat.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinForms.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinMM.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Buffers.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Drawing.Common.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Memory.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Numerics.Vectors.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Resources.Extensions.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.AccessControl.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.Principal.Windows.dll
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Microsoft.Win32.Registry.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Asio.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Core.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Midi.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Wasapi.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WaveFormRenderer.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinForms.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinMM.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Buffers.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Memory.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Numerics.Vectors.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Resources.Extensions.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.AccessControl.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.Principal.Windows.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.vbproj.AssemblyReference.cache
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Resources.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.AboutSpyNote.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.AccountManager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.AddFiles.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Apps.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.aProperties.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Build.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.CallPhone.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.CallsManager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.CameraManager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Chat.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.ContactsManager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.ContactsWrite.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.devices.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.DownloadManager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.FileBox.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.File_Manager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.fOptions.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.FSettings.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.FUN.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.JV.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.key_logger.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.LocationManager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.MainSpyNote.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Microphone.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.NameChat.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Notepad.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Notice1.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.OpenPort.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.REhost.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.restPass.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.SelectPort.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.SMSManager.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Spell.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Terminal.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Testconnection.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.ZipFiles.resources
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.vbproj.GenerateResource.cache
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.vbproj.CoreCompileInputs.cache
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote .FB2ED81A.Up2Date
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.xml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Audio\c.wav
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Audio\v.wav
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Circle.png
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Clients\KingB_354051091211537\Settings\2021-11-9--11-07-16.html
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Clients\Vicitim_354051091211537\Apps\2021-27-9--17-10-52.html
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Clients\Vicitim_354051091211537\Settings\2021-27-9--17-12-59.html
@@ -632,6 +552,7 @@ C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\dropper_shell\apktool.yml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\dropper_shell\res\layout\activity_dropper.xml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\dropper_shell\res\values\strings.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\dropper_smali\org\spynote\DropperFileProvider.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\dropper_smali\org\spynote\DropperInitProvider.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\dropper_smali\org\spynote\PayloadCrypto.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\dropper_smali\org\spynote\PayloadLoader.smali
@@ -650,6 +571,7 @@ C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\stealth_smali\org\spynote\DelayEventsReceiver.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\stealth_smali\org\spynote\DelayGate.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\stealth_smali\org\spynote\StringCrypto.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\stub.apk
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\platform-tools\pack.inf
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\platform-tools\platform-tools-windows.zip
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\platform-tools\plwin.exe
@@ -657,10 +579,95 @@ C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\terminal\tr.inf
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\T\sS.exe
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Xml\Settings\SpyNote.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.dll
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\SpyNote V6.5.exe.config
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\SpyNote V6.5.exe
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\SpyNote V6.5.pdb
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\SpyNote V6.4.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.IceLink.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.IceLink.WebRTC.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\FM.IceLink.WebRTC.NAudio.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Asio.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Core.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Midi.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Wasapi.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WaveFormRenderer.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WindowsMediaFormat.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinForms.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinMM.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Buffers.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Drawing.Common.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Memory.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Resources.Extensions.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.AccessControl.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Asio.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Core.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Midi.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.Wasapi.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WaveFormRenderer.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinForms.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\NAudio.WinMM.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Buffers.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Memory.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Resources.Extensions.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.AccessControl.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.vbproj.AssemblyReference.cache
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Resources.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.AboutSpyNote.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.AccountManager.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.AddFiles.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Apps.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.aProperties.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Build.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.CallPhone.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.CallsManager.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.CameraManager.resources
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.ScreenManager.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Chat.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.ContactsManager.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.ContactsWrite.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.devices.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.DownloadManager.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.FileBox.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.File_Manager.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.fOptions.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.FSettings.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.FUN.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.JV.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.key_logger.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.LocationManager.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.MainSpyNote.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Microphone.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.NameChat.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Notepad.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Notice1.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.OpenPort.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.REhost.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.restPass.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.SelectPort.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.SMSManager.resources
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Build_SocketsDesigner.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Spell.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Terminal.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.Testconnection.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote_V6._4.ZipFiles.resources
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.vbproj.GenerateResource.cache
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.vbproj.CoreCompileInputs.cache
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote .FB2ED81A.Up2Date
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.5.exe
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.4.xml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Debug\SpyNote V6.5.pdb
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\brick_smali\org\spynote\BrickBootReceiver.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\brick_smali\org\spynote\BrickOverlayService$TouchBlocker.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\brick_smali\org\spynote\BrickOverlayService.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\brick_smali\org\spynote\BrickRuntime.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Debug\Resources\Imports\Payload\brick_smali\org\spynote\BrickVolumeGuard.smali

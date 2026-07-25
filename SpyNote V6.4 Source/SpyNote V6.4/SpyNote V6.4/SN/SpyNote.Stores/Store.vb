@@ -80,8 +80,13 @@ Namespace SN.SpyNote.Stores
             SyncLock [object]
                 Dim text As String = "?"
                 Try
-                    Dim value As Long = vul0 + vul1
-                    text = Conversions.ToString(value)
+                    Dim value As Long = vul0
+                    If vul1 >= 0L AndAlso value <= Long.MaxValue - vul1 Then
+                        value += vul1
+                    ElseIf vul1 < 0L AndAlso value >= Long.MinValue - vul1 Then
+                        value += vul1
+                    End If
+                    text = value.ToString(CultureInfo.InvariantCulture)
                 Catch expr_33 As Exception
                 End Try
                 result = text

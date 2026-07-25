@@ -548,7 +548,15 @@ C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\opt.inf
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\apktool.ascii
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\apktool.zip
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\AndroidManifest.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\apktool.yml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\res\layout\activity_dropper.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\res\values\strings.xml
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\DropperFileProvider.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\DropperInitProvider.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\PayloadCrypto.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\PayloadLoader.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\PlayStoreActivity.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\notify_smali\org\spynote\AppBootstrap.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\notify_smali\org\spynote\BootstrapWorker.smali
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\notify_smali\org\spynote\EmulatorGuard.smali
@@ -657,10 +665,9 @@ C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.5.exe
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.4.xml
 C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\obj\Release\SpyNote V6.5.pdb
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\AndroidManifest.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\apktool.yml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\res\layout\activity_dropper.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_shell\res\values\strings.xml
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\DropperInitProvider.smali
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\PayloadCrypto.smali
-C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\dropper_smali\org\spynote\PlayStoreActivity.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\stub.apk
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\brick_smali\org\spynote\BrickBootReceiver.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\brick_smali\org\spynote\BrickOverlayService$TouchBlocker.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\brick_smali\org\spynote\BrickOverlayService.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\brick_smali\org\spynote\BrickRuntime.smali
+C:\Users\L\OneDrive\Рабочий стол\крутые ребята\SpyNote V6.4 Source\SpyNote V6.4 Source\SpyNote V6.4\SpyNote V6.4\bin\Release\Resources\Imports\Payload\brick_smali\org\spynote\BrickVolumeGuard.smali

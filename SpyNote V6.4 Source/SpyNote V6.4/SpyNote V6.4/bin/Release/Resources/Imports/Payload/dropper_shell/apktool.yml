@@ -12,12 +12,11 @@ sdkInfo:
   minSdkVersion: '21'
   targetSdkVersion: '22'
 sharedLibrary: false
-sparseResources: false
 unknownFiles: {}
 usesFramework:
   ids:
   - 1
-version: 2.9.3
+version: 2.3.3
 versionInfo:
   versionCode: '1'
   versionName: '1.0'

